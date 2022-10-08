@@ -4,8 +4,7 @@ namespace Idyfa.Core;
 
 public class UserRole : IdentityUserRole<string>
 {
+    protected UserRole() { }
     
-    public Role Role { get; protected set; }
     
-    public User User { get; protected set; }
 }

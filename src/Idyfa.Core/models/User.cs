@@ -5,7 +5,11 @@ namespace Idyfa.Core;
 
 public class User : IdentityUser<string>
 {
-
+    protected User()
+    {
+    }
+    
+    
     #region props
 
     public string FirstName { get; protected set; }
