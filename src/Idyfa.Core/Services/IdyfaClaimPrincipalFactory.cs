@@ -6,6 +6,9 @@ using Microsoft.Extensions.Options;
 
 namespace Idyfa.Core.Services;
 
+/// <summary>
+/// Customize claims for <see cref="User"/>
+/// </summary>
 public class IdyfaClaimPrincipalFactory : UserClaimsPrincipalFactory<User, Role>
 {
     private readonly IIdyfaUserManager _userManager;
