@@ -100,4 +100,9 @@ public interface IIdyfaUserManager
     
     Task<IdentityResult> SetLockoutEnabledAsync(User user, bool enabled);
     
+    Task<bool> IsPreviouslyUsedPasswordAsync(User user, string newPassword);
+    
+    Task<bool> IsLastUserPasswordTooOldAsync(int userId);
+ 
+    Task<DateTime?> GetLastUserPasswordChangeDateAsync(int userId);
 }

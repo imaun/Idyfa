@@ -99,7 +99,6 @@ public interface IIdyfaSignInManager
     AuthenticationProperties ConfigureExternalAuthenticationProperties(
         string provider, string redirectUrl, string userId = null);
     
-    
     Task<SignInResult> SignInOrTwoFactorAsync(
         User user, bool isPersistent, 
         string loginProvider = null, bool bypassTwoFactor = false);
