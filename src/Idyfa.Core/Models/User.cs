@@ -7,10 +7,6 @@ public class User : IdentityUser<string>
 {
     protected User()
     {
-        var p = PermissionRecord.New()
-            .WithTitle("")
-            .WithCategory("")
-            .WithSystemName("");
     }
     
     
