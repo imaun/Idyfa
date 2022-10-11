@@ -176,5 +176,35 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("UserNotInRole", resourceCulture);
             }
         }
+        
+        internal static string PasswordIsNotSet {
+            get {
+                return ResourceManager.GetString("PasswordIsNotSet", resourceCulture);
+            }
+        }
+        
+        internal static string UserNameIsNotSet {
+            get {
+                return ResourceManager.GetString("UserNameIsNotSet", resourceCulture);
+            }
+        }
+        
+        internal static string PasswordContainsUserName {
+            get {
+                return ResourceManager.GetString("PasswordContainsUserName", resourceCulture);
+            }
+        }
+        
+        internal static string PasswordIsTooSimple {
+            get {
+                return ResourceManager.GetString("PasswordIsTooSimple", resourceCulture);
+            }
+        }
+        
+        internal static string IsPreviouslyUsedPassword {
+            get {
+                return ResourceManager.GetString("IsPreviouslyUsedPassword", resourceCulture);
+            }
+        }
     }
 }

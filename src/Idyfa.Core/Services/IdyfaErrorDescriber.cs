@@ -169,3 +169,44 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
                 IdyfaIdentityErrors.UserNotInRole, role)
         };
 }
+
+public static class IdyfaIdentityErrorProvider
+{
+
+    public static IdentityError PasswordIsNotSet()
+        => new IdentityError
+        {
+            Code = nameof(PasswordIsNotSet),
+            Description = IdyfaIdentityErrors.PasswordIsNotSet
+        };
+
+    public static IdentityError UserNameIsNotSet()
+        => new IdentityError
+        {
+            Code = nameof(UserNameIsNotSet),
+            Description = IdyfaIdentityErrors.UserNameIsNotSet
+        };
+
+    public static IdentityError PasswordContainsUserName
+        => new IdentityError
+        {
+            Code = nameof(PasswordContainsUserName),
+            Description = IdyfaIdentityErrors.PasswordContainsUserName
+        };
+
+    public static IdentityError PasswordIsTooSimple()
+        => new IdentityError
+        {
+            Code = nameof(PasswordIsTooSimple),
+            Description = IdyfaIdentityErrors.PasswordIsTooSimple
+        };
+
+    public static IdentityError IsPreviouslyUsedPassword()
+        => new IdentityError
+        {
+            Code = nameof(IsPreviouslyUsedPassword),
+            Description = IdyfaIdentityErrors.IsPreviouslyUsedPassword
+        };
+    
+    
+}

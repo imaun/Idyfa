@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Idyfa.Core.Services;
 
-public class IdyfaPasswordValidator
+public class IdyfaPasswordValidator : PasswordValidator<User>
 {
     private readonly ISet<string> _bannedPasswords;
     private readonly IIdyfaUsedPasswordManager _usedPasswordManager;
@@ -22,5 +22,10 @@ public class IdyfaPasswordValidator
         _usedPasswordManager = usedPasswordManager ?? throw new ArgumentNullException(nameof(usedPasswordManager));
     }
     
-    
+    public override Task<IdentityResult> ValidateAsync(UserManager<User> manager, User user, string password)
+    {
+        var errors = new List<IdentityError>();
+        
+        return base.ValidateAsync(manager, user, password);
+    }
 }
