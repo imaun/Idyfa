@@ -58,7 +58,58 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
         };
 
     public override IdentityError InvalidToken()
-    {
-        return base.InvalidToken();
-    }
+        => new IdentityError
+        {
+            Code = nameof(InvalidToken),
+            Description = IdyfaIdentityErrors.InvalidToken
+        };
+
+    public override IdentityError InvalidUserName(string userName)
+        => new IdentityError
+        {
+            Code = nameof(InvalidUserName),
+            Description = string.Format(IdyfaIdentityErrors.InvalidUserName, userName)
+        };
+
+    public override IdentityError LoginAlreadyAssociated()
+        => new IdentityError
+        {
+            Code = nameof(LoginAlreadyAssociated),
+            Description = IdyfaIdentityErrors.LoginAlreadyAssociated
+        };
+
+    public override IdentityError PasswordMismatch()
+        => new IdentityError
+        {
+            Code = nameof(PasswordMismatch),
+            Description = IdyfaIdentityErrors.PasswordMismatch
+        };
+
+    public override IdentityError PasswordRequiresDigit()
+        => new IdentityError
+        {
+            Code = nameof(PasswordRequiresDigit),
+            Description = IdyfaIdentityErrors.PasswordRequiresDigit
+        };
+
+    public override IdentityError PasswordRequiresLower()
+        => new IdentityError
+        {
+            Code = nameof(PasswordRequiresLower),
+            Description = IdyfaIdentityErrors.PasswordRequiresLower
+        };
+
+    public override IdentityError PasswordRequiresNonAlphanumeric()
+        => new IdentityError
+        {
+            Code = nameof(PasswordRequiresNonAlphanumeric),
+            Description = IdyfaIdentityErrors.PasswordRequiresNonAlphanumeric
+        };
+
+    public override IdentityError PasswordRequiresUniqueChars(int uniqueChars)
+        => new IdentityError
+        {
+            Code = nameof(PasswordRequiresUniqueChars),
+            Description = IdyfaIdentityErrors.PasswordRequiresUniqueChars
+        };
 }

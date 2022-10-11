@@ -42,4 +42,25 @@
     <data name="InvalidToken" xml:space="preserve">
         <value>توکن غیر معتبر.</value>
     </data>
+    <data name="InvalidUserName" xml:space="preserve">
+        <value>نام کاربری '{0}' معتبر نیست و تنها می‌تواند حاوی حروف و یا ارقام باشد.</value>
+    </data>
+    <data name="LoginAlreadyAssociated" xml:space="preserve">
+        <value>این کاربر پیشتر اضافه شده‌است.</value>
+    </data>
+    <data name="PasswordMismatch" xml:space="preserve">
+        <value>کلمه‌ی عبور نامعتبر.</value>
+    </data>
+    <data name="PasswordRequiresDigit" xml:space="preserve">
+        <value>کلمه‌ی عبور باید حداقل دارای یک رقم بین 0 تا 9 باشد.</value>
+    </data>
+    <data name="PasswordRequiresLower" xml:space="preserve">
+        <value>کلمه‌ی عبور باید حداقل دارای یک حرف کوچک انگلیسی باشد.</value>
+    </data>
+    <data name="PasswordRequiresNonAlphanumeric" xml:space="preserve">
+        <value>کلمه‌ی عبور باید حداقل دارای یک حرف خارج از حروف الفبای انگلیسی و همچنین اعداد باشد.</value>
+    </data>
+    <data name="PasswordRequiresUniqueChars" xml:space="preserve">
+        <value>کلمه‌ی عبور باید حداقل داراى {0} حرف متفاوت باشد.</value>
+    </data>
 </root>
