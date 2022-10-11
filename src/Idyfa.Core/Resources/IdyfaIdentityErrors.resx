@@ -120,4 +120,7 @@
     <data name="PhoneNumberIsRequired" xml:space="preserve">
         <value>شماره تلفن اجباری است.</value>
     </data>
+    <data name="InvalidPhoneNumberFormat" xml:space="preserve">
+        <value>فرمت شماره تلفن اشتباه است.</value>
+    </data>
 </root>

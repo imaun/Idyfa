@@ -66,9 +66,11 @@ public class IdyfaUserValidator : UserValidator<User>
                 return IdentityResult.Failed(errors.ToArray());
             }
 
-            if (!user.PhoneNumber.IsDigit())
+            if (!user.PhoneNumber.IsDigit() ||
+                !user.PhoneNumber.IsAValidIranianPhoneNumber())
             {
-                
+                errors.Add(_errorDescriber.InvalidPhoneNumberFormat);
+                return IdentityResult.Failed(errors.ToArray());
             }
         }
         
@@ -76,4 +78,5 @@ public class IdyfaUserValidator : UserValidator<User>
             ? IdentityResult.Failed(errors.ToArray())
             : IdentityResult.Success;
     }
+    
 }

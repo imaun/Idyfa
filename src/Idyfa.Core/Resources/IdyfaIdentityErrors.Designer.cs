@@ -248,5 +248,11 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("PhoneNumberIsRequired", resourceCulture);
             }
         }
+        
+        internal static string InvalidPhoneNumberFormat {
+            get {
+                return ResourceManager.GetString("InvalidPhoneNumberFormat", resourceCulture);
+            }
+        }
     }
 }

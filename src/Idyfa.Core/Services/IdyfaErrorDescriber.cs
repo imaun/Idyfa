@@ -203,6 +203,13 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
             Code = nameof(PhoneNumberIsRequired),
             Description = IdyfaIdentityErrors.PhoneNumberIsRequired
         };
+
+    public IdentityError InvalidPhoneNumberFormat
+        => new IdentityError
+        {
+            Code = nameof(InvalidPhoneNumberFormat),
+            Description = IdyfaIdentityErrors.InvalidPhoneNumberFormat
+        };
 }
 
 public static class IdyfaIdentityErrorProvider
