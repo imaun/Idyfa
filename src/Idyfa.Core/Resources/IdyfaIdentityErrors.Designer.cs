@@ -134,5 +134,47 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("PasswordRequiresUniqueChars", resourceCulture);
             }
         }
+        
+        internal static string PasswordRequiresUpper {
+            get {
+                return ResourceManager.GetString("PasswordRequiresUpper", resourceCulture);
+            }
+        }
+        
+        internal static string PasswordTooShort {
+            get {
+                return ResourceManager.GetString("PasswordTooShort", resourceCulture);
+            }
+        }
+        
+        internal static string RecoveryCodeRedemptionFailed {
+            get {
+                return ResourceManager.GetString("RecoveryCodeRedemptionFailed", resourceCulture);
+            }
+        }
+        
+        internal static string UserAlreadyHasPassword {
+            get {
+                return ResourceManager.GetString("UserAlreadyHasPassword", resourceCulture);
+            }
+        }
+        
+        internal static string UserAlreadyInRole {
+            get {
+                return ResourceManager.GetString("UserAlreadyInRole", resourceCulture);
+            }
+        }
+        
+        internal static string UserLockoutNotEnabled {
+            get {
+                return ResourceManager.GetString("UserLockoutNotEnabled", resourceCulture);
+            }
+        }
+        
+        internal static string UserNotInRole {
+            get {
+                return ResourceManager.GetString("UserNotInRole", resourceCulture);
+            }
+        }
     }
 }

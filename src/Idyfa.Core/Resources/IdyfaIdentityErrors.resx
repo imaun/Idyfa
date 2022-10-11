@@ -63,4 +63,25 @@
     <data name="PasswordRequiresUniqueChars" xml:space="preserve">
         <value>کلمه‌ی عبور باید حداقل داراى {0} حرف متفاوت باشد.</value>
     </data>
+    <data name="PasswordRequiresUpper" xml:space="preserve">
+        <value>کلمه‌ی عبور باید حداقل دارای یک حرف بزرگ انگلیسی باشد.</value>
+    </data>
+    <data name="PasswordTooShort" xml:space="preserve">
+        <value>کلمه‌ی عبور باید حداقل {0} حرف باشد.</value>
+    </data>
+    <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
+        <value>بازیابى با شکست مواجه شد.</value>
+    </data>
+    <data name="UserAlreadyHasPassword" xml:space="preserve">
+        <value>کلمه‌ی عبور کاربر پیشتر تنظیم شده‌است.</value>
+    </data>
+    <data name="UserAlreadyInRole" xml:space="preserve">
+        <value>کاربر هم اکنون دارای نقش '{0}' است.</value>
+    </data>
+    <data name="UserLockoutNotEnabled" xml:space="preserve">
+        <value>قفل شدن اکانت برای این کاربر تنظیم نشده‌است.</value>
+    </data>
+    <data name="UserNotInRole" xml:space="preserve">
+        <value>کاربر دارای نقش '{0}' نیست.</value>
+    </data>
 </root>

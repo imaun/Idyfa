@@ -1,3 +1,4 @@
+using System.Globalization;
 using Idyfa.Core.Resources;
 using Microsoft.AspNetCore.Identity;
 
@@ -110,6 +111,61 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
         => new IdentityError
         {
             Code = nameof(PasswordRequiresUniqueChars),
-            Description = IdyfaIdentityErrors.PasswordRequiresUniqueChars
+            Description = string.Format(IdyfaIdentityErrors.PasswordRequiresUniqueChars, uniqueChars)
+        };
+
+    public override IdentityError PasswordRequiresUpper()
+        => new IdentityError
+        {
+            Code = nameof(PasswordRequiresUpper),
+            Description = IdyfaIdentityErrors.PasswordRequiresUpper
+        };
+
+    public override IdentityError PasswordTooShort(int length)
+        => new IdentityError
+        {
+            Code = nameof(PasswordTooShort),
+            Description = string.Format(
+                CultureInfo.InvariantCulture,
+                IdyfaIdentityErrors.PasswordTooShort, length)
+        };
+
+    public override IdentityError RecoveryCodeRedemptionFailed()
+        => new IdentityError
+        {
+            Code = nameof(RecoveryCodeRedemptionFailed),
+            Description = IdyfaIdentityErrors.RecoveryCodeRedemptionFailed
+        };
+
+    public override IdentityError UserAlreadyHasPassword()
+        => new IdentityError
+        {
+            Code = nameof(UserAlreadyHasPassword),
+            Description = IdyfaIdentityErrors.UserAlreadyHasPassword
+        };
+
+    public override IdentityError UserAlreadyInRole(string role)
+        => new IdentityError
+        {
+            Code = nameof(UserAlreadyInRole),
+            Description = string.Format(
+                CultureInfo.InvariantCulture,
+                IdyfaIdentityErrors.UserAlreadyInRole, role)
+        };
+
+    public override IdentityError UserLockoutNotEnabled()
+        => new IdentityError
+        {
+            Code = nameof(UserLockoutNotEnabled),
+            Description = string.Format(IdyfaIdentityErrors.UserLockoutNotEnabled)
+        };
+
+    public override IdentityError UserNotInRole(string role)
+        => new IdentityError
+        {
+            Code = nameof(UserNotInRole),
+            Description = string.Format(
+                CultureInfo.InvariantCulture,
+                IdyfaIdentityErrors.UserNotInRole, role)
         };
 }
