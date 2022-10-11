@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 
 namespace Idyfa.Core.Contracts.Repository;
@@ -10,4 +11,16 @@ public interface IIdyfaRoleRepository : IIdyfaBaseRepository<Role, string>, IRol
     Task<Role> GetByNameAsync(string roleName);
 
     Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId);
+    
+    Task AddClaimAsync(
+        Role role, Claim claim, CancellationToken cancellationToken = default);
+    
+    Task<Role> FindByNameAsync(
+        string name, CancellationToken cancellationToken = default);
+    
+    Task<IReadOnlyCollection<Claim>> GetClaimsAsync(
+        Role role, CancellationToken cancellationToken = default);
+    
+    Task RemoveClaimAsync(
+        Role role, Claim claim, CancellationToken cancellationToken = default);
 }

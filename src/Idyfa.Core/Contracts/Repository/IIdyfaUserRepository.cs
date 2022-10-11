@@ -1,23 +1,10 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 
-namespace Idyfa.Core.Contracts;
+namespace Idyfa.Core.Contracts.Repository;
 
-public interface IIdyfaUserStore
+public interface IIdyfaUserRepository : IIdyfaBaseRepository<User, string>, IUserStore<User>
 {
-    
-    Task<IdentityResult> CreateAsync(
-        User user, CancellationToken cancellationToken = default);
-    
-    Task<IdentityResult> UpdateAsync(
-        User user, CancellationToken cancellationToken = default);
-
-    Task<IdentityResult> DeleteAsync(
-        User user, CancellationToken cancellationToken = default);
-    
-    Task<User> FindByIdAsync(
-        string userId, CancellationToken cancellationToken = default);
-    
     Task<User> FindByUserNameAsync(
         string userName, CancellationToken cancellationToken = default);
     
