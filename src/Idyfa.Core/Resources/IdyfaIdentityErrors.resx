@@ -117,4 +117,7 @@
     <data name="EmailIsRequired" xml:space="preserve">
         <value>آدرس ایمیل اجباری است.</value>
     </data>
+    <data name="PhoneNumberIsRequired" xml:space="preserve">
+        <value>شماره تلفن اجباری است.</value>
+    </data>
 </root>

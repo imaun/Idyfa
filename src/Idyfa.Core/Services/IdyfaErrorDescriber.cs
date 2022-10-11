@@ -194,7 +194,14 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
         => new IdentityError
         {
             Code = nameof(EmailIsRequired),
-            Description = ""
+            Description = IdyfaIdentityErrors.EmailIsRequired
+        };
+
+    public IdentityError PhoneNumberIsRequired()
+        => new IdentityError
+        {
+            Code = nameof(PhoneNumberIsRequired),
+            Description = IdyfaIdentityErrors.PhoneNumberIsRequired
         };
 }
 

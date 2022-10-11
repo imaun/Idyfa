@@ -32,6 +32,8 @@ public class IdyfaUserRegistrationOptions
     
     public bool EmailIsRequired { get; set; }
     
+    public bool PhoneNumberIsRequired { get; set; }
+    
     public bool FirstNameIsRequired { get; set; }
     
     public bool LastNameIsRequired { get; set; }

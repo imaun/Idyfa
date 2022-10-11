@@ -242,5 +242,11 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("EmailIsRequired", resourceCulture);
             }
         }
+        
+        internal static string PhoneNumberIsRequired {
+            get {
+                return ResourceManager.GetString("PhoneNumberIsRequired", resourceCulture);
+            }
+        }
     }
 }

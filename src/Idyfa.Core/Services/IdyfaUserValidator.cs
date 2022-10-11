@@ -41,10 +41,9 @@ public class IdyfaUserValidator : UserValidator<User>
             }
         }
 
-        if (_options.UserNameType == UserNameType.Email &&
-            _options.Registration.EmailIsRequired)
+        if (_options.UserNameType == UserNameType.Email)
         {
-            if (user.Email.IsNullOrEmpty())
+            if (_options.Registration.EmailIsRequired && user.Email.IsNullOrEmpty())
             {
                 errors.Add(_errorDescriber.EmailIsRequired());
                 return IdentityResult.Failed(errors.ToArray());
@@ -55,6 +54,21 @@ public class IdyfaUserValidator : UserValidator<User>
             {
                 errors.Add(_errorDescriber.EmailIsBanned(user.Email));
                 return IdentityResult.Failed(errors.ToArray());
+            }
+        }
+
+        if (_options.UserNameType == UserNameType.PhoneNumber)
+        {
+            if (_options.Registration.PhoneNumberIsRequired &&
+                string.IsNullOrWhiteSpace(user.PhoneNumber))
+            {
+                errors.Add(_errorDescriber.PhoneNumberIsRequired());
+                return IdentityResult.Failed(errors.ToArray());
+            }
+
+            if (!user.PhoneNumber.IsDigit())
+            {
+                
             }
         }
         
