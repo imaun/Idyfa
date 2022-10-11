@@ -22,6 +22,7 @@ public class IdyfaUserValidator : UserValidator<User>
     {
         var result = await base.ValidateAsync(manager, user);
         var errors = result.Succeeded ? new List<IdentityError>() : result.Errors.ToList();
+        var invalidChars = _userOptions.InvalidCharacters.ToArray();
         
         if (_options.UserNameType == UserNameType.UserName &&
             _options.Registration.UserNameIsRequired)
@@ -29,12 +30,18 @@ public class IdyfaUserValidator : UserValidator<User>
             if (_options.Registration.UserNameMinLength.HasValue &&
                 _options.Registration.UserNameMinLength < user.UserName.Length)
             {
-                errors.Add(_errorDescriber.MinUserNameLength(_options.Registration.UserNameMinLength.Value));
+                errors.Add(_errorDescriber.MinUserNameLength(
+                    _options.Registration.UserNameMinLength.Value));
                 return IdentityResult.Failed(errors.ToArray());
             }
 
-            if (_options.UserOptions.BannedUserNames.Any() &&
-                _options.UserOptions.BannedUserNames.Contains(user.UserName))
+            if (invalidChars.Any(user.UserName.Contains))
+            {
+                //TODO : error invalid chars
+            }
+
+            if (_userOptions.BannedUserNames.Any() &&
+                _userOptions.BannedUserNames.Contains(user.UserName))
             {
                 errors.Add(_errorDescriber.UserNameIsBanned(user.UserName));
                 return IdentityResult.Failed(errors.ToArray());
@@ -48,9 +55,14 @@ public class IdyfaUserValidator : UserValidator<User>
                 errors.Add(_errorDescriber.EmailIsRequired());
                 return IdentityResult.Failed(errors.ToArray());
             }
+
+            if (invalidChars.Any(user.Email.Contains))
+            {
+                //TODO : Error
+            }
             
-            if (_options.UserOptions.BannedEmails.Any() &&
-                _options.UserOptions.BannedUserNames.Contains(user.Email))
+            if (_userOptions.BannedEmails.Any() &&
+                _userOptions.BannedUserNames.Contains(user.Email))
             {
                 errors.Add(_errorDescriber.EmailIsBanned(user.Email));
                 return IdentityResult.Failed(errors.ToArray());
@@ -66,6 +78,11 @@ public class IdyfaUserValidator : UserValidator<User>
                 return IdentityResult.Failed(errors.ToArray());
             }
 
+            if (invalidChars.Any(user.PhoneNumber.Contains))
+            {
+                //TODO : error
+            }
+            
             if (!user.PhoneNumber.IsDigit() ||
                 !user.PhoneNumber.IsAValidIranianPhoneNumber())
             {

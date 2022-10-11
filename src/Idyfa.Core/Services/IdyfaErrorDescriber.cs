@@ -210,6 +210,13 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
             Code = nameof(InvalidPhoneNumberFormat),
             Description = IdyfaIdentityErrors.InvalidPhoneNumberFormat
         };
+
+    public IdentityError UserNameHasInvalidCharacters(string userName)
+        => new IdentityError
+        {
+            Code = nameof(UserNameHasInvalidCharacters),
+            Description = IdyfaIdentityErrors.UserNameHasInvalidCharacters
+        };
 }
 
 public static class IdyfaIdentityErrorProvider

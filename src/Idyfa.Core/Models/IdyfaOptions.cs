@@ -20,6 +20,8 @@ public class IdyfaUserOptions
     public ISet<string> BannedEmails { get; set; }
     
     public ISet<string> BannedUserNames { get; set; }
+    
+    public string InvalidCharacters { get; set; }
 }
 
 public class IdyfaUserRegistrationOptions
@@ -49,4 +51,6 @@ public class IdyfaPasswordOptions : PasswordOptions
     public bool CanIncludeUserName { get; set; }
     
     public int? MaxLength { get; set; }
+    
+    public string InvalidCharacters { get; set; }
 }

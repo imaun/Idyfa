@@ -254,5 +254,11 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("InvalidPhoneNumberFormat", resourceCulture);
             }
         }
+        
+        internal static string UserNameHasInvalidCharacters {
+            get {
+                return ResourceManager.GetString("UserNameHasInvalidCharacters", resourceCulture);
+            }
+        }
     }
 }

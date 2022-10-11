@@ -123,4 +123,7 @@
     <data name="InvalidPhoneNumberFormat" xml:space="preserve">
         <value>فرمت شماره تلفن اشتباه است.</value>
     </data>
+    <data name="UserNameHasInvalidCharacters" xml:space="preserve">
+        <value>نام کاربری '{0}' شامل کاراکترهای غیرمجاز است.</value>
+    </data>
 </root>
