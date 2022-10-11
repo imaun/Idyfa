@@ -1,4 +1,4 @@
-namespace Idyfa.Core.enums;
+namespace Idyfa.Core;
 
 public enum UserStatus
 {

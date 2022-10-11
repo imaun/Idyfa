@@ -1,5 +1,3 @@
-using Idyfa.Core.enums;
-
 namespace Idyfa.Core.Extensions;
 
 public static class UserNameHelper

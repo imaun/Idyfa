@@ -1,8 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Idyfa.Core.Contracts;
-using Idyfa.Core.enums;
 using Idyfa.Core.Exceptions;
 using Idyfa.Core.Extensions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace Idyfa.Core.Services;

@@ -230,5 +230,17 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("UserNameIsBanned", resourceCulture);
             }
         }
+        
+        internal static string EmailIsBanned {
+            get {
+                return ResourceManager.GetString("EmailIsBanned", resourceCulture);
+            }
+        }
+        
+        internal static string EmailIsRequired {
+            get {
+                return ResourceManager.GetString("EmailIsRequired", resourceCulture);
+            }
+        }
     }
 }

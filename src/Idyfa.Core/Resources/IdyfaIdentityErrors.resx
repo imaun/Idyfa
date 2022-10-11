@@ -111,4 +111,10 @@
     <data name="UserNameIsBanned" xml:space="preserve">
         <value>نام کاربری '{0}' قابل قبول نیست.</value>
     </data>
+    <data name="EmailIsBanned" xml:space="preserve">
+        <value>آدرس ایمیل '{0}' قابل قبول نیست.</value>
+    </data>
+    <data name="EmailIsRequired" xml:space="preserve">
+        <value>آدرس ایمیل اجباری است.</value>
+    </data>
 </root>

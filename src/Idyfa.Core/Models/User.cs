@@ -1,5 +1,4 @@
-﻿using Idyfa.Core.enums;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Idyfa.Core;
 

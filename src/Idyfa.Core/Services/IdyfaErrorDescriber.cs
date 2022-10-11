@@ -182,6 +182,20 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
             Code = nameof(UserNameIsBanned),
             Description = string.Format(IdyfaIdentityErrors.UserNameIsBanned, userName)
         };
+
+    public IdentityError EmailIsBanned(string email)
+        => new IdentityError
+        {
+            Code = nameof(EmailIsBanned),
+            Description = string.Format(IdyfaIdentityErrors.EmailIsBanned, email)
+        };
+
+    public IdentityError EmailIsRequired()
+        => new IdentityError
+        {
+            Code = nameof(EmailIsRequired),
+            Description = ""
+        };
 }
 
 public static class IdyfaIdentityErrorProvider

@@ -1,5 +1,5 @@
-using Idyfa.Core.enums;
 using Microsoft.AspNetCore.Identity;
+using Idyfa.Core.Extensions;
 
 namespace Idyfa.Core.Services;
 
@@ -41,6 +41,23 @@ public class IdyfaUserValidator : UserValidator<User>
             }
         }
 
+        if (_options.UserNameType == UserNameType.Email &&
+            _options.Registration.EmailIsRequired)
+        {
+            if (user.Email.IsNullOrEmpty())
+            {
+                errors.Add(_errorDescriber.EmailIsRequired());
+                return IdentityResult.Failed(errors.ToArray());
+            }
+            
+            if (_options.UserOptions.BannedEmails.Any() &&
+                _options.UserOptions.BannedUserNames.Contains(user.Email))
+            {
+                errors.Add(_errorDescriber.EmailIsBanned(user.Email));
+                return IdentityResult.Failed(errors.ToArray());
+            }
+        }
+        
         return errors.Any()
             ? IdentityResult.Failed(errors.ToArray())
             : IdentityResult.Success;
