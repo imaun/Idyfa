@@ -8,6 +8,9 @@ using Microsoft.Extensions.Options;
 
 namespace Idyfa.Core.Services;
 
+/// <summary>
+/// UserManager for <see cref="User"/>
+/// </summary>
 public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
 {
     private readonly IIdyfaUserRepository _store;
