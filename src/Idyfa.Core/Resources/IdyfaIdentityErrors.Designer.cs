@@ -74,5 +74,23 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("DuplicateUserName", resourceCulture);
             }
         }
+        
+        internal static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        internal static string InvalidRoleName {
+            get {
+                return ResourceManager.GetString("InvalidRoleName", resourceCulture);
+            }
+        }
+        
+        internal static string InvalidToken {
+            get {
+                return ResourceManager.GetString("InvalidToken", resourceCulture);
+            }
+        }
     }
 }

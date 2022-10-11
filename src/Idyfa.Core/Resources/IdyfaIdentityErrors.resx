@@ -33,4 +33,13 @@
     <data name="DuplicateUserName" xml:space="preserve">
         <value>نام کاربری '{0}' هم اکنون مورد استفاده‌است.</value>
     </data>
+    <data name="InvalidEmail" xml:space="preserve">
+        <value>ایمیل '{0}' معتبر نیست.</value>
+    </data>
+    <data name="InvalidRoleName" xml:space="preserve">
+        <value>نقش '{0}' معتبر نیست.</value>
+    </data>
+    <data name="InvalidToken" xml:space="preserve">
+        <value>توکن غیر معتبر.</value>
+    </data>
 </root>

@@ -42,5 +42,23 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
             Code = nameof(DuplicateUserName),
             Description = string.Format(IdyfaIdentityErrors.DuplicateUserName, userName)
         };
-    
+
+    public override IdentityError InvalidEmail(string email)
+        => new IdentityError
+        {
+            Code = nameof(InvalidEmail),
+            Description = string.Format(IdyfaIdentityErrors.InvalidEmail, email)
+        };
+
+    public override IdentityError InvalidRoleName(string role)
+        => new IdentityError
+        {
+            Code = nameof(InvalidRoleName),
+            Description = string.Format(IdyfaIdentityErrors.InvalidRoleName, role)
+        };
+
+    public override IdentityError InvalidToken()
+    {
+        return base.InvalidToken();
+    }
 }
