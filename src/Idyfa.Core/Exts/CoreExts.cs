@@ -113,4 +113,28 @@ public static class CoreExts
             ? null
             : Regex.Replace(slug,
                 @"[^A-Za-z0-9\u0600-\u06FF_\.~]+", "-");
+    
+    public static bool IsDigit(this char c)
+        => c is >= '0' and <= '9';
+    
+    public static bool IsLower(char c)
+        => c is >= 'a' and <= 'z';
+
+    public static bool IsUpper(char c)
+        => c is >= 'A' and <= 'Z';
+
+    public static bool IsLetterOrDigit(char c)
+        => IsLower(c) || IsUpper(c) || IsDigit(c);
+
+    public static bool IsDigit(this string str)
+        => str.All(IsDigit);
+
+    public static bool IsLower(this string str)
+        => str.All(IsLower);
+
+    public static bool IsUpper(this string str)
+        => str.All(IsUpper);
+
+    public static bool ContainsDigit(this string str)
+        => str.Any(IsDigit);
 }

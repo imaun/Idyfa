@@ -29,5 +29,4 @@ public class IdyfaSecurityStampValidator : SecurityStampValidator<User>
         //TODO : Update User's LastVisitDate here to keep record of online users.
     }
     
-    
 }

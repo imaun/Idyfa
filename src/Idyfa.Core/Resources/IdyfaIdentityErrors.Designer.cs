@@ -218,5 +218,17 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("PasswordIsTooLong", resourceCulture);
             }
         }
+        
+        internal static string MinUserNameLength {
+            get {
+                return ResourceManager.GetString("MinUserNameLength", resourceCulture);
+            }
+        }
+        
+        internal static string UserNameIsBanned {
+            get {
+                return ResourceManager.GetString("UserNameIsBanned", resourceCulture);
+            }
+        }
     }
 }

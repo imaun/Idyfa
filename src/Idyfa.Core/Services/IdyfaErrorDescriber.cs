@@ -168,6 +168,20 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
                 CultureInfo.InvariantCulture,
                 IdyfaIdentityErrors.UserNotInRole, role)
         };
+
+    public IdentityError MinUserNameLength(int minLength)
+        => new IdentityError
+        {
+            Code = nameof(MinUserNameLength),
+            Description = string.Format(IdyfaIdentityErrors.MinUserNameLength, minLength)
+        };
+
+    public IdentityError UserNameIsBanned(string userName)
+        => new IdentityError
+        {
+            Code = nameof(UserNameIsBanned),
+            Description = string.Format(IdyfaIdentityErrors.UserNameIsBanned, userName)
+        };
 }
 
 public static class IdyfaIdentityErrorProvider

@@ -105,4 +105,10 @@
     <data name="PasswordIsTooLong" xml:space="preserve">
         <value>کلمه عبور بسیار طولانی است.</value>
     </data>
+    <data name="MinUserNameLength" xml:space="preserve">
+        <value>حداقل تعداد کاراکترهای نام کاربری {0} است.</value>
+    </data>
+    <data name="UserNameIsBanned" xml:space="preserve">
+        <value>نام کاربری '{0}' قابل قبول نیست.</value>
+    </data>
 </root>
