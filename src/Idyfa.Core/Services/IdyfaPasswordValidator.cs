@@ -21,7 +21,8 @@ public class IdyfaPasswordValidator : PasswordValidator<User>
         _usedPasswordManager = usedPasswordManager ?? throw new ArgumentNullException(nameof(usedPasswordManager));
     }
     
-    public override async Task<IdentityResult> ValidateAsync(UserManager<User> manager, User user, string password)
+    public override async Task<IdentityResult> ValidateAsync(
+        UserManager<User> manager, User user, string password)
     {
         var errors = new List<IdentityError>();
 
@@ -67,9 +68,37 @@ public class IdyfaPasswordValidator : PasswordValidator<User>
             return IdentityResult.Failed(errors.ToArray());
         }
 
+        if (IsPasswordToSimple(password))
+        {
+            errors.Add(IdyfaIdentityErrorProvider.PasswordIsTooSimple);
+            return IdentityResult.Failed(errors.ToArray());
+        }
+        
         return errors.Any() 
             ? IdentityResult.Failed(errors.ToArray()) 
             : IdentityResult.Success;
     }
-    
+
+    private bool IsAllCharsTheSame(string password)
+    {
+        if (password.IsNullOrEmpty()) return false;
+        password = password.ToLowerInvariant();
+        
+        return password.ToCharArray()
+            .Count(_ => _ == password.ElementAt(0)) == password.Length;
+    }
+
+    private bool IsPasswordToSimple(string password)
+    {
+        if (string.IsNullOrWhiteSpace(password))
+            return true;
+
+        if (IsAllCharsTheSame(password))
+            return true;
+
+        if (_options.Password.RequiredLength < password.Length)
+            return true;
+
+        return false;
+    }
 }
