@@ -99,4 +99,10 @@
     <data name="IsPreviouslyUsedPassword" xml:space="preserve">
         <value>لطفا کلمه‌ی عبور دیگری را انتخاب کنید. این کلمه‌ی عبور پیشتر توسط شما استفاده شده‌است و تکراری می‌باشد.</value>
     </data>
+    <data name="UseOfBannedPassword" xml:space="preserve">
+        <value>استقاده از کلمه عبور غیرمجاز.</value>
+    </data>
+    <data name="PasswordIsTooLong" xml:space="preserve">
+        <value>کلمه عبور بسیار طولانی است.</value>
+    </data>
 </root>

@@ -206,5 +206,17 @@ namespace Idyfa.Core.Resources {
                 return ResourceManager.GetString("IsPreviouslyUsedPassword", resourceCulture);
             }
         }
+        
+        internal static string UseOfBannedPassword {
+            get {
+                return ResourceManager.GetString("UseOfBannedPassword", resourceCulture);
+            }
+        }
+        
+        internal static string PasswordIsTooLong {
+            get {
+                return ResourceManager.GetString("PasswordIsTooLong", resourceCulture);
+            }
+        }
     }
 }

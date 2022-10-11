@@ -173,14 +173,14 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
 public static class IdyfaIdentityErrorProvider
 {
 
-    public static IdentityError PasswordIsNotSet()
+    public static IdentityError PasswordIsNotSet
         => new IdentityError
         {
             Code = nameof(PasswordIsNotSet),
             Description = IdyfaIdentityErrors.PasswordIsNotSet
         };
 
-    public static IdentityError UserNameIsNotSet()
+    public static IdentityError UserNameIsNotSet
         => new IdentityError
         {
             Code = nameof(UserNameIsNotSet),
@@ -194,19 +194,31 @@ public static class IdyfaIdentityErrorProvider
             Description = IdyfaIdentityErrors.PasswordContainsUserName
         };
 
-    public static IdentityError PasswordIsTooSimple()
+    public static IdentityError PasswordIsTooSimple
         => new IdentityError
         {
             Code = nameof(PasswordIsTooSimple),
             Description = IdyfaIdentityErrors.PasswordIsTooSimple
         };
 
-    public static IdentityError IsPreviouslyUsedPassword()
+    public static IdentityError IsPreviouslyUsedPassword
         => new IdentityError
         {
             Code = nameof(IsPreviouslyUsedPassword),
             Description = IdyfaIdentityErrors.IsPreviouslyUsedPassword
         };
-    
-    
+
+    public static IdentityError UseOfBannedPassword
+        => new IdentityError
+        {
+            Code = nameof(UseOfBannedPassword),
+            Description = IdyfaIdentityErrors.UseOfBannedPassword
+        };
+
+    public static IdentityError PasswordIsTooLong
+        => new IdentityError
+        {
+            Code = nameof(PasswordIsTooLong),
+            Description = IdyfaIdentityErrors.PasswordIsTooLong
+        };
 }
