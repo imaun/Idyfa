@@ -11,6 +11,7 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
     private readonly IIdyfaUserUsedPasswordRepository _repository;
     private readonly IPasswordHasher<User> _passwordHasher;
     private readonly IdyfaOptions _options;
+    private readonly IdyfaPasswordOptions _passwordOptions;
 
     public IdyfaUserUsedPasswordManager(
         IIdyfaUserUsedPasswordRepository repository,
@@ -20,6 +21,7 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
         _options = options ?? throw new IdyfaOptionsNotFoundException();
+        _passwordOptions = options.PasswordOptions;
     }
     
     public async Task<bool> IsPasswordUsedBeforeAsync(User user, string password)
@@ -40,7 +42,11 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
     public async Task<bool> IsUserPasswordTooOldAsync(User user)
     {
         user.CheckArgumentIsNull(nameof(user));
-        return true;
+        var last = await GetLastUserChangePasswordDateAsync(user);
+        if (last is null)
+            return false;
+
+        return last.Value.AddDays(_passwordOptions.ChangePasswordReminderDays) >= DateTime.UtcNow;
     }
 
     public async Task<DateTime?> GetLastUserChangePasswordDateAsync(User user)
