@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Idyfa.EntityFrameworkCore;
 
+/// <inheritdoc />
 public class IdyfaBaseRepository<TEntity, TKey> : IIdyfaBaseRepository<TEntity, TKey> where TEntity : class
 {
     private readonly IdyfaDbContext _db;
