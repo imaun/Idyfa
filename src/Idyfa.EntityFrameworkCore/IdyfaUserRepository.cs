@@ -213,9 +213,21 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public Task ReplaceClaimAsync(User user, UserClaim claim, UserClaim newClaim, CancellationToken cancellationToken = default)
+    public async Task ReplaceClaimAsync(
+        User user, UserClaim claim, UserClaim newClaim, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        user.CheckArgumentIsNull(nameof(user));
+        claim.CheckArgumentIsNull(nameof(claim));
+        newClaim.CheckArgumentIsNull(nameof(newClaim));
+
+        var userClaim = await _db.Set<UserClaim>()
+            .FirstOrDefaultAsync(
+                c => c.ClaimType == newClaim.ClaimType, cancellationToken).ConfigureAwait(false);
+        userClaim.CheckReferenceIsNull(nameof(userClaim));
+
+        userClaim.ClaimValue = newClaim.ClaimValue;
+        _db.Entry(userClaim).State = EntityState.Modified;
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
     public Task RemoveClaimsAsync(User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
