@@ -199,9 +199,18 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return result;
     }
 
-    public Task AddClaimsAsync(User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
+    public async Task AddClaimsAsync(
+        User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        user.CheckArgumentIsNull(nameof(user));
+        if(claims is null || !claims.Any()) return;
+
+        foreach (var claim in claims)
+        {
+            _db.Set<UserClaim>().Add(claim);
+        }
+
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
     public Task ReplaceClaimAsync(User user, UserClaim claim, UserClaim newClaim, CancellationToken cancellationToken = default)
