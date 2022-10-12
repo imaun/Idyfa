@@ -1,4 +1,4 @@
-namespace Idyfa.Core.Contracts.Repository;
+namespace Idyfa.Core.Contracts;
 
 public interface IIdyfaUserUsedPasswordRepository : IIdyfaBaseRepository<UserUsedPassword, string>
 {

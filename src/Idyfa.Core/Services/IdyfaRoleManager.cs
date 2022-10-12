@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Idyfa.Core.Contracts;
-using Idyfa.Core.Contracts.Repository;
 using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;

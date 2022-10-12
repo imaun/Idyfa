@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0A449357-0D6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idyfa.Core", "src\Idyfa.Core\Idyfa.Core.csproj", "{2EADB6D3-7C7E-4D23-A3E8-DE66826F768C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idyfa.EntityFrameworkCore", "src\Idyfa.EntityFrameworkCore\Idyfa.EntityFrameworkCore.csproj", "{38242F87-BF83-48E4-82E2-9C81680D7C04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +19,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2EADB6D3-7C7E-4D23-A3E8-DE66826F768C} = {0A449357-0D6F-48FF-90D3-599CB23F6707}
+		{38242F87-BF83-48E4-82E2-9C81680D7C04} = {0A449357-0D6F-48FF-90D3-599CB23F6707}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2EADB6D3-7C7E-4D23-A3E8-DE66826F768C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2EADB6D3-7C7E-4D23-A3E8-DE66826F768C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EADB6D3-7C7E-4D23-A3E8-DE66826F768C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EADB6D3-7C7E-4D23-A3E8-DE66826F768C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38242F87-BF83-48E4-82E2-9C81680D7C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38242F87-BF83-48E4-82E2-9C81680D7C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38242F87-BF83-48E4-82E2-9C81680D7C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38242F87-BF83-48E4-82E2-9C81680D7C04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

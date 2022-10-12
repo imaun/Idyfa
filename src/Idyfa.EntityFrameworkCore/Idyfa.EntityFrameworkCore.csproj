@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>
+            Idyfa storage provider that uses EntityFrameworkCore.
+        </Description>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PackageTags>identity;idyfa;membership;security</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="Microsoft.Extensions.Identity.Stores" />
+        <Reference Include="Microsoft.EntityFrameworkCore.Relational" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Idyfa.Core\Idyfa.Core.csproj" />
+    </ItemGroup>
+</Project>

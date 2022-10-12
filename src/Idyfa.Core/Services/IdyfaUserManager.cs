@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Idyfa.Core.Contracts;
-using Idyfa.Core.Contracts.Repository;
 using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -85,8 +84,12 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         return await _usedPasswordManager.IsUserPasswordTooOldAsync(user);
     }
 
-    public Task<DateTime?> GetLastUserPasswordChangeDateAsync(string userId)
+    public async Task<DateTime?> GetLastUserPasswordChangeDateAsync(string userId)
     {
-        throw new NotImplementedException();
+        if (userId.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(userId));
+
+        var user = await FindByIdAsync(userId);
+        return await _usedPasswordManager.GetLastUserChangePasswordDateAsync(user);
     }
 }

@@ -1,5 +1,4 @@
 using Idyfa.Core.Contracts;
-using Idyfa.Core.Contracts.Repository;
 using Idyfa.Core.Exceptions;
 using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Identity;

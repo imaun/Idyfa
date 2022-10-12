@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Idyfa.Core.Contracts.Repository;
+namespace Idyfa.Core.Contracts;
 
 public interface IIdyfaUserRepository : IIdyfaBaseRepository<User, string>, IUserStore<User>
 {
