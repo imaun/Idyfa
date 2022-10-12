@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Idyfa.EntityFrameworkCore;
 
+/// <inheritdoc />
 public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUserRepository
 {
     public IdyfaUserRepository(IdyfaDbContext db) : base(db)
@@ -14,37 +15,44 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
 
     public void Dispose()
     {
-        throw new NotImplementedException();
     }
 
+    /// <inheritdoc />
     public async Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
     {
         return await Task.FromResult(user.Id);
     }
 
+    /// <inheritdoc />
     public async Task<string> GetUserNameAsync(User user, CancellationToken cancellationToken)
     {
         return await Task.FromResult(user.UserName);
     }
 
-    public async Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
+    /// <inheritdoc />
+    public async Task SetUserNameAsync(
+        User user, string userName, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
         user.UserName = userName;
     }
 
+    /// <inheritdoc />
     public async Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
         return await Task.FromResult(user.NormalizedUserName);
     }
 
-    public async Task SetNormalizedUserNameAsync(User user, string normalizedName, CancellationToken cancellationToken)
+    /// <inheritdoc />
+    public async Task SetNormalizedUserNameAsync(
+        User user, string normalizedName, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
-        user.UserName = normalizedName;
+        user.NormalizedUserName = normalizedName;
     }
 
+    /// <inheritdoc />
     public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
@@ -52,6 +60,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return IdentityResult.Success;
     }
 
+    /// <inheritdoc />
     public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
@@ -61,6 +70,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return IdentityResult.Success;
     }
 
+    /// <inheritdoc />
     public async Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
@@ -70,6 +80,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return IdentityResult.Success;
     }
 
+    /// <inheritdoc />
     public async Task<User> FindByNameAsync(
         string normalizedUserName, CancellationToken cancellationToken)
     {
@@ -81,6 +92,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return user!;
     }
 
+    /// <inheritdoc />
     public async Task<User> FindByUserNameAsync(
         string userName, CancellationToken cancellationToken = default)
     {
@@ -92,6 +104,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return user!;
     }
 
+    /// <inheritdoc />
     public async Task<UserRole> FindUserRoleAsync(
         string userId, string roleId, CancellationToken cancellationToken)
     {
@@ -107,6 +120,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return userRole!;
     }
 
+    /// <inheritdoc />
     public async Task<UserLogin> FindUserLoginAsync(
         string userId, string loginProvider, string providerKey, CancellationToken cancellationToken)
     {
@@ -119,6 +133,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return userLogin!;
     }
 
+    /// <inheritdoc />
     public async Task AddToRoleAsync(
         User user, string normalizedRoleName, CancellationToken cancellationToken = default)
     {
@@ -135,6 +150,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         await _db.SaveChangesAsync(cancellationToken);
     }
 
+    /// <inheritdoc />
     public async Task RemoveFromRoleAsync(
         User user, string normalizedRoleName, CancellationToken cancellationToken = default)
     {
@@ -155,6 +171,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         }
     }
 
+    /// <inheritdoc />
     public async Task<IReadOnlyCollection<string>> GetRolesAsync(
         User user, CancellationToken cancellationToken = default)
     {
@@ -174,6 +191,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return await Task.FromResult(result);
     }
 
+    /// <inheritdoc />
     public async Task<bool> IsInRoleAsync(
         User user, string normalizedRoleName, CancellationToken cancellationToken = default)
     {
@@ -189,6 +207,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
             .AnyAsync(x => x.RoleId == role.Id, cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public async Task<IReadOnlyCollection<UserClaim>> GetClaimsAsync(
         User user, CancellationToken cancellationToken = default)
     {
@@ -199,6 +218,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return result;
     }
 
+    /// <inheritdoc />
     public async Task AddClaimsAsync(
         User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
     {
@@ -214,6 +234,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public async Task ReplaceClaimAsync(
         User user, UserClaim claim, UserClaim newClaim, CancellationToken cancellationToken = default)
     {
@@ -232,6 +253,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public async Task RemoveClaimsAsync(
         User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
     {
@@ -251,7 +273,9 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<User> FindByEmailAsync(string email, CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public async Task<User> FindByEmailAsync(
+        string email, CancellationToken cancellationToken = default)
     {
         if (email.IsNullOrEmpty())
             throw new ArgumentNullException(nameof(email));
@@ -261,6 +285,7 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return user!;
     }
 
+    /// <inheritdoc />
     public async Task<IReadOnlyCollection<User>> GetUsersInRoleAsync(
         string roleName, CancellationToken cancellationToken = default)
     {
@@ -284,9 +309,15 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return await Task.FromResult(result);
     }
 
-    public Task AddUserTokenAsync(UserToken token)
+    /// <inheritdoc />
+    public async Task AddUserTokenAsync(UserToken token)
     {
-        throw new NotImplementedException();
+        token.CheckArgumentIsNull(nameof(token));
+        var user = await _set.FindAsync(token.UserId).ConfigureAwait(false);
+        user.CheckReferenceIsNull(nameof(user));
+
+        await _db.Set<UserToken>().AddAsync(token);
+        await _db.SaveChangesAsync();
     }
 
     public Task RemoveUserTokenAsync(UserToken token)
