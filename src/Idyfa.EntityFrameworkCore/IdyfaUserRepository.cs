@@ -251,9 +251,14 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public Task<User> FindByEmailAsync(string email, CancellationToken cancellationToken = default)
+    public async Task<User> FindByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        if (email.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(email));
+
+        var user = await _set.FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpper(), cancellationToken)
+            .ConfigureAwait(false);
+        return user!;
     }
 
     public Task<IReadOnlyCollection<User>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken = default)
