@@ -189,9 +189,14 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
             .AnyAsync(x => x.RoleId == role.Id, cancellationToken).ConfigureAwait(false);
     }
 
-    public Task<IReadOnlyCollection<UserClaim>> GetClaimsAsync(User user, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyCollection<UserClaim>> GetClaimsAsync(
+        User user, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        user.CheckArgumentIsNull(nameof(user));
+        var result = await _db.Set<UserClaim>()
+            .Where(c => c.UserId == user.Id)
+            .ToListAsync(cancellationToken).ConfigureAwait(false);
+        return result;
     }
 
     public Task AddClaimsAsync(User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
