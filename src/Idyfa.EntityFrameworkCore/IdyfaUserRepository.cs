@@ -174,9 +174,19 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         return await Task.FromResult(result);
     }
 
-    public Task<bool> IsInRoleAsync(User user, string normalizedRoleName, CancellationToken cancellationToken = default)
+    public async Task<bool> IsInRoleAsync(
+        User user, string normalizedRoleName, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        user.CheckArgumentIsNull(nameof(user));
+        if (normalizedRoleName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(normalizedRoleName));
+
+        var role = await _db.Set<Role>().FirstOrDefaultAsync(
+            r => r.NormalizedName == normalizedRoleName, cancellationToken).ConfigureAwait(false);
+        role.CheckReferenceIsNull(nameof(role));
+
+        return await _db.Set<UserRole>()
+            .AnyAsync(x => x.RoleId == role.Id, cancellationToken).ConfigureAwait(false);
     }
 
     public Task<IReadOnlyCollection<UserClaim>> GetClaimsAsync(User user, CancellationToken cancellationToken = default)
