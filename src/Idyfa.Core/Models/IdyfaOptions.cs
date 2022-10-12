@@ -47,10 +47,15 @@ public class IdyfaUserRegistrationOptions
 public class IdyfaPasswordOptions : PasswordOptions
 {
     public ISet<string> BannedPasswords { get; set; }
-    
+
     public bool CanIncludeUserName { get; set; }
-    
+
     public int? MaxLength { get; set; }
-    
+
     public string InvalidCharacters { get; set; }
+
+    public bool PreviouslyUsedPasswordsNotAllowed { get; set; }
+
+    public int ChangePasswordReminderDays { get; set; }
+
 }
