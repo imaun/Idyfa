@@ -35,9 +35,13 @@ public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRole
         return IdentityResult.Success;
     }
 
-    public Task<IdentityResult> DeleteAsync(Role role, CancellationToken cancellationToken)
+    public async Task<IdentityResult> DeleteAsync(Role role, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        role.CheckArgumentIsNull(nameof(role));
+        _set.Remove(role);
+        _db.Entry(role).State = EntityState.Deleted;
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        return IdentityResult.Success;
     }
 
     public Task<string> GetRoleIdAsync(Role role, CancellationToken cancellationToken)
