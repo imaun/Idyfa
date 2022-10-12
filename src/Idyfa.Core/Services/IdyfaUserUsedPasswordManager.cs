@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Idyfa.Core.Services;
 
+/// <summary>
+/// Manages <see cref="User"/>s <see cref="UserUsedPassword"/>s.
+/// </summary>
 public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
 {
     private readonly IIdyfaUserUsedPasswordRepository _repository;
@@ -27,7 +30,12 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
     public async Task<bool> IsPasswordUsedBeforeAsync(User user, string password)
     {
         user.CheckArgumentIsNull(nameof(user));
-        var result = await _repository.IsPasswordExistedAsync(user.Id, password);
+
+        if (!_passwordOptions.PreviouslyUsedPasswordsNotAllowed)
+            return false;
+        
+        var hashedPassword = _passwordHasher.HashPassword(user, password);
+        var result = await _repository.IsPasswordExistedAsync(user.Id, hashedPassword);
         return result;
     }
 
