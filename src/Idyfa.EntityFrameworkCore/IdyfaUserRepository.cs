@@ -203,7 +203,8 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
     {
         user.CheckArgumentIsNull(nameof(user));
-        if(claims is null || !claims.Any()) return;
+        if(claims is null || !claims.Any())
+            throw new ArgumentNullException(nameof(claims));
 
         foreach (var claim in claims)
         {
@@ -222,7 +223,8 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
 
         var userClaim = await _db.Set<UserClaim>()
             .FirstOrDefaultAsync(
-                c => c.ClaimType == newClaim.ClaimType, cancellationToken).ConfigureAwait(false);
+                c => c.UserId == user.Id && c.ClaimType == newClaim.ClaimType, cancellationToken
+            ).ConfigureAwait(false);
         userClaim.CheckReferenceIsNull(nameof(userClaim));
 
         userClaim.ClaimValue = newClaim.ClaimValue;
@@ -230,9 +232,23 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public Task RemoveClaimsAsync(User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
+    public async Task RemoveClaimsAsync(
+        User user, IEnumerable<UserClaim> claims, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        user.CheckArgumentIsNull(nameof(user));
+        if (claims is null || !claims.Any())
+            throw new ArgumentNullException(nameof(claims));
+
+        foreach (var claim in claims)
+        {
+            var userClaim = await _db.Set<UserClaim>()
+                .FirstOrDefaultAsync(c => c.UserId == user.Id && c.ClaimType == claim.ClaimType, cancellationToken)
+                .ConfigureAwait(false);
+            userClaim.CheckReferenceIsNull(nameof(userClaim));
+            _db.Set<UserClaim>().Remove(userClaim);
+        }
+
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
     public Task<User> FindByEmailAsync(string email, CancellationToken cancellationToken = default)
