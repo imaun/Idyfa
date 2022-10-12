@@ -111,33 +111,42 @@ public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRole
         return await Task.FromResult(result);
     }
 
-    public Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId)
+    public async Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId)
     {
-        throw new NotImplementedException();
+        return await GetClaimsAsync(roleId, CancellationToken.None);
     }
 
-    public Task AddClaimAsync(Role role, Claim claim, CancellationToken cancellationToken = default)
+    public async Task AddClaimAsync(
+        Role role, RoleClaim claim, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        role.CheckArgumentIsNull(nameof(role));
+        claim.CheckArgumentIsNull(nameof(claim));
+
+        await _db.Set<RoleClaim>().AddAsync(claim, cancellationToken).ConfigureAwait(false);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    Task<Role> IIdyfaRoleRepository.FindByNameAsync(string name, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<RoleClaim>> GetClaimsAsync(
+        Role role, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return (await GetClaimsAsync(role.Id, cancellationToken)).ToList();
     }
 
-    public Task<IReadOnlyCollection<Claim>> GetClaimsAsync(Role role, CancellationToken cancellationToken = default)
+    public async Task RemoveClaimAsync(
+        Role role, RoleClaim claim, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        role.CheckArgumentIsNull(nameof(role));
+        claim.CheckArgumentIsNull(nameof(claim));
+
+        _db.Set<RoleClaim>().Remove(claim);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public Task RemoveClaimAsync(Role role, Claim claim, CancellationToken cancellationToken = default)
+    async Task<Role> IRoleStore<Role>.FindByNameAsync(
+        string normalizedRoleName, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
-    }
-
-    Task<Role> IRoleStore<Role>.FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
+        var role = await _set.FirstOrDefaultAsync(r => r.NormalizedName == normalizedRoleName, cancellationToken)
+            .ConfigureAwait(false);
+        return await Task.FromResult(role!);
     }
 }

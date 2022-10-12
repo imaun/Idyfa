@@ -13,14 +13,11 @@ public interface IIdyfaRoleRepository : IIdyfaBaseRepository<Role, string>, IRol
     Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId, CancellationToken cancellationToken = default);
     
     Task AddClaimAsync(
-        Role role, Claim claim, CancellationToken cancellationToken = default);
-    
-    Task<Role> FindByNameAsync(
-        string name, CancellationToken cancellationToken = default);
-    
-    Task<IReadOnlyCollection<Claim>> GetClaimsAsync(
+        Role role, RoleClaim claim, CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyCollection<RoleClaim>> GetClaimsAsync(
         Role role, CancellationToken cancellationToken = default);
     
     Task RemoveClaimAsync(
-        Role role, Claim claim, CancellationToken cancellationToken = default);
+        Role role, RoleClaim claim, CancellationToken cancellationToken = default);
 }
