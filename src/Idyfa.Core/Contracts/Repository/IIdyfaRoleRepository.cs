@@ -10,7 +10,7 @@ public interface IIdyfaRoleRepository : IIdyfaBaseRepository<Role, string>, IRol
 
     Task<Role> GetByNameAsync(string roleName);
 
-    Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId);
+    Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId, CancellationToken cancellationToken = default);
     
     Task AddClaimAsync(
         Role role, Claim claim, CancellationToken cancellationToken = default);
