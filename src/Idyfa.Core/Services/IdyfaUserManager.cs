@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Contracts.Repository;
+using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -48,14 +49,20 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public Task<User> FindByUserNameAsync(string userName)
+    public async Task<User> FindByUserNameAsync(string userName)
     {
-        throw new NotImplementedException();
+        if (userName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(userName));
+        
+        return await _store.FindByUserNameAsync(userName);
     }
 
-    public Task<IReadOnlyCollection<Claim>> GetClaimsAsync(User user)
+    public async Task<IReadOnlyCollection<Claim>> GetClaimsAsync(User user)
     {
-        throw new NotImplementedException();
+        var claims = await _store.GetClaimsAsync(user);
+        return claims.Any() 
+            ? claims.Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList() 
+            : null;
     }
 
     public Task<IReadOnlyCollection<string>> GetRolesAsync(User user)
