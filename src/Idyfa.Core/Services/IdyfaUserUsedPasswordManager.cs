@@ -32,7 +32,8 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
     public async Task AddToUsedPasswordsAsync(User user, UserUsedPassword password)
     {
         user.CheckArgumentIsNull(nameof(user));
-
+        password.CheckArgumentIsNull(nameof(password));
+        
         await _repository.AddAsync(password);
     }
 
