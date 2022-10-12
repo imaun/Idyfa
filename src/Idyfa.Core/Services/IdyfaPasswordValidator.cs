@@ -9,12 +9,12 @@ namespace Idyfa.Core.Services;
 public class IdyfaPasswordValidator : PasswordValidator<User>
 {
     private readonly IdyfaOptions _options;
-    private readonly IIdyfaUsedPasswordManager _usedPasswordManager;
+    private readonly IIdyfaUserUsedPasswordManager _usedPasswordManager;
 
     public IdyfaPasswordValidator(
         IdentityErrorDescriber errorDescriber,
         IdyfaOptions options,
-        IIdyfaUsedPasswordManager usedPasswordManager)
+        IIdyfaUserUsedPasswordManager usedPasswordManager)
     {
         _options = options ?? throw new IdyfaOptionsNotFoundException();
         _usedPasswordManager = usedPasswordManager ?? throw new ArgumentNullException(nameof(usedPasswordManager));

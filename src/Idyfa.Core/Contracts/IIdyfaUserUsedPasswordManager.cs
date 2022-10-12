@@ -1,6 +1,6 @@
 namespace Idyfa.Core.Contracts;
 
-public interface IIdyfaUsedPasswordManager
+public interface IIdyfaUserUsedPasswordManager
 {
 
     Task<bool> IsPasswordUsedBeforeAsync(User user, string password);
