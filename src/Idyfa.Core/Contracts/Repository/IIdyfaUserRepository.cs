@@ -42,7 +42,7 @@ public interface IIdyfaUserRepository : IIdyfaBaseRepository<User, string>, IUse
     Task<IReadOnlyCollection<User>> GetUsersInRoleAsync(
         string roleName, CancellationToken cancellationToken = default);
 
-    Task AddUserTokenAsync(UserToken token);
+    Task AddUserTokenAsync(User user, UserToken token, CancellationToken cancellationToken = default);
     
-    Task RemoveUserTokenAsync(UserToken token);
+    Task RemoveUserTokenAsync(UserToken token, CancellationToken cancellationToken = default);
 }

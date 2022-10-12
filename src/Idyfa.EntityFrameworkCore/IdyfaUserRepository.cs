@@ -310,18 +310,28 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
     }
 
     /// <inheritdoc />
-    public async Task AddUserTokenAsync(UserToken token)
+    public async Task AddUserTokenAsync(
+        User user, UserToken token, CancellationToken cancellationToken = default)
     {
         token.CheckArgumentIsNull(nameof(token));
-        var user = await _set.FindAsync(token.UserId).ConfigureAwait(false);
-        user.CheckReferenceIsNull(nameof(user));
-
-        await _db.Set<UserToken>().AddAsync(token);
-        await _db.SaveChangesAsync();
+        user.CheckArgumentIsNull(nameof(user));
+        
+        await _db.Set<UserToken>().AddAsync(
+            UserToken.New()
+                .WithUserId(user.Id)
+                .WithName(token.Name)
+                .WithLoginProvider(token.LoginProvider)
+                .WithValue(token.Value), cancellationToken);
+        await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public Task RemoveUserTokenAsync(UserToken token)
+    /// <inheritdoc />
+    public async Task RemoveUserTokenAsync(
+        UserToken token, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        token.CheckArgumentIsNull(nameof(token));
+        _db.Set<UserToken>().Remove(token);
+        _db.Entry(token).State = EntityState.Deleted;
+        await _db.SaveChangesAsync(cancellationToken);
     }
 }
