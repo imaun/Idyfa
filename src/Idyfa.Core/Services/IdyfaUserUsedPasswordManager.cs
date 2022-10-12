@@ -25,8 +25,8 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
     public async Task<bool> IsPasswordUsedBeforeAsync(User user, string password)
     {
         user.CheckArgumentIsNull(nameof(user));
-
-        return true;
+        var result = await _repository.IsPasswordExistedAsync(user.Id, password);
+        return result;
     }
 
     public async Task AddToUsedPasswordsAsync(User user, UserUsedPassword password)

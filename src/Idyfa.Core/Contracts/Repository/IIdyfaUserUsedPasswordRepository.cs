@@ -6,4 +6,6 @@ public interface IIdyfaUserUsedPasswordRepository : IIdyfaBaseRepository<UserUse
     Task<IReadOnlyCollection<UserUsedPassword>> GetByUserIdAsync(string userId);
     
     Task<UserUsedPassword?> GetLastByUserIdAsync(string userId);
+
+    Task<bool> IsPasswordExistedAsync(string userId, string password);
 }
