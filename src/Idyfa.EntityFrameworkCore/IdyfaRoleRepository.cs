@@ -96,9 +96,19 @@ public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRole
         return role!;
     }
 
-    public Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<RoleClaim>> GetClaimsAsync(
+        string roleId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        if (roleId.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(roleId));
+
+        var role = await _set.FindAsync(roleId, cancellationToken).ConfigureAwait(false);
+        role.CheckReferenceIsNull(nameof(role));
+
+        var result = await _db.Set<RoleClaim>().Where(c => c.RoleId == roleId)
+            .ToListAsync(cancellationToken)
+            .ConfigureAwait(false);
+        return await Task.FromResult(result);
     }
 
     public Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId)
