@@ -6,8 +6,8 @@ namespace Idyfa.EntityFrameworkCore;
 /// <inheritdoc />
 public class IdyfaBaseRepository<TEntity, TKey> : IIdyfaBaseRepository<TEntity, TKey> where TEntity : class
 {
-    private readonly IdyfaDbContext _db;
-    private readonly DbSet<TEntity> _set;
+    protected readonly IdyfaDbContext _db;
+    protected readonly DbSet<TEntity> _set;
 
     public IdyfaBaseRepository(IdyfaDbContext db)
     {
