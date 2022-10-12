@@ -4,6 +4,7 @@ using Idyfa.Core.Contracts;
 using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Idyfa.EntityFrameworkCore;
 
@@ -44,39 +45,55 @@ public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRole
         return IdentityResult.Success;
     }
 
-    public Task<string> GetRoleIdAsync(Role role, CancellationToken cancellationToken)
+    public async Task<string> GetRoleIdAsync(Role role, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        role.CheckArgumentIsNull(nameof(role));
+        return await Task.FromResult(role.Id);
     }
 
-    public Task<string> GetRoleNameAsync(Role role, CancellationToken cancellationToken)
+    public async Task<string> GetRoleNameAsync(Role role, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        role.CheckArgumentIsNull(nameof(role));
+        return await Task.FromResult(role.Name);
     }
 
-    public Task SetRoleNameAsync(Role role, string roleName, CancellationToken cancellationToken)
+    public async Task SetRoleNameAsync(Role role, string roleName, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        role.CheckArgumentIsNull(nameof(role));
+        role.Name = roleName;
+        role.NormalizedName = roleName.ToUpper();
+        _set.Update(role);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public Task<string> GetNormalizedRoleNameAsync(Role role, CancellationToken cancellationToken)
+    public async Task<string> GetNormalizedRoleNameAsync(Role role, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        role.CheckArgumentIsNull(nameof(role));
+        return await Task.FromResult(role.NormalizedName);
     }
 
-    public Task SetNormalizedRoleNameAsync(Role role, string normalizedName, CancellationToken cancellationToken)
+    public async Task SetNormalizedRoleNameAsync(Role role, string normalizedName, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        role.CheckArgumentIsNull(nameof(role));
+        role.NormalizedName = normalizedName;
+        _set.Update(role);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public Task AddClaimAsync(RoleClaim claim)
+    public async Task AddClaimAsync(RoleClaim claim)
     {
-        throw new NotImplementedException();
+        claim.CheckArgumentIsNull(nameof(claim));
+        await _db.Set<RoleClaim>().AddAsync(claim).ConfigureAwait(false);
+        await _db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    public Task<Role> GetByNameAsync(string roleName)
+    public async Task<Role> GetByNameAsync(string roleName)
     {
-        throw new NotImplementedException();
+        if (roleName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(roleName));
+
+        var role = await _set.FirstOrDefaultAsync(r => r.Name == roleName).ConfigureAwait(false);
+        return role!;
     }
 
     public Task<IEnumerable<RoleClaim>> GetClaimsAsync(string roleId, CancellationToken cancellationToken = default)
