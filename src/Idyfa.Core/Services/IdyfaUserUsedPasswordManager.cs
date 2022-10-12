@@ -44,6 +44,7 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
         if (user is null)
             throw new ArgumentNullException(nameof(user));
 
-        return null;
+        var last = await _repository.GetLastByUserIdAsync(user.Id);
+        return last?.CreateDate;
     }
 }
