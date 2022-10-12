@@ -12,11 +12,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="Microsoft.Extensions.Identity.Stores" />
-        <Reference Include="Microsoft.EntityFrameworkCore.Relational" />
+      <ProjectReference Include="..\Idyfa.Core\Idyfa.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Idyfa.Core\Idyfa.Core.csproj" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
     </ItemGroup>
 </Project>
