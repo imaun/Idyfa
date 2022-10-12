@@ -135,9 +135,24 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public Task RemoveFromRoleAsync(User user, string normalizedRoleName, CancellationToken cancellationToken = default)
+    public async Task RemoveFromRoleAsync(
+        User user, string normalizedRoleName, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        user.CheckArgumentIsNull(nameof(user));
+        if (normalizedRoleName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(normalizedRoleName));
+        
+        var role = await _db.Set<Role>().FirstOrDefaultAsync(
+            r => r.NormalizedName == normalizedRoleName, cancellationToken).ConfigureAwait(false);
+        role.CheckReferenceIsNull(nameof(role));
+
+        var userRole = await _db.Set<UserRole>().FirstOrDefaultAsync(
+            r => r.UserId == user.Id && r.RoleId == role.Id, cancellationToken).ConfigureAwait(false);
+        if (userRole is not null)
+        {
+            _db.Set<UserRole>().Remove(userRole);
+            await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
     }
 
     public Task<IReadOnlyCollection<string>> GetRolesAsync(User user, CancellationToken cancellationToken = default)
