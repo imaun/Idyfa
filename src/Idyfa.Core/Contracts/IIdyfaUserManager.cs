@@ -102,7 +102,7 @@ public interface IIdyfaUserManager
     
     Task<bool> IsPreviouslyUsedPasswordAsync(User user, string newPassword);
     
-    Task<bool> IsLastUserPasswordTooOldAsync(int userId);
+    Task<bool> IsLastUserPasswordTooOldAsync(string userId);
  
-    Task<DateTime?> GetLastUserPasswordChangeDateAsync(int userId);
+    Task<DateTime?> GetLastUserPasswordChangeDateAsync(string userId);
 }

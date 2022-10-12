@@ -24,6 +24,7 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
     private readonly IEnumerable<IPasswordValidator<User>> _passwordValidators;
     private readonly IServiceProvider _serviceProvider;
     private readonly IEnumerable<IUserValidator<User>> _userValidators;
+    private readonly IdyfaUserUsedPasswordManager _usedPasswordManager;
     private User _currentUser;
 
     public IdyfaUserManager(
@@ -36,8 +37,10 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         ILookupNormalizer keyNormalizer, 
         IdentityErrorDescriber errorDescriber, 
         IServiceProvider services, 
-        ILogger<IdyfaUserManager> logger
-    ) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errorDescriber, services, logger)
+        ILogger<IdyfaUserManager> logger, 
+        IdyfaUserUsedPasswordManager usedPasswordManager
+        ) : base(store, optionsAccessor, passwordHasher, userValidators, 
+                    passwordValidators, keyNormalizer, errorDescriber, services, logger)
     {
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         _store = store ?? throw new ArgumentNullException(nameof(store));
@@ -47,6 +50,7 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         _errorDescriber = errorDescriber ?? throw new ArgumentNullException(nameof(errorDescriber));
         _keyNormalizer = keyNormalizer ?? throw new ArgumentNullException(nameof(keyNormalizer));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _usedPasswordManager = usedPasswordManager ?? throw new ArgumentNullException(nameof(usedPasswordManager));
     }
 
     public async Task<User> FindByUserNameAsync(string userName)
@@ -65,22 +69,23 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
             : null;
     }
 
-    public Task<IReadOnlyCollection<string>> GetRolesAsync(User user)
+    public async Task<IReadOnlyCollection<string>> GetRolesAsync(User user)
     {
-        throw new NotImplementedException();
+        var roles = await _store.GetRolesAsync(user);
+        return roles;
     }
 
-    public Task<bool> IsPreviouslyUsedPasswordAsync(User user, string newPassword)
+    public async Task<bool> IsPreviouslyUsedPasswordAsync(User user, string newPassword)
+        => await _usedPasswordManager.IsPasswordUsedBeforeAsync(user, newPassword);
+
+    public async Task<bool> IsLastUserPasswordTooOldAsync(string userId)
     {
-        throw new NotImplementedException();
+        var user = await FindByIdAsync(userId);
+        user.CheckReferenceIsNull(nameof(user));
+        return await _usedPasswordManager.IsUserPasswordTooOldAsync(user);
     }
 
-    public Task<bool> IsLastUserPasswordTooOldAsync(int userId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<DateTime?> GetLastUserPasswordChangeDateAsync(int userId)
+    public Task<DateTime?> GetLastUserPasswordChangeDateAsync(string userId)
     {
         throw new NotImplementedException();
     }
