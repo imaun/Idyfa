@@ -25,7 +25,15 @@ public static partial class EntityConfigurations
             user.Property(u => u.FirstName).IsUnicode().HasMaxLength(256);
             user.Property(u => u.LastName).IsUnicode().HasMaxLength(256);
             user.Property(u => u.Status).HasDefaultValue(UserStatus.Created);
-            
+            user.Property(u => u.DisplayName).IsUnicode().HasMaxLength(500);
+            user.Property(u => u.ConcurrencyStamp).HasMaxLength(500).IsConcurrencyToken();
+            user.Property(u => u.NormalizedUserName).IsUnicode().HasMaxLength(256);
+            user.Property(u => u.NormalizedEmail).IsUnicode().HasMaxLength(1000);
+
+            user.HasOne<UserCategory>()
+                .WithMany()
+                .HasForeignKey(_ => _.CategoryId)
+                .OnDelete(DeleteBehavior.SetNull);
         });
     }
 }

@@ -22,5 +22,6 @@ public class User : IdentityUser<string>
     public DateTime? LastStatusChanged { get; protected set; }
     public DateTime? LastVisitDate { get; protected set; }
     
+    public Guid? CategoryId { get; protected set; }
     #endregion
 }
