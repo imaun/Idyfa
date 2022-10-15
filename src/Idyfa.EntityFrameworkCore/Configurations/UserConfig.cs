@@ -11,6 +11,7 @@ public static partial class EntityConfigurations
     /// Configure <see cref="User"/> mapping for the Database Schema.
     /// </summary>
     /// <param name="builder"></param>
+    /// <param name="tablePrefix">The prefix used in naming the entity Table.</param>
     public static void AddUserConfiguration(this ModelBuilder builder, string tablePrefix = "")
     {
         builder.CheckArgumentIsNull(nameof(builder));
