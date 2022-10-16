@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Idyfa.Core;
 using Idyfa.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -25,5 +26,30 @@ public static partial class EntityConfigurations
             role.Property(r => r.Status).HasDefaultValue(RoleStatus.Enabled);
             
         });
+    }
+
+    /// <summary>
+    /// Configures <see cref="RoleClaim"/> for the database schema.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="tablePrefix"></param>
+    public static void AddRoleClaimConfiguration(this ModelBuilder builder, string tablePrefix)
+    {
+        builder.CheckArgumentIsNull(nameof(builder));
+
+        builder.Entity<RoleClaim>(claim =>
+        {
+            claim.ToTable(GetTableName(typeof(RoleClaim)))
+                .HasKey(_=> _.Id);
+            claim.Property(_ => _.ClaimType).HasMaxLength(256).IsUnicode().IsRequired();
+            claim.Property(_ => _.ClaimValue).HasMaxLength(1000).IsUnicode();
+            
+            claim.HasOne<Role>()
+                .WithMany()
+                .HasForeignKey(_=> _.RoleId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+     
+        
     }
 }

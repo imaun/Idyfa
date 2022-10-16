@@ -6,7 +6,8 @@ public class UserToken : IdentityUserToken<string>
 {
     private UserToken(): base() { }
 
-
+    public long Id { get; protected set; }
+    
     public static UserToken New() => new UserToken();
 
     public static UserToken New(

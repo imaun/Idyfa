@@ -111,5 +111,32 @@ public static partial class EntityConfigurations
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }
+
+    /// <summary>
+    /// Configures <see cref="UserToken"/> mapping for the Database schema.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="tablePrefix"></param>
+    public static void AddUserToken(this ModelBuilder builder, string tablePrefix = "")
+    {
+        builder.CheckArgumentIsNull(nameof(builder));
+
+        builder.Entity<UserToken>(token =>
+        {
+            token.ToTable(GetTableName(typeof(UserToken), tablePrefix))
+                .HasKey(_ => _.Id);
+
+            token.Property(t => t.Name).HasMaxLength(256).IsUnicode();
+            token.Property(t => t.Value).HasMaxLength(256).IsUnicode();
+            token.Property(t => t.LoginProvider).HasMaxLength(256).IsUnicode();
+            token.Property(t => t.UserId).IsRequired();
+
+            token.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(_ => _.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
+    
     
 }
