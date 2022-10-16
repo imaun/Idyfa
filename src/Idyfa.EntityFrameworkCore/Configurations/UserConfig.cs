@@ -50,9 +50,8 @@ public static partial class EntityConfigurations
 
         builder.Entity<UserRole>(ur =>
         {
-            ur.ToTable(GetTableName(typeof(UserRole), tablePrefix)).HasKey(
-                _ => new { _.RoleId, _.UserId }
-            );
+            ur.ToTable(GetTableName(typeof(UserRole), tablePrefix))
+                .HasKey(_ => new { _.RoleId, _.UserId });
 
             ur.HasOne<User>()
                 .WithMany()
@@ -65,4 +64,22 @@ public static partial class EntityConfigurations
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }
+
+
+    /// <summary>
+    /// Configures <see cref="UserClaim"/> mapping for the Database schema.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="tablePrefix"></param>
+    public static void AddUserClaimConfiguration(this ModelBuilder builder, string tablePrefix = "")
+    {
+        builder.CheckArgumentIsNull(nameof(builder));
+
+        builder.Entity<UserClaim>(claim =>
+        {
+            claim.ToTable(GetTableName(typeof(UserClaim), tablePrefix))
+                .HasKey(_=> _.Id);
+        });
+    }
+
 }
