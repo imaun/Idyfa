@@ -1,3 +1,4 @@
+using System.Security.Policy;
 using Idyfa.Core;
 using Idyfa.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,33 @@ public static partial class EntityConfigurations
                 .WithMany()
                 .HasForeignKey(_ => _.CategoryId)
                 .OnDelete(DeleteBehavior.SetNull);
+        });
+    }
+
+    /// <summary>
+    /// Configures <see cref="UserRole"/> mapping for the Database schema. 
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="tablePrefix"></param>
+    public static void AddUserRoleConfiguration(this ModelBuilder builder, string tablePrefix = "")
+    {
+        builder.CheckArgumentIsNull(nameof(builder));
+
+        builder.Entity<UserRole>(ur =>
+        {
+            ur.ToTable(GetTableName(typeof(UserRole), tablePrefix)).HasKey(
+                _ => new { _.RoleId, _.UserId }
+            );
+
+            ur.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(_ => _.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            ur.HasOne<Role>()
+                .WithMany()
+                .HasForeignKey(_ => _.RoleId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }
