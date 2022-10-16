@@ -12,6 +12,8 @@ public class IdyfaOptions : IdentityOptions
     public IdyfaPasswordOptions PasswordOptions { get; set; }
     
     public IdyfaUserRegistrationOptions Registration { get; set; }
+    
+    public string TableNamesPrefix { get; set; }
 }
 
 
