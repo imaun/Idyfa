@@ -1,5 +1,3 @@
-using System.Globalization;
-using System.Security.Policy;
 using Idyfa.Core;
 using Idyfa.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -65,8 +63,7 @@ public static partial class EntityConfigurations
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }
-
-
+    
     /// <summary>
     /// Configures <see cref="UserClaim"/> mapping for the Database schema.
     /// </summary>
@@ -117,7 +114,7 @@ public static partial class EntityConfigurations
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="tablePrefix"></param>
-    public static void AddUserToken(this ModelBuilder builder, string tablePrefix = "")
+    public static void AddUserTokenConfiguration(this ModelBuilder builder, string tablePrefix = "")
     {
         builder.CheckArgumentIsNull(nameof(builder));
 
