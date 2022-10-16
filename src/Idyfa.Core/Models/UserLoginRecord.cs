@@ -6,11 +6,12 @@ public class UserLoginRecord
     protected UserLoginRecord()
     {
     }
-
     
     
     #region props
 
+    public long Id { get; protected set; }
+    
     public string UserId { get; protected set; }
     
     public string LoginUrl { get; protected set; }

@@ -137,6 +137,35 @@ public static partial class EntityConfigurations
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }
-    
-    
+
+    /// <summary>
+    /// Configures <see cref="UserLoginRecord"/> mapping for the Database schema.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="tablePrefix"></param>
+    public static void AddUserLoginRecordConfiguration(this ModelBuilder builder, string tablePrefix = "")
+    {
+        builder.CheckArgumentIsNull(nameof(builder));
+
+        builder.Entity<UserLoginRecord>(rec =>
+        {
+            rec.ToTable(GetTableName(typeof(UserLoginRecord), tablePrefix))
+                .HasKey(_ => _.Id);
+
+            rec.Property(r => r.UserId).HasMaxLength(256).IsRequired();
+            rec.Property(r => r.City).HasMaxLength(256).IsUnicode();
+            rec.Property(r => r.Country).HasMaxLength(256).IsUnicode();
+            rec.Property(r => r.IpAddress).HasMaxLength(50).IsUnicode();
+            rec.Property(r => r.HostName).HasMaxLength(256).IsUnicode();
+            rec.Property(r => r.LoginUrl).HasMaxLength(4000).IsUnicode();
+            rec.Property(r => r.OsName).HasMaxLength(256).IsUnicode();
+            rec.Property(r => r.UserAgent).HasMaxLength(1000).IsUnicode();
+            rec.Property(r => r.ExtraInfo).HasMaxLength(2000).IsUnicode();
+
+            rec.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(_ => _.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
 }
