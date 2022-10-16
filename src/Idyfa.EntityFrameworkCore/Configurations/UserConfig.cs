@@ -168,7 +168,23 @@ public static partial class EntityConfigurations
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }
-    
-    
-    
+
+
+    public static void AddUserUsedPasswordConfiguration(this ModelBuilder builder, string tablePrefix = "")
+    {
+        builder.CheckArgumentIsNull(nameof(builder));
+
+        builder.Entity<UserUsedPassword>(password =>
+        {
+            password.ToTable(GetTableName(typeof(UserUsedPassword), tablePrefix))
+                .HasKey(_ => _.Id);
+            password.Property(p => p.UserId).HasMaxLength(256).IsRequired();
+            password.Property(p => p.HashedPassword).HasMaxLength(256).IsRequired();
+
+            password.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(_ => _.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
 }

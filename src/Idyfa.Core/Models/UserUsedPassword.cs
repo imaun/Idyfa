@@ -6,6 +6,8 @@ public class UserUsedPassword
 
     #region props
 
+    public long Id { get; protected set; }
+    
     public string UserId { get; protected set; }
     
     public string HashedPassword { get; protected set; }
