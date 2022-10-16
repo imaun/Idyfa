@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Policy;
 using Idyfa.Core;
 using Idyfa.Core.Extensions;
@@ -82,4 +83,33 @@ public static partial class EntityConfigurations
         });
     }
 
+    /// <summary>
+    /// Configures <see cref="UserLogin"/> mapping for the Database schema.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="tablePrefix"></param>
+    public static void AddUserLoginConfiguration(this ModelBuilder builder, string tablePrefix)
+    {
+        builder.CheckArgumentIsNull(nameof(builder));
+
+        builder.Entity<UserLogin>(login =>
+        {
+            login.ToTable(GetTableName(typeof(UserLogin), tablePrefix))
+                .HasKey(_=> new
+                {
+                    _.UserId, _.ProviderKey
+                });
+
+            login.Property(l => l.LoginProvider).IsUnicode().HasMaxLength(256);
+            login.Property(l => l.ProviderKey).IsUnicode().HasMaxLength(256).IsRequired();
+            login.Property(l => l.ProviderDisplayName).IsUnicode().HasMaxLength(256);
+            login.Property(l => l.UserId).IsRequired();
+
+            login.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(_ => _.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
+    
 }
