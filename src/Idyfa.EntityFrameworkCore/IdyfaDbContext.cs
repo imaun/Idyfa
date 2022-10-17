@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Idyfa.EntityFrameworkCore;
 
-public class IdyfaDbContext : 
-    IdentityDbContext<User, Role, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+public class IdyfaDbContext 
+    : IdentityDbContext<User, Role, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
 {
     private readonly IdyfaOptions _idyfaOptions;
     
