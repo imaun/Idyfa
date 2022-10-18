@@ -30,6 +30,8 @@ public static partial class EntityConfigurations
             user.Property(u => u.ConcurrencyStamp).HasMaxLength(500).IsConcurrencyToken();
             user.Property(u => u.NormalizedUserName).IsUnicode().HasMaxLength(256);
             user.Property(u => u.NormalizedEmail).IsUnicode().HasMaxLength(1000);
+            user.Property(u => u.ApiKey).IsUnicode().HasMaxLength(50).IsRequired();
+            user.Property(u => u.ReferralCode).IsUnicode().HasMaxLength(10).IsRequired();
 
             user.HasOne<UserCategory>()
                 .WithMany()
