@@ -4,7 +4,7 @@ namespace Idyfa.Core;
 
 public class User : IdentityUser<string>
 {
-    private User()
+    public User()
     {
     }
     

@@ -38,8 +38,8 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         IServiceProvider services, 
         ILogger<IdyfaUserManager> logger, 
         IdyfaUserUsedPasswordManager usedPasswordManager
-        ) : base(store, optionsAccessor, passwordHasher, userValidators, 
-                    passwordValidators, keyNormalizer, errorDescriber, services, logger)
+    ) : base(store, optionsAccessor, passwordHasher, userValidators, 
+                passwordValidators, keyNormalizer, errorDescriber, services, logger)
     {
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         _store = store ?? throw new ArgumentNullException(nameof(store));

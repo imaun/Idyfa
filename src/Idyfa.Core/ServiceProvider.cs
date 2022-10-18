@@ -24,6 +24,7 @@ public static class ServiceProvider  {
     {
         var options = services.AddIdyfaOptions();
         services.AddIdyfaServices();
+        services.AddIdentityServices(options);
 
         return services;
     }
@@ -113,10 +114,38 @@ public static class ServiceProvider  {
         if (options is null)
             throw new IdyfaOptionsNotFoundException();
 
-        services.AddIdentity<User, Role>(__ =>
+        services.AddIdentityCore<User>(__ =>
         {
-            
-        });
+            setSignInOptions(__.SignIn, options);
+            setLockoutOptions(__.Lockout, options);
+            setPasswordOptions(__.Password, options);
+        })
+            .AddRoles<Role>()
+            .AddDefaultTokenProviders()
+            .AddSignInManager<IdyfaSignInManager>()
+            .AddUserManager<IdyfaUserManager>()
+            .AddClaimsPrincipalFactory<IdyfaClaimPrincipalFactory>();
+        
+        // services.AddIdentity<User, Role>(__ =>
+        // {
+        //     setSignInOptions(__.SignIn, options);
+        //     setLockoutOptions(__.Lockout, options);
+        //     setPasswordOptions(__.Password, options);
+        // })
+        //     .AddRoles<Role>()
+        //     // .AddUserStore<IIdyfaUserRepository>()
+        //     .AddUserManager<IdyfaUserManager>()
+        //     // .AddRoleStore<IIdyfaRoleRepository>()
+        //     .AddSignInManager<IdyfaSignInManager>()
+        //     .AddErrorDescriber<IdyfaErrorDescriber>()
+        //     .AddDefaultTokenProviders()
+        //     // .AddTokenProvider<TwoFactorBySmsTokenProvider<User>>("sms")
+        //     
+        //     ;
+
+        services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
+        services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
+        services.AddScoped<IIdyfaUserUsedPasswordManager, IdyfaUserUsedPasswordManager>();
     }
 
     private static void setPasswordOptions(

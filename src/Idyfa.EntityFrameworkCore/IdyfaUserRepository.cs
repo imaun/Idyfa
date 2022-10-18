@@ -2,6 +2,7 @@ using Idyfa.Core;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Idyfa.EntityFrameworkCore;
