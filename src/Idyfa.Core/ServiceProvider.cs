@@ -3,6 +3,8 @@ using Idyfa.Core.Services;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Exceptions;
 using Idyfa.Core.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
@@ -103,6 +105,57 @@ public static class ServiceProvider  {
         services.AddScoped<IIdyfaSignInManager, IdyfaSignInManager>();
         
         return services;
+    }
+
+    private static void AddIdentityServices(
+        this IServiceCollection services, IdyfaOptions options)
+    {
+        if (options is null)
+            throw new IdyfaOptionsNotFoundException();
+
+        services.AddIdentity<User, Role>(__ =>
+        {
+            
+        });
+    }
+
+    private static void setPasswordOptions(
+        PasswordOptions passwordOptions, IdyfaOptions options)
+    {
+        passwordOptions.RequireDigit = options.PasswordOptions.RequireDigit;
+        passwordOptions.RequireLowercase = options.PasswordOptions.RequireLowercase;
+        passwordOptions.RequiredLength = options.PasswordOptions.RequiredLength;
+        passwordOptions.RequireUppercase = options.PasswordOptions.RequireUppercase;
+        passwordOptions.RequiredUniqueChars = options.PasswordOptions.RequiredUniqueChars;
+        passwordOptions.RequireNonAlphanumeric = options.PasswordOptions.RequireNonAlphanumeric;
+    }
+
+    private static void setCookieOptions(
+        CookieAuthenticationOptions cookieOptions, IdyfaOptions options)
+    {
+        cookieOptions.Cookie.Name = options.Authentication.CookieName;
+        cookieOptions.Cookie.HttpOnly = true;
+        cookieOptions.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+        cookieOptions.Cookie.IsEssential = true; //TODO : this will store cookie without user's contest!
+        cookieOptions.Cookie.SameSite = SameSiteMode.Lax;
+        cookieOptions.LoginPath = options.Authentication.LoginPath;
+        cookieOptions.LogoutPath = options.Authentication.LogoutPath;
+    }
+    
+    private static void setSignInOptions(
+        SignInOptions signInOptions, IdyfaOptions options)
+    {
+        signInOptions.RequireConfirmedAccount = options.SignIn.RequireConfirmedAccount;
+        signInOptions.RequireConfirmedEmail = options.SignIn.RequireConfirmedEmail;
+        signInOptions.RequireConfirmedPhoneNumber = options.SignIn.RequireConfirmedPhoneNumber;
+    }
+
+    private static void setLockoutOptions(
+        LockoutOptions lockoutOptions, IdyfaOptions options)
+    {
+        lockoutOptions.AllowedForNewUsers = options.Lockout.AllowedForNewUsers;
+        lockoutOptions.DefaultLockoutTimeSpan = options.Lockout.DefaultLockoutTimeSpan;
+        lockoutOptions.MaxFailedAccessAttempts = options.Lockout.MaxFailedAccessAttempts;
     }
     
     #endregion

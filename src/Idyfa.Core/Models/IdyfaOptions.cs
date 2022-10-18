@@ -13,6 +13,8 @@ public class IdyfaOptions : IdentityOptions
     public IdyfaUserRegistrationOptions Registration { get; set; }
     
     public string TableNamesPrefix { get; set; }
+    
+    public IdyfaAuthOptions Authentication { get; set; }
 }
 
 
@@ -75,4 +77,14 @@ public class IdyfaDbConfigItem
     public string Name { get; set; }
     public string ConnectionString { get; set; }
     public int Timeout { get; set; }
+}
+
+public class IdyfaAuthOptions
+{
+    public string CookieName { get; set; }
+    public string LoginPath { get; set; }
+    public string LogoutPath { get; set; }
+    public string AccessDeniedPath { get; set; }
+    public TimeSpan ExpireTimeSpan { get; set; }
+    public TimeSpan SlidingExpiration { get; set; }
 }
