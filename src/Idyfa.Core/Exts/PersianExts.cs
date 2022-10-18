@@ -95,7 +95,7 @@ public static class PersianExts
     
     /// <summary>
     /// Converts English digits of a given string to their equivalent Persian digits.
-    /// Based on : https://github.com/VahidN/DNTPersianUtils.Core/blob/34b9ae00ad3584bc9ef34033c6402d1b8ae7a148/src/DNTPersianUtils.Core/PersianNumbersUtils.cs
+    /// FROM : https://github.com/VahidN/DNTPersianUtils.Core/blob/34b9ae00ad3584bc9ef34033c6402d1b8ae7a148/src/DNTPersianUtils.Core/PersianNumbersUtils.cs
     /// </summary>
     /// <param name="data">English number</param>
     /// <returns></returns>
@@ -168,7 +168,7 @@ public static class PersianExts
 
     /// <summary>
     /// Converts Persian and Arabic digits of a given string to their equivalent English digits.
-    /// Based on : https://github.com/VahidN/DNTPersianUtils.Core/blob/34b9ae00ad3584bc9ef34033c6402d1b8ae7a148/src/DNTPersianUtils.Core/PersianNumbersUtils.cs
+    /// FROM : https://github.com/VahidN/DNTPersianUtils.Core/blob/34b9ae00ad3584bc9ef34033c6402d1b8ae7a148/src/DNTPersianUtils.Core/PersianNumbersUtils.cs
     /// </summary>
     /// <param name="data">Persian number</param>
     /// <returns></returns>

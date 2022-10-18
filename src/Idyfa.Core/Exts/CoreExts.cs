@@ -8,7 +8,8 @@ namespace Idyfa.Core.Extensions;
 public static class CoreExts
 {
     private static readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
-    
+    private static readonly Random _referal = new Random();
+
     /// <summary>
     /// Checks if the argument is null.
     /// </summary>
@@ -59,6 +60,9 @@ public static class CoreExts
 
         return builder.ToString();
     }
+    
+    public static string GenerateReferalCode()
+        => _referal.Next(0, 1000000).ToString("D6");
     
     public static string ToStringDecimal(this decimal d, byte decimals) {
         var fmt = (decimals > 0) ? "0." + new string('0', decimals) : "0";

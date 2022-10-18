@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idyfa.Core", "src\Idyfa.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idyfa.EntityFrameworkCore", "src\Idyfa.EntityFrameworkCore\Idyfa.EntityFrameworkCore.csproj", "{38242F87-BF83-48E4-82E2-9C81680D7C04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idyfa.EntityFrameworkCore.SQLite", "src\Idyfa.EntityFrameworkCore.SQLite\Idyfa.EntityFrameworkCore.SQLite.csproj", "{A9342FB3-510A-4423-8F4F-E6C7A8846A78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2EADB6D3-7C7E-4D23-A3E8-DE66826F768C} = {0A449357-0D6F-48FF-90D3-599CB23F6707}
 		{38242F87-BF83-48E4-82E2-9C81680D7C04} = {0A449357-0D6F-48FF-90D3-599CB23F6707}
+		{A9342FB3-510A-4423-8F4F-E6C7A8846A78} = {0A449357-0D6F-48FF-90D3-599CB23F6707}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2EADB6D3-7C7E-4D23-A3E8-DE66826F768C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +33,9 @@ Global
 		{38242F87-BF83-48E4-82E2-9C81680D7C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38242F87-BF83-48E4-82E2-9C81680D7C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38242F87-BF83-48E4-82E2-9C81680D7C04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9342FB3-510A-4423-8F4F-E6C7A8846A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9342FB3-510A-4423-8F4F-E6C7A8846A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9342FB3-510A-4423-8F4F-E6C7A8846A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9342FB3-510A-4423-8F4F-E6C7A8846A78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
