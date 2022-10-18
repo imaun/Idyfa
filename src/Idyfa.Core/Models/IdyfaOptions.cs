@@ -4,6 +4,7 @@ namespace Idyfa.Core;
 
 public class IdyfaOptions : IdentityOptions
 {
+    public IdyfaDbConifg DbConifg { get; set; }
     
     public UserNameType UserNameType { get; set; }
     
@@ -60,4 +61,23 @@ public class IdyfaPasswordOptions : PasswordOptions
 
     public int ChangePasswordReminderDays { get; set; }
 
+}
+
+public class IdyfaDbConifg
+{
+    public IdyfaDbConifg()
+    {
+        Databases = new List<IdyfaDbConfigItem>();
+    }
+    
+    public string DbTypeName { get; set; }
+    
+    public IEnumerable<IdyfaDbConfigItem> Databases { get; set; } 
+}
+
+public class IdyfaDbConfigItem
+{
+    public string Name { get; set; }
+    public string ConnectionString { get; set; }
+    public int Timeout { get; set; }
 }

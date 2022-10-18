@@ -1,4 +1,5 @@
 ﻿using Idyfa.Core;
+using Idyfa.Core.Contracts;
 using Idyfa.Core.Exceptions;
 using Idyfa.EntityFrameworkCore.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace Idyfa.EntityFrameworkCore;
 
 public class IdyfaDbContext 
-    : IdentityDbContext<User, Role, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+    : IdentityDbContext<User, Role, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>, 
+        IIdyfaDbContext
 {
     private readonly IdyfaOptions _idyfaOptions;
     
