@@ -47,7 +47,7 @@ public class IdyfaPasswordValidator : PasswordValidator<User>
         
         var passwordOptions = _options.PasswordOptions;
         if (!passwordOptions.CanIncludeUserName && 
-            user.GetUserName(_options.UserNameType).IsNullOrEmpty())
+            user.GetUserName(_options.UserOptions.UserNameType).IsNullOrEmpty())
         {
             errors.Add(IdyfaIdentityErrorProvider.PasswordContainsUserName);
             return IdentityResult.Failed(errors.ToArray());

@@ -4,9 +4,7 @@ namespace Idyfa.Core;
 
 public class IdyfaOptions : IdentityOptions
 {
-    public IdyfaDbConifg DbConifg { get; set; }
-    
-    public UserNameType UserNameType { get; set; }
+    public IdyfaDbConfig DbConfig { get; set; }
     
     public IdyfaUserOptions UserOptions { get; set; }
     
@@ -18,13 +16,15 @@ public class IdyfaOptions : IdentityOptions
 }
 
 
-public class IdyfaUserOptions
+public class IdyfaUserOptions : UserOptions
 {
+    public UserNameType UserNameType { get; set; }
+    
     public ISet<string> BannedEmails { get; set; }
     
     public ISet<string> BannedUserNames { get; set; }
     
-    public string InvalidCharacters { get; set; }
+    public string InvalidCharactersInUserName { get; set; }
 }
 
 public class IdyfaUserRegistrationOptions
@@ -63,13 +63,8 @@ public class IdyfaPasswordOptions : PasswordOptions
 
 }
 
-public class IdyfaDbConifg
+public class IdyfaDbConfig
 {
-    public IdyfaDbConifg()
-    {
-        Databases = new List<IdyfaDbConfigItem>();
-    }
-    
     public string DbTypeName { get; set; }
     
     public IEnumerable<IdyfaDbConfigItem> Databases { get; set; } 

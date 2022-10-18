@@ -3,7 +3,7 @@ using Idyfa.Core.Services;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Exceptions;
 using Idyfa.Core.Extensions;
-
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -76,11 +76,27 @@ public static class ServiceProvider  {
         services.AddIdyfaOptions(options);
         return options;
     }
+
+    public static IdyfaOptions GetIdyfaOptions(this IServiceCollection services)
+    {
+        services.CheckArgumentIsNull(nameof(services));
+        var provider = services.BuildServiceProvider();
+        var optionsSnapshot = provider.GetRequiredService<IOptionsSnapshot<IdyfaOptions>>();
+        var options = optionsSnapshot.Value;
+
+        if (options is null)
+            throw new IdyfaOptionsNotFoundException();
+
+        return options;
+    }
     
     private static IServiceCollection AddIdyfaServices(this IServiceCollection services)
     {
         services.CheckArgumentIsNull(nameof(services));
 
+        services.AddHttpContextAccessor();
+        // services.AddScoped<>()
+        services.AddScoped<ILookupNormalizer, IdyfaLookupNormalizer>();
         services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
         services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
         services.AddScoped<IIdyfaUserUsedPasswordManager, IdyfaUserUsedPasswordManager>();

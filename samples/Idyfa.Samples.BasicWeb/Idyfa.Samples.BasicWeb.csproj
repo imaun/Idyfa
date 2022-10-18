@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Idyfa.Core\Idyfa.Core.csproj" />
+      <ProjectReference Include="..\..\src\Idyfa.EntityFrameworkCore.SQLite\Idyfa.EntityFrameworkCore.SQLite.csproj" />
+      <ProjectReference Include="..\..\src\Idyfa.EntityFrameworkCore\Idyfa.EntityFrameworkCore.csproj" />
+    </ItemGroup>
+
+</Project>

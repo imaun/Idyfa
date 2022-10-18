@@ -22,9 +22,9 @@ public class IdyfaUserValidator : UserValidator<User>
     {
         var result = await base.ValidateAsync(manager, user);
         var errors = result.Succeeded ? new List<IdentityError>() : result.Errors.ToList();
-        var invalidChars = _userOptions.InvalidCharacters.ToArray();
+        var invalidChars = _userOptions.InvalidCharactersInUserName.ToArray();
         
-        if (_options.UserNameType == UserNameType.UserName &&
+        if (_options.UserOptions.UserNameType == UserNameType.UserName &&
             _options.Registration.UserNameIsRequired)
         {
             if (_options.Registration.UserNameMinLength.HasValue &&
@@ -48,7 +48,7 @@ public class IdyfaUserValidator : UserValidator<User>
             }
         }
 
-        if (_options.UserNameType == UserNameType.Email)
+        if (_options.UserOptions.UserNameType == UserNameType.Email)
         {
             if (_options.Registration.EmailIsRequired && user.Email.IsNullOrEmpty())
             {
@@ -69,7 +69,7 @@ public class IdyfaUserValidator : UserValidator<User>
             }
         }
 
-        if (_options.UserNameType == UserNameType.PhoneNumber)
+        if (_options.UserOptions.UserNameType == UserNameType.PhoneNumber)
         {
             if (_options.Registration.PhoneNumberIsRequired &&
                 string.IsNullOrWhiteSpace(user.PhoneNumber))

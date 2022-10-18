@@ -9,11 +9,10 @@ public static class ServiceProvider
 {
  
     public static void AddIdyfaEntityFrameworkCore(
-        this IServiceCollection services, 
-        Action<DbContextOptionsBuilder> dbContextOptionBuilder)
+        this IServiceCollection services)
     {
         services.CheckArgumentIsNull(nameof(services));
-        services.AddDbContext<IdyfaDbContext>(dbContextOptionBuilder);
+        // services.AddDbContext<IdyfaDbContext>(dbContextOptionBuilder);
         services.AddScoped<IIdyfaUserRepository, IdyfaUserRepository>();
         services.AddScoped<IIdyfaRoleRepository, IdyfaRoleRepository>();
     }
