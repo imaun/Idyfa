@@ -1,3 +1,4 @@
+using System.Collections;
 using Idyfa.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -30,8 +31,20 @@ public class IdyfaSQLiteContextFactory : IDesignTimeDbContextFactory<IdyfaSQLite
         var options = services.BuildServiceProvider()
             .GetRequiredService<IOptionsSnapshot<IdyfaOptions>>()
             .Value;
-        var dbConfig = options.DbConifg;
-        var sqliteCfg = dbConfig.Databases.FirstOrDefault(_ => _.Name.ToUpper() == "sqlite".ToUpper());
+        Console.WriteLine(options.ToString());
+        Console.WriteLine("Options found...");
+        if(options.DbConfig is null)
+            Console.WriteLine("DbConfig NOT FOUND>>>>");
+        var dbConfig = options.DbConfig;
+        if(dbConfig is not null)
+            Console.WriteLine("DbConfig Found...");
+        Console.WriteLine(dbConfig.DbTypeName);
+        if(!dbConfig.Databases.Any())
+            Console.WriteLine("Databases not found...");
+        var sqliteCfg = dbConfig.Databases.FirstOrDefault(_ => string.Equals(
+            _.Name, "sqlite", 
+            StringComparison.CurrentCultureIgnoreCase));
+        
         if (sqliteCfg is null)
             throw new NullReferenceException("SQLite configurations not found.");
         
