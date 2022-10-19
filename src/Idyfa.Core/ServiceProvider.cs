@@ -124,6 +124,7 @@ public static class ServiceProvider  {
             .AddDefaultTokenProviders()
             .AddSignInManager<IdyfaSignInManager>()
             .AddUserManager<IdyfaUserManager>()
+            .AddPasswordValidator<IdyfaPasswordValidator>()
             .AddClaimsPrincipalFactory<IdyfaClaimPrincipalFactory>();
         
         // services.AddIdentity<User, Role>(__ =>
@@ -146,6 +147,10 @@ public static class ServiceProvider  {
         services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
         services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
         services.AddScoped<IIdyfaUserUsedPasswordManager, IdyfaUserUsedPasswordManager>();
+        services.AddScoped<ILookupNormalizer, IdyfaLookupNormalizer>();
+        services.AddScoped<IPasswordValidator<User>, IdyfaPasswordValidator>();
+        services.AddScoped<IIdyfaSignInManager, IdyfaSignInManager>();
+        
     }
 
     private static void setPasswordOptions(
