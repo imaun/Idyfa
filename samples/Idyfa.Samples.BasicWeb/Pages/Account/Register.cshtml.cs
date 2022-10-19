@@ -17,7 +17,7 @@ public class Register : PageModel
         var user = Core.User.RegisterUser(
             "imun", "dsdasd", "imun22@gmail.com", "9120939232", "iman", "nemati");
 
-        var result = await _userManager.CreateAsync(user, "sadasfdasd");
+        var result = await _userManager.CreateAsync(user, "imUn_%rrR14^3}}");
     }
     
     public string UserName { get; set; }
