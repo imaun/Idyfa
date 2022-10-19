@@ -38,6 +38,19 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
         return result;
     }
 
+    public async Task<UserUsedPassword> AddToUsedPasswordsAsync(User user, string password)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        if (password.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(password));
+
+        var usedPassword = UserUsedPassword.New()
+            .WithUserId(user.Id)
+            .WithHashedPassword(_passwordHasher.HashPassword(user, password));
+        await AddToUsedPasswordsAsync(user, usedPassword);
+        return usedPassword;
+    }
+
     public async Task AddToUsedPasswordsAsync(User user, UserUsedPassword password)
     {
         user.CheckArgumentIsNull(nameof(user));

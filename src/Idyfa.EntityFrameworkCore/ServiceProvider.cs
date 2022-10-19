@@ -15,7 +15,7 @@ public static class ServiceProvider
         // services.AddDbContext<IdyfaDbContext>(dbContextOptionBuilder);
         services.AddScoped<IIdyfaUserRepository, IdyfaUserRepository>();
         services.AddScoped<IIdyfaRoleRepository, IdyfaRoleRepository>();
-        services.AddScoped<>()
+        services.AddScoped<IIdyfaUserUsedPasswordRepository, IdyfaUserUsedPasswordRepository>();
     }
     
 }
