@@ -87,7 +87,7 @@ public static partial class EntityConfigurations
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="tablePrefix"></param>
-    public static void AddUserLoginConfiguration(this ModelBuilder builder, string tablePrefix)
+    public static void AddUserLoginConfiguration(this ModelBuilder builder, string tablePrefix = "")
     {
         builder.CheckArgumentIsNull(nameof(builder));
 

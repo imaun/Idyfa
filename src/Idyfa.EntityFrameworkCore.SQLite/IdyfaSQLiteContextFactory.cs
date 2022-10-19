@@ -53,6 +53,6 @@ public class IdyfaSQLiteContextFactory : IDesignTimeDbContextFactory<IdyfaSQLite
         var optionsBuilder = new DbContextOptionsBuilder<IdyfaDbContext>();
         optionsBuilder.Configure(sqliteCfg, services.BuildServiceProvider());
         
-        return new IdyfaSQLiteDbContext(optionsBuilder.Options, options);
+        return new IdyfaSQLiteDbContext(optionsBuilder.Options);
     }
 }

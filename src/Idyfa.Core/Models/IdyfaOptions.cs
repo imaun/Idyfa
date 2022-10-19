@@ -25,8 +25,6 @@ public class IdyfaUserOptions : UserOptions
     public ISet<string> BannedEmails { get; set; }
     
     public ISet<string> BannedUserNames { get; set; }
-    
-    public string InvalidCharactersInUserName { get; set; }
 }
 
 public class IdyfaUserRegistrationOptions
@@ -86,5 +84,5 @@ public class IdyfaAuthOptions
     public string LogoutPath { get; set; }
     public string AccessDeniedPath { get; set; }
     public TimeSpan ExpireTimeSpan { get; set; }
-    public TimeSpan SlidingExpiration { get; set; }
+    public bool SlidingExpiration { get; set; }
 }

@@ -5,11 +5,8 @@ namespace Idyfa.EntityFrameworkCore.SQLite;
 
 public class IdyfaSQLiteDbContext : IdyfaDbContext
 {
-    public IdyfaSQLiteDbContext(
-            DbContextOptions options, IdyfaOptions idyfaOptions
-        ) : base(options, idyfaOptions)
+    public IdyfaSQLiteDbContext(DbContextOptions options) : base(options)
     {
     }
-    
     
 }

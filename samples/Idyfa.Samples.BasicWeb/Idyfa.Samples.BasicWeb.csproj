@@ -13,4 +13,8 @@
       <ProjectReference Include="..\..\src\Idyfa.EntityFrameworkCore\Idyfa.EntityFrameworkCore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Pages\Login" />
+    </ItemGroup>
+
 </Project>

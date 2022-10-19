@@ -61,7 +61,7 @@ public static class CoreExts
         return builder.ToString();
     }
     
-    public static string GenerateReferalCode()
+    public static string GenerateReferralCode()
         => _referal.Next(0, 1000000).ToString("D6");
     
     public static string ToStringDecimal(this decimal d, byte decimals) {
@@ -88,7 +88,7 @@ public static class CoreExts
         return ((sourceVal - targetVal) / Math.Abs(sourceVal)) * 100;
     }
 
-    public static int CalcuateAge(this DateTime startDate) {
+    public static int CalculateAge(this DateTime startDate) {
         var today = DateTime.Today;
         var age = today.Year - startDate.Year;
         var diffMonths = today.Month - startDate.Month;

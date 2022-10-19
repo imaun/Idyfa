@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Idyfa.Core.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace Idyfa.Core;
 
@@ -7,6 +8,119 @@ public class User : IdentityUser<string>
     protected User()
     {
     }
+
+
+    #region Builders
+
+    public static User New()
+    {
+        var user = new User
+        {
+            Id = Guid.NewGuid().ToString(),
+            CreateDate = DateTime.UtcNow,
+            Status = UserStatus.Created,
+            ApiKey = CoreExts.GenerateToken(20),
+            ReferralCode = CoreExts.GenerateReferralCode()
+        };
+        return user;
+    }
+
+    public static User RegisterUser(
+        string userName, string password, string email,
+        string phoneNumber, string firstName, string lastName)
+    {
+        var user = User.New()
+            .WithUserName(userName)
+            .WithEmail(email)
+            .WithPhoneNumber(phoneNumber)
+            .WithFirstName(firstName)
+            .WithLastName(lastName)
+            .WithPhoneNumber(phoneNumber)
+            .WithRegisterDate(DateTime.UtcNow);
+
+        return user;
+    }
+
+    public User WithId(string id)
+    {
+        Id = id;
+        return this;
+    }
+
+    public User WithUserName(string userName)
+    {
+        UserName = userName;
+        return this;
+    }
+
+    public User WithPhoneNumber(string phoneNumber)
+    {
+        PhoneNumber = phoneNumber;
+        return this;
+    }
+
+    public User WithFirstName(string firstName)
+    {
+        FirstName = firstName;
+        return this;
+    }
+
+    public User WithLastName(string lastName)
+    {
+        LastName = lastName;
+        return this;
+    }
+
+    public User WithEmail(string email)
+    {
+        Email = email;
+        return this;
+    }
+
+    public User WithNationalCode(string nationalCode)
+    {
+        NationalCode = nationalCode;
+        return this;
+    }
+
+    public User WithStatus(UserStatus status)
+    {
+        Status = status;
+        LastStatusChanged = DateTime.UtcNow;
+        return this;
+    }
+
+    public User WithBirthDate(DateTime? birthDate)
+    {
+        BirthDate = birthDate;
+        return this;
+    }
+
+    public User WithRegisterDate(DateTime registerDate)
+    {
+        RegisterDate = registerDate;
+        return this;
+    }
+
+    public User WithApiKey(string apiKey)
+    {
+        ApiKey = apiKey;
+        return this;
+    }
+
+    public User WithReferralCode(string referralCode)
+    {
+        ReferralCode = referralCode;
+        return this;
+    }
+
+    public User WithCategoryId(Guid categoryId)
+    {
+        CategoryId = categoryId;
+        return this;
+    }
+
+    #endregion
     
     #region props
 

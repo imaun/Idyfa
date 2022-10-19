@@ -21,7 +21,27 @@ builder.Services.AddIdyfaSQLiteDatabase(sqliteCfg);
 builder.Services.AddIdyfaEntityFrameworkCore();
 builder.Services.AddIdyfaCore(options);
 
+builder.Services.AddRazorPages();
+builder.Services.AddMvc()
+    .AddRazorPagesOptions(_ =>
+
+    {
+    });
+
+builder.Services.AddAuthorization().AddAuthentication();
+
 var app = builder.Build();
 app.MapGet("/", () => "Hello World!");
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllers();
+});
+app.MapRazorPages();
 
 app.Run();

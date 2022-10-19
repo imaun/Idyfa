@@ -22,7 +22,6 @@ public class IdyfaUserValidator : UserValidator<User>
     {
         var result = await base.ValidateAsync(manager, user);
         var errors = result.Succeeded ? new List<IdentityError>() : result.Errors.ToList();
-        var invalidChars = _userOptions.InvalidCharactersInUserName.ToArray();
         
         if (_options.UserOptions.UserNameType == UserNameType.UserName &&
             _options.Registration.UserNameIsRequired)
@@ -34,12 +33,9 @@ public class IdyfaUserValidator : UserValidator<User>
                     _options.Registration.UserNameMinLength.Value));
                 return IdentityResult.Failed(errors.ToArray());
             }
-
-            if (invalidChars.Any(user.UserName.Contains))
-            {
-                //TODO : error invalid chars
-            }
-
+            
+            //TODO : check valid username chars
+            
             if (_userOptions.BannedUserNames.Any() &&
                 _userOptions.BannedUserNames.Contains(user.UserName))
             {
@@ -56,11 +52,6 @@ public class IdyfaUserValidator : UserValidator<User>
                 return IdentityResult.Failed(errors.ToArray());
             }
 
-            if (invalidChars.Any(user.Email.Contains))
-            {
-                //TODO : Error
-            }
-            
             if (_userOptions.BannedEmails.Any() &&
                 _userOptions.BannedUserNames.Contains(user.Email))
             {
@@ -78,11 +69,6 @@ public class IdyfaUserValidator : UserValidator<User>
                 return IdentityResult.Failed(errors.ToArray());
             }
 
-            if (invalidChars.Any(user.PhoneNumber.Contains))
-            {
-                //TODO : error
-            }
-            
             if (!user.PhoneNumber.IsDigit() ||
                 !user.PhoneNumber.IsAValidIranianPhoneNumber())
             {

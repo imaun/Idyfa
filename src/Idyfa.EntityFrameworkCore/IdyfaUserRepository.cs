@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Idyfa.EntityFrameworkCore;
 
 /// <inheritdoc />
-public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUserRepository
+public class IdyfaUserRepository : 
+    IdyfaBaseRepository<User, string>, IIdyfaUserRepository, IUserPasswordStore<User>
 {
     public IdyfaUserRepository(IdyfaDbContext db) : base(db)
     {
@@ -334,5 +335,21 @@ public class IdyfaUserRepository : IdyfaBaseRepository<User, string>, IIdyfaUser
         _db.Set<UserToken>().Remove(token);
         _db.Entry(token).State = EntityState.Deleted;
         await _db.SaveChangesAsync(cancellationToken);
+    }
+
+    public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
+    {
+        user.PasswordHash = passwordHash;
+        return Task.FromResult(user);
+    }
+
+    public Task<string> GetPasswordHashAsync(User user, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(user.PasswordHash);
+    }
+
+    public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(user.PasswordHash.IsNotNullOrEmpty());
     }
 }
