@@ -1,7 +1,6 @@
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Extensions;
 using Idyfa.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

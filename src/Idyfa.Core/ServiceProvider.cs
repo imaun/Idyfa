@@ -104,6 +104,8 @@ public static class ServiceProvider  {
         services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
         services.AddScoped<IIdyfaUserUsedPasswordManager, IdyfaUserUsedPasswordManager>();
         services.AddScoped<IIdyfaSignInManager, IdyfaSignInManager>();
+        services.AddScoped<IPasswordValidator<User>, IdyfaPasswordValidator>();
+        services.AddScoped<ISecurityStampValidator, IdyfaSecurityStampValidator>();
         
         return services;
     }
@@ -124,7 +126,9 @@ public static class ServiceProvider  {
             .AddDefaultTokenProviders()
             .AddSignInManager<IdyfaSignInManager>()
             .AddUserManager<IdyfaUserManager>()
+            .AddErrorDescriber<IdyfaErrorDescriber>()
             .AddPasswordValidator<IdyfaPasswordValidator>()
+            .AddDefaultTokenProviders()
             .AddClaimsPrincipalFactory<IdyfaClaimPrincipalFactory>();
         
         // services.AddIdentity<User, Role>(__ =>
@@ -143,14 +147,6 @@ public static class ServiceProvider  {
         //     // .AddTokenProvider<TwoFactorBySmsTokenProvider<User>>("sms")
         //     
         //     ;
-
-        services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
-        services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
-        services.AddScoped<IIdyfaUserUsedPasswordManager, IdyfaUserUsedPasswordManager>();
-        services.AddScoped<ILookupNormalizer, IdyfaLookupNormalizer>();
-        services.AddScoped<IPasswordValidator<User>, IdyfaPasswordValidator>();
-        services.AddScoped<IIdyfaSignInManager, IdyfaSignInManager>();
-        
     }
 
     private static void setPasswordOptions(
