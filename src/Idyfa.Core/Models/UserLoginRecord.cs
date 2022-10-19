@@ -3,7 +3,7 @@ namespace Idyfa.Core;
 public class UserLoginRecord
 {
 
-    protected UserLoginRecord()
+    public UserLoginRecord()
     {
     }
     
@@ -29,5 +29,7 @@ public class UserLoginRecord
     public string City { get; protected set; }
 
     public string ExtraInfo { get; protected set; }
+    
+    
     #endregion
 }

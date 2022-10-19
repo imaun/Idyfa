@@ -5,7 +5,7 @@ namespace Idyfa.Core;
 public class Role : IdentityRole<string>
 {
 
-    private Role(): base() { }
+    protected Role(): base() { }
     
     #region props
 

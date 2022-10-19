@@ -15,11 +15,11 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-builder.Services.AddIdyfaEntityFrameworkCore();
-builder.Services.AddIdyfaCore();
 var sqliteCfg = options.DbConfig.Databases.FirstOrDefault(_ =>
-        _.Name.Equals("SQLite", StringComparison.InvariantCultureIgnoreCase));
+    _.Name.Equals("SQLite", StringComparison.InvariantCultureIgnoreCase));
 builder.Services.AddIdyfaSQLiteDatabase(sqliteCfg);
+builder.Services.AddIdyfaEntityFrameworkCore();
+builder.Services.AddIdyfaCore(options);
 
 var app = builder.Build();
 app.MapGet("/", () => "Hello World!");

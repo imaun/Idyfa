@@ -1,10 +1,8 @@
-using System.Security.Claims;
 using Idyfa.Core;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Idyfa.EntityFrameworkCore;
 

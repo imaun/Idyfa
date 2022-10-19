@@ -4,7 +4,7 @@ namespace Idyfa.Core;
 
 public class UserRole : IdentityUserRole<string>
 {
-    private UserRole() { }
+    protected UserRole() { }
 
     public static UserRole New() => new();
 

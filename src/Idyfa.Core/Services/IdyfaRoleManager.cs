@@ -25,12 +25,7 @@ public class IdyfaRoleManager : RoleManager<Role>, IIdyfaRoleManager
         role.CheckArgumentIsNull(nameof(role));
         claim.CheckArgumentIsNull(nameof(claim));
 
-        var roleClaim = new RoleClaim
-        {
-            RoleId = role.Id,
-            ClaimType = claim.Type,
-            ClaimValue = claim.Value
-        };
+        var roleClaim = RoleClaim.New(role.Id, claim.Type, claim.Value);
         await _store.AddClaimAsync(roleClaim);
         return IdentityResult.Success;
     }

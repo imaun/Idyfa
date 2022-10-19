@@ -38,7 +38,8 @@ public static class ServiceProvider  {
         this IServiceCollection services, IdyfaOptions options)
     {
         services.AddIdyfaOptions(options);
-        services.AddIdyfaServices();
+        // services.AddIdyfaServices();
+        services.AddIdentityServices(options);
         
         return services;
     }
@@ -52,8 +53,10 @@ public static class ServiceProvider  {
         this IServiceCollection services, Action<IdyfaOptions> options)
     {
         services.Configure(options);
-        services.AddIdyfaOptions();
+        var myoptions = services.AddIdyfaOptions();
         services.AddIdyfaServices();
+        services.AddIdentityServices(myoptions);
+        
         return services;
     }
     
@@ -100,12 +103,13 @@ public static class ServiceProvider  {
         services.AddHttpContextAccessor();
         // services.AddScoped<>()
         services.AddScoped<ILookupNormalizer, IdyfaLookupNormalizer>();
-        services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
-        services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
+        // services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
+        // services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
         services.AddScoped<IIdyfaUserUsedPasswordManager, IdyfaUserUsedPasswordManager>();
-        services.AddScoped<IIdyfaSignInManager, IdyfaSignInManager>();
+        // services.AddScoped<IIdyfaSignInManager, IdyfaSignInManager>();
         services.AddScoped<IPasswordValidator<User>, IdyfaPasswordValidator>();
         services.AddScoped<ISecurityStampValidator, IdyfaSecurityStampValidator>();
+        services.AddScoped<IUserClaimsPrincipalFactory<User>, IdyfaClaimPrincipalFactory>();
         
         return services;
     }
@@ -115,14 +119,25 @@ public static class ServiceProvider  {
     {
         if (options is null)
             throw new IdyfaOptionsNotFoundException();
-
-        services.AddIdentityCore<User>(__ =>
+        
+        services.AddScoped<ILookupNormalizer, IdyfaLookupNormalizer>();
+        services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
+        services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
+        services.AddScoped<IIdyfaUserUsedPasswordManager, IdyfaUserUsedPasswordManager>();
+        services.AddScoped<IIdyfaSignInManager, IdyfaSignInManager>();
+        services.AddScoped<IPasswordValidator<User>, IdyfaPasswordValidator>();
+        services.AddScoped<ISecurityStampValidator, IdyfaSecurityStampValidator>();
+        services.AddScoped<IIdyfaUserUsedPasswordManager, IdyfaUserUsedPasswordManager>();
+        services.AddScoped<IUserClaimsPrincipalFactory<User>, IdyfaClaimPrincipalFactory>();
+        services.AddScoped<UserClaimsPrincipalFactory<User, Role>, IdyfaClaimPrincipalFactory>();
+        
+        services.AddIdentity<User, Role>(__ =>
         {
             setSignInOptions(__.SignIn, options);
             setLockoutOptions(__.Lockout, options);
             setPasswordOptions(__.Password, options);
         })
-            .AddRoles<Role>()
+            .AddRoleManager<IdyfaRoleManager>()
             .AddDefaultTokenProviders()
             .AddSignInManager<IdyfaSignInManager>()
             .AddUserManager<IdyfaUserManager>()
@@ -130,7 +145,12 @@ public static class ServiceProvider  {
             .AddPasswordValidator<IdyfaPasswordValidator>()
             .AddDefaultTokenProviders()
             .AddClaimsPrincipalFactory<IdyfaClaimPrincipalFactory>();
-        
+
+        services.ConfigureApplicationCookie(cookieOptions =>
+        {
+            setCookieOptions(cookieOptions, options);
+        });
+
         // services.AddIdentity<User, Role>(__ =>
         // {
         //     setSignInOptions(__.SignIn, options);

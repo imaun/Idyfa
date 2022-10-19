@@ -4,7 +4,7 @@ namespace Idyfa.Core;
 
 public class User : IdentityUser<string>
 {
-    public User()
+    protected User()
     {
     }
     
@@ -43,5 +43,6 @@ public class User : IdentityUser<string>
     public string ReferralCode { get; protected set; }
     
     public Guid? CategoryId { get; protected set; }
+   
     #endregion
 }

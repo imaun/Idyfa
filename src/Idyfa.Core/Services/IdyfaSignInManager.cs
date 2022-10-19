@@ -53,4 +53,19 @@ public class IdyfaSignInManager : SignInManager<User>, IIdyfaSignInManager
     {
         return base.IsLockedOut(user);
     }
+
+    public Task<SignInResult> LockedOut(User user)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<SignInResult> PreSignInCheck(User user)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task ResetLockout(User user)
+    {
+        throw new NotImplementedException();
+    }
 }

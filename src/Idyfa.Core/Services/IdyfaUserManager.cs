@@ -23,7 +23,7 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
     private readonly IEnumerable<IPasswordValidator<User>> _passwordValidators;
     private readonly IServiceProvider _serviceProvider;
     private readonly IEnumerable<IUserValidator<User>> _userValidators;
-    private readonly IdyfaUserUsedPasswordManager _usedPasswordManager;
+    private readonly IIdyfaUserUsedPasswordManager _usedPasswordManager;
     private User _currentUser;
 
     public IdyfaUserManager(
@@ -37,7 +37,7 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         IdentityErrorDescriber errorDescriber, 
         IServiceProvider services, 
         ILogger<IdyfaUserManager> logger, 
-        IdyfaUserUsedPasswordManager usedPasswordManager
+        IIdyfaUserUsedPasswordManager usedPasswordManager
     ) : base(store, optionsAccessor, passwordHasher, userValidators, 
                 passwordValidators, keyNormalizer, errorDescriber, services, logger)
     {
@@ -91,5 +91,25 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
 
         var user = await FindByIdAsync(userId);
         return await _usedPasswordManager.GetLastUserChangePasswordDateAsync(user);
+    }
+
+    public Task<bool> HasPasswordAsync(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PasswordVerificationResult> VerifyPasswordAsync(IUserPasswordStore<User> store, User user, string password)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string CreateTwoFactorRecoveryCode()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IdentityResult> UpdatePasswordHash(User user, string newPassword, bool validatePassword)
+    {
+        throw new NotImplementedException();
     }
 }

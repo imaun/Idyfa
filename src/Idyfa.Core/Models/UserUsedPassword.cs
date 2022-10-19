@@ -2,7 +2,7 @@ namespace Idyfa.Core;
 
 public class UserUsedPassword
 {
-    private UserUsedPassword() { }
+    protected UserUsedPassword() { }
 
     #region props
 

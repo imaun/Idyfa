@@ -4,7 +4,7 @@ namespace Idyfa.Core;
 
 public class UserLogin : IdentityUserLogin<string>
 {
-    protected UserLogin()
+    public UserLogin()
     {
     }
     

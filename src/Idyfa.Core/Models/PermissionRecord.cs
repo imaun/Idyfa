@@ -51,4 +51,5 @@ public class PermissionRecord
     public string Description { get; protected set; }
     
     public DateTime CreateDate { get; protected set; }
+    
 }

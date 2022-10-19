@@ -2,7 +2,7 @@ namespace Idyfa.Core;
 
 public class RolePermission
 {
-    private RolePermission()
+    protected RolePermission()
     {
     }
 

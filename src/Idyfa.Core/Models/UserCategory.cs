@@ -2,7 +2,7 @@ namespace Idyfa.Core;
 
 public class UserCategory
 {
-    private UserCategory() { }
+    protected UserCategory() { }
 
     protected UserCategory(
         string title, string description, Guid? parentId = null)
@@ -26,4 +26,5 @@ public class UserCategory
     public DateTime? ModifyDate { get; protected set; }
     
     public bool Deleted { get; protected set; }
+
 }

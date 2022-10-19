@@ -4,7 +4,16 @@ namespace Idyfa.Core;
 
 public class UserClaim : IdentityUserClaim<string>
 {
-    protected UserClaim() { }
-    
+    public UserClaim() { }
+
+    public static UserClaim New(string userId, string claimType, string claimValue)
+    {
+        return new UserClaim
+        {
+            UserId = userId,
+            ClaimType = claimType,
+            ClaimValue = claimValue
+        };
+    }
     
 }
