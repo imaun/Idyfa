@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Idyfa.Core
 {
@@ -13,16 +8,13 @@ namespace Idyfa.Core
     public static class IdentityExts
     {
 
-        public static Guid GetUserId(this IIdentity identity) {
+        public static string GetUserId(this IIdentity identity) {
             var value = identity?.GetUserClaimValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrWhiteSpace(value))
                 throw new InvalidOperationException("UserId claim not found.");
 
-            if (Guid.TryParse(value, out Guid userId))
-                return userId;
-
-            throw new InvalidOperationException("UserId value is not a valid GUID.");
+            return value;
         }
 
 

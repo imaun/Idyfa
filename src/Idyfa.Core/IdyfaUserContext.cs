@@ -17,7 +17,7 @@ namespace Idyfa.Core
         }
 
         public bool IsAuthenticated { get; }
-        public Guid UserId => Principal?.Identity?.GetUserId() ?? default;
+        public string? UserId => Principal?.Identity?.GetUserId() ?? null;
 
         public string? DisplayName => Principal?.Identity?.GetUserDisplayName() ?? null;
 
