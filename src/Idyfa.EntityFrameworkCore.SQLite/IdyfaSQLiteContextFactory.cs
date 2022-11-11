@@ -20,7 +20,7 @@ public class IdyfaSQLiteContextFactory : IDesignTimeDbContextFactory<IdyfaSQLite
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddSingleton<ILoggerFactory, LoggerFactory>();
         var basePath = Directory.GetCurrentDirectory();
-        Console.WriteLine($"Using '{basePath}' as the ContentRootPath");
+        Console.WriteLine($"Using '{basePath}' as the root.");
         var configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)
             .AddJsonFile("appsettings.json", false, reloadOnChange: true)
