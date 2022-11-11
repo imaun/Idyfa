@@ -1,10 +1,5 @@
 ﻿using Idyfa.Core.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace Idyfa.Core
@@ -39,5 +34,6 @@ namespace Idyfa.Core
         public bool? PhoneNumberConfirmed => Principal?.Identity?.GetUserPhoneNumberConfirmed() ?? null;
 
         public string? Email => Principal?.Identity?.GetUserEmail() ?? null;
+
     }
 }
