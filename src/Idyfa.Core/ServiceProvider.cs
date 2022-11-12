@@ -101,7 +101,7 @@ public static class ServiceProvider  {
         services.CheckArgumentIsNull(nameof(services));
 
         services.AddHttpContextAccessor();
-        // services.AddScoped<>()
+        services.AddScoped<IIdyfaUserContext, IdyfaUserContext>();
         services.AddScoped<ILookupNormalizer, IdyfaLookupNormalizer>();
         // services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
         // services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();
@@ -119,7 +119,9 @@ public static class ServiceProvider  {
     {
         if (options is null)
             throw new IdyfaOptionsNotFoundException();
-        
+
+        services.AddHttpContextAccessor();
+        services.AddScoped<IIdyfaUserContext, IdyfaUserContext>();
         services.AddScoped<ILookupNormalizer, IdyfaLookupNormalizer>();
         services.AddScoped<IIdyfaRoleManager, IdyfaRoleManager>();
         services.AddScoped<IIdyfaUserManager, IdyfaUserManager>();

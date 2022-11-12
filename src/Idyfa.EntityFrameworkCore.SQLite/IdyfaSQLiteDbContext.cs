@@ -1,4 +1,3 @@
-using Idyfa.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Idyfa.EntityFrameworkCore.SQLite;
