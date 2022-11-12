@@ -53,7 +53,8 @@ public class IdyfaPasswordValidator : PasswordValidator<User>
             return IdentityResult.Failed(errors.ToArray());
         }
 
-        if (passwordOptions.BannedPasswords.Any() && 
+        if (passwordOptions.BannedPasswords != null && 
+            passwordOptions.BannedPasswords.Any() && 
             passwordOptions.BannedPasswords.Contains(password))
         {
             errors.Add(IdyfaIdentityErrorProvider.UseOfBannedPassword);
@@ -95,7 +96,7 @@ public class IdyfaPasswordValidator : PasswordValidator<User>
         if (IsAllCharsTheSame(password))
             return true;
 
-        if (_options.Password.RequiredLength < password.Length)
+        if (_options.Password.RequiredLength > password.Length)
             return true;
 
         return false;
