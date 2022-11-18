@@ -15,7 +15,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-var sqliteCfg = options.DbConfig.Databases.FirstOrDefault(_ =>
+var sqliteCfg = options.IdyfaDbConfig.Databases.FirstOrDefault(_ =>
     _.Name.Equals("SQLite", StringComparison.InvariantCultureIgnoreCase));
 builder.Services.AddIdyfaSQLiteDatabase(sqliteCfg);
 builder.Services.AddIdyfaEntityFrameworkCore();

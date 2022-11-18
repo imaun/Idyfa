@@ -33,9 +33,9 @@ public class IdyfaSQLiteContextFactory : IDesignTimeDbContextFactory<IdyfaSQLite
             .Value;
         Console.WriteLine(options.ToString());
         Console.WriteLine("Options found...");
-        if(options.DbConfig is null)
+        if(options.IdyfaDbConfig is null)
             Console.WriteLine("DbConfig NOT FOUND>>>>");
-        var dbConfig = options.DbConfig;
+        var dbConfig = options.IdyfaDbConfig;
         if(dbConfig is not null)
             Console.WriteLine("DbConfig Found...");
         Console.WriteLine(dbConfig.DbTypeName);

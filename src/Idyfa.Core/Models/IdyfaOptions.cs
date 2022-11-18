@@ -4,7 +4,7 @@ namespace Idyfa.Core;
 
 public class IdyfaOptions : IdentityOptions
 {
-    public IdyfaDbConfig DbConfig { get; set; }
+    public IdyfaDbConfig IdyfaDbConfig { get; set; }
     
     public IdyfaUserOptions UserOptions { get; set; }
     
