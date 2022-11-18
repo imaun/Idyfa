@@ -26,12 +26,13 @@ public class IdyfaSQLiteContextFactory : IDesignTimeDbContextFactory<IdyfaSQLite
             .AddJsonFile("appsettings.json", false, reloadOnChange: true)
             .Build();
         services.AddSingleton<IConfigurationRoot>(provider => configuration);
-        services.Configure<IdyfaOptions>(options => configuration.Bind(options));
+        services.Configure<IdyfaConfigRoot>(options => configuration.Bind(options));
         Console.WriteLine("Configuration Binded........");
         var options = services.BuildServiceProvider()
-            .GetRequiredService<IOptionsSnapshot<IdyfaOptions>>()
-            .Value;
-        Console.WriteLine(options.ToString());
+            .GetRequiredService<IOptionsSnapshot<IdyfaConfigRoot>>()
+            .Value.Idyfa;
+        if(options is null)
+            Console.WriteLine("ERROR : Options is null.");
         Console.WriteLine("Options found...");
         if(options.IdyfaDbConfig is null)
             Console.WriteLine("DbConfig NOT FOUND>>>>");
