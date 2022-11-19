@@ -2,6 +2,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Idyfa.Core;
 
+public class IdyfaConfigRoot
+{
+    
+    public IdyfaOptions Idyfa { get; set; }
+}
+
+
+
 public class IdyfaOptions : IdentityOptions
 {
     public IdyfaDbConfig IdyfaDbConfig { get; set; }

@@ -73,8 +73,8 @@ public static class ServiceProvider  {
     {
         services.CheckArgumentIsNull(nameof(services));
         var provider = services.BuildServiceProvider();
-        var optionSnapshot = provider.GetRequiredService<IOptionsSnapshot<IdyfaOptions>>();
-        var options = optionSnapshot.Value;
+        var optionSnapshot = provider.GetRequiredService<IOptionsSnapshot<IdyfaConfigRoot>>();
+        var options = optionSnapshot.Value.Idyfa;
 
         if (options is null)
             throw new IdyfaOptionsNotFoundException();
@@ -87,8 +87,8 @@ public static class ServiceProvider  {
     {
         services.CheckArgumentIsNull(nameof(services));
         var provider = services.BuildServiceProvider();
-        var optionsSnapshot = provider.GetRequiredService<IOptionsSnapshot<IdyfaOptions>>();
-        var options = optionsSnapshot.Value;
+        var optionsSnapshot = provider.GetRequiredService<IOptionsSnapshot<IdyfaConfigRoot>>();
+        var options = optionsSnapshot.Value.Idyfa;
 
         if (options is null)
             throw new IdyfaOptionsNotFoundException();
