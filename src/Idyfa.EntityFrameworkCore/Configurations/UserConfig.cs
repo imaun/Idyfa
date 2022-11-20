@@ -38,6 +38,15 @@ public static partial class EntityConfigurations
                 .WithMany()
                 .HasForeignKey(_ => _.CategoryId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            user.OwnsMany(_ => _.Permissions, p =>
+            {
+                p.ToTable(GetTableName(typeof(UserPermission), tablePrefix)).HasKey(_ => new
+                {
+                    _.UserId, _.PermissionId
+                });
+                p.Property(_ => _.UserId).IsRequired();
+            });
         });
     }
 

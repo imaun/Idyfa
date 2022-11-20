@@ -1,5 +1,5 @@
-﻿using Idyfa.Core.Extensions;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using static Idyfa.Core.Extensions.CoreExts;
 
 namespace Idyfa.Core;
 
@@ -20,8 +20,8 @@ public class User : IdentityUser<string>
             Id = Guid.NewGuid().ToString(),
             CreateDate = DateTime.UtcNow,
             Status = UserStatus.Created,
-            ApiKey = CoreExts.GenerateToken(20),
-            ReferralCode = CoreExts.GenerateReferralCode()
+            ApiKey = GenerateToken(20),
+            ReferralCode = GenerateReferralCode()
         };
         return user;
     }
