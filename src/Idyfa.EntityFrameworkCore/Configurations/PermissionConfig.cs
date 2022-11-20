@@ -8,17 +8,17 @@ public static partial class EntityConfigurations
 {
 
     /// <summary>
-    /// Configures <see cref="PermissionRecord"/> for the Database schema.
+    /// Configures <see cref="Permission"/> for the Database schema.
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="tablePrefix"></param>
-    public static void AddPermissionRecordConfiguration(this ModelBuilder builder, string tablePrefix = "")
+    public static void AddPermissionConfiguration(this ModelBuilder builder, string tablePrefix = "")
     {
         builder.CheckArgumentIsNull(nameof(builder));
 
-        builder.Entity<PermissionRecord>(per =>
+        builder.Entity<Permission>(per =>
         {
-            per.ToTable(GetTableName(typeof(PermissionRecord), tablePrefix))
+            per.ToTable(GetTableName(typeof(Permission), tablePrefix))
                 .HasKey(_ => _.Id);
 
             per.Property(p => p.Title).HasMaxLength(256).IsUnicode().IsRequired();

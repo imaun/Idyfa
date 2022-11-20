@@ -21,7 +21,7 @@ public static partial class EntityConfigurations
         {
             cat.ToTable(GetTableName(typeof(UserCategory), tablePrefix))
                 .HasKey(_ => _.Id);
-            cat.Property(_ => _.Title).HasMaxLength(300).IsUnicode();
+            cat.Property(_ => _.Title).HasMaxLength(300).IsUnicode().IsRequired();
             cat.Property(_ => _.Description).HasMaxLength(4000);
         });
     }

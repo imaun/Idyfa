@@ -17,7 +17,7 @@ public class UserCategory
     
     public string Title { get; protected set; }
     
-    public string Description { get; protected set; }
+    public string? Description { get; protected set; }
     
     public Guid? ParentId { get; protected set; }
     

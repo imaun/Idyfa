@@ -10,7 +10,7 @@ public class RolePermission
 
     public string RoleId { get; protected set; }
     
-    public Guid PermissionRecordId { get; protected set; }
+    public Guid PermissionId { get; protected set; }
     
     public DateTime CreateDate { get; protected set; }
 
@@ -18,9 +18,10 @@ public class RolePermission
 
     public static RolePermission New()
     {
-        var permission = new RolePermission();
-        permission.CreateDate = DateTime.UtcNow;
-        return permission;
+        return new RolePermission
+        {
+            CreateDate = DateTime.UtcNow
+        };
     }
 
     public RolePermission WithRoleId(string roleId)
@@ -29,9 +30,9 @@ public class RolePermission
         return this;
     }
 
-    public RolePermission WithPermissionRecordId(Guid permissionRecordId)
+    public RolePermission WithPermissionId(Guid permissionId)
     {
-        PermissionRecordId = permissionRecordId;
+        PermissionId = permissionId;
         return this;
     }
 }

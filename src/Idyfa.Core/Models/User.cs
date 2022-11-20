@@ -124,13 +124,13 @@ public class User : IdentityUser<string>
     
     #region props
 
-    public string FirstName { get; protected set; }
+    public string? FirstName { get; protected set; }
     
-    public string LastName { get; protected set; }
+    public string? LastName { get; protected set; }
     
-    public string NationalCode { get; protected set; }
+    public string? NationalCode { get; protected set; }
     
-    public string DisplayName { get; set; }
+    public string? DisplayName { get; set; }
     
     public UserStatus Status { get; protected set; }
     

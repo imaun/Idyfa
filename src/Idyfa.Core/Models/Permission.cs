@@ -1,14 +1,14 @@
 namespace Idyfa.Core;
 
-public class PermissionRecord
+public class Permission
 {
-    protected PermissionRecord()
+    protected Permission()
     {
     }
 
-    public static PermissionRecord New()
+    public static Permission New()
     {
-        var created = new PermissionRecord
+        var created = new Permission
         {
             Id = Guid.NewGuid(),
             CreateDate = DateTime.UtcNow
@@ -16,25 +16,25 @@ public class PermissionRecord
         return created;
     }
     
-    public PermissionRecord WithTitle(string title)
+    public Permission WithTitle(string title)
     {
         Title = title;
         return this;
     }
 
-    public PermissionRecord WithSystemName(string systemName)
+    public Permission WithSystemName(string systemName)
     {
         SystemName = systemName;
         return this;
     }
 
-    public PermissionRecord WithCategory(string category)
+    public Permission WithCategory(string category)
     {
         Category = category;
         return this;
     }
 
-    public PermissionRecord WithDescription(string description)
+    public Permission WithDescription(string description)
     {
         Description = description;
         return this;

@@ -21,16 +21,16 @@ public static partial class EntityConfigurations
             user.ToTable(GetTableName(typeof(User), tablePrefix)).HasKey(u => u.Id);
             user.Property(u => u.Id).HasMaxLength(256).IsUnicode().IsRequired();
             user.Property(u => u.UserName).IsUnicode().HasMaxLength(256).IsRequired();
-            user.Property(u => u.Email).IsUnicode().HasMaxLength(1000);
-            user.Property(u => u.PhoneNumber).IsUnicode().HasMaxLength(20);
-            user.Property(u => u.NationalCode).IsUnicode().HasMaxLength(10);
-            user.Property(u => u.FirstName).IsUnicode().HasMaxLength(256);
-            user.Property(u => u.LastName).IsUnicode().HasMaxLength(256);
+            user.Property(u => u.Email).IsUnicode().HasMaxLength(1000).IsRequired(false);
+            user.Property(u => u.PhoneNumber).IsUnicode().HasMaxLength(20).IsRequired(false);
+            user.Property(u => u.NationalCode).IsUnicode().HasMaxLength(10).IsRequired(false);
+            user.Property(u => u.FirstName).IsUnicode().HasMaxLength(256).IsRequired(false);
+            user.Property(u => u.LastName).IsUnicode().HasMaxLength(256).IsRequired(false);
             user.Property(u => u.Status).HasDefaultValue(UserStatus.Created);
-            user.Property(u => u.DisplayName).IsUnicode().HasMaxLength(500);
+            user.Property(u => u.DisplayName).IsUnicode().HasMaxLength(500).IsRequired(false);
             user.Property(u => u.ConcurrencyStamp).HasMaxLength(500).IsConcurrencyToken();
             user.Property(u => u.NormalizedUserName).IsUnicode().HasMaxLength(256);
-            user.Property(u => u.NormalizedEmail).IsUnicode().HasMaxLength(1000);
+            user.Property(u => u.NormalizedEmail).IsUnicode().HasMaxLength(1000).IsRequired(false);
             user.Property(u => u.ApiKey).IsUnicode().HasMaxLength(50).IsRequired();
             user.Property(u => u.ReferralCode).IsUnicode().HasMaxLength(10).IsRequired();
 
@@ -153,14 +153,14 @@ public static partial class EntityConfigurations
                 .HasKey(_ => _.Id);
 
             rec.Property(r => r.UserId).HasMaxLength(256).IsRequired();
-            rec.Property(r => r.City).HasMaxLength(256).IsUnicode();
-            rec.Property(r => r.Country).HasMaxLength(256).IsUnicode();
-            rec.Property(r => r.IpAddress).HasMaxLength(50).IsUnicode();
-            rec.Property(r => r.HostName).HasMaxLength(256).IsUnicode();
-            rec.Property(r => r.LoginUrl).HasMaxLength(4000).IsUnicode();
-            rec.Property(r => r.OsName).HasMaxLength(256).IsUnicode();
-            rec.Property(r => r.UserAgent).HasMaxLength(1000).IsUnicode();
-            rec.Property(r => r.ExtraInfo).HasMaxLength(2000).IsUnicode();
+            rec.Property(r => r.City).HasMaxLength(256).IsUnicode().IsRequired(false);
+            rec.Property(r => r.Country).HasMaxLength(256).IsUnicode().IsRequired(false);
+            rec.Property(r => r.IpAddress).HasMaxLength(50).IsUnicode().IsRequired(false);
+            rec.Property(r => r.HostName).HasMaxLength(256).IsUnicode().IsRequired(false);
+            rec.Property(r => r.LoginUrl).HasMaxLength(4000).IsUnicode().IsRequired(false);
+            rec.Property(r => r.OsName).HasMaxLength(256).IsUnicode().IsRequired(false);
+            rec.Property(r => r.UserAgent).HasMaxLength(1000).IsUnicode().IsRequired(false);
+            rec.Property(r => r.ExtraInfo).HasMaxLength(2000).IsUnicode().IsRequired(false);
 
             rec.HasOne<User>()
                 .WithMany()

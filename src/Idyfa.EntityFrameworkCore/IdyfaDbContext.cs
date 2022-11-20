@@ -23,7 +23,7 @@ public class IdyfaDbContext
         builder.AddRoleConfiguration();
         builder.AddRoleClaimConfiguration();
         builder.AddUserConfiguration();
-        builder.AddPermissionRecordConfiguration();
+        builder.AddPermissionConfiguration();
         builder.AddUserCategoryConfiguration();
         builder.AddUserClaimConfiguration();
         builder.AddUserLoginConfiguration();
