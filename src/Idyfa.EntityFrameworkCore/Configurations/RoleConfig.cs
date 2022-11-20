@@ -23,7 +23,15 @@ public static partial class EntityConfigurations
             role.Property(r => r.AltTitle).HasMaxLength(256).IsUnicode().IsRequired(false);
             role.Property(r => r.ConcurrencyStamp).HasMaxLength(500).IsConcurrencyToken();
             role.Property(r => r.Status).HasDefaultValue(RoleStatus.Enabled);
-            
+
+            role.OwnsMany(_ => _.Permissions, p =>
+            {
+                p.ToTable(GetTableName(typeof(RolePermission), tablePrefix)).HasKey(_ => new
+                {
+                    _.PermissionId, _.RoleId
+                });
+                p.Property(_ => _.RoleId).IsRequired();
+            });
         });
     }
 

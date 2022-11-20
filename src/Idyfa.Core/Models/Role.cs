@@ -5,7 +5,10 @@ namespace Idyfa.Core;
 public class Role : IdentityRole<string>
 {
 
-    protected Role(): base() { }
+    protected Role() : base()
+    {
+        Permissions = new HashSet<RolePermission>();
+    }
     
     #region props
 
@@ -22,6 +25,12 @@ public class Role : IdentityRole<string>
     public DateTime? ModifyDate { get; protected set; }
     
     public DateTime? LastStatusChanged { get; protected set; }
+
+    #endregion
+
+    #region Navigations
+
+    public ICollection<RolePermission> Permissions { get; protected set; }
 
     #endregion
 
