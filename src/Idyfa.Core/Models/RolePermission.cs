@@ -16,23 +16,13 @@ public class RolePermission
 
     #endregion
 
-    public static RolePermission New()
+    public static RolePermission New(string roleId, Guid permissionId)
     {
         return new RolePermission
         {
+            RoleId = roleId,
+            PermissionId = permissionId,
             CreateDate = DateTime.UtcNow
         };
-    }
-
-    public RolePermission WithRoleId(string roleId)
-    {
-        RoleId = roleId;
-        return this;
-    }
-
-    public RolePermission WithPermissionId(Guid permissionId)
-    {
-        PermissionId = permissionId;
-        return this;
     }
 }
