@@ -36,7 +36,7 @@ public static class IdyfaSqlServerServiceProvider
                 __.CommandTimeout((int)TimeSpan.FromMinutes(dbConfig.Timeout).TotalSeconds);
                 __.MigrationsAssembly(typeof(IdyfaSqlServerDbContext).Assembly.FullName);
                 __.EnableRetryOnFailure();
-                __.MigrationsHistoryTable("__Idyfa_Migrations");
+                __.MigrationsHistoryTable(IdyfaConsts.HistoryTableName);
             });
         optionsBuilder.UseInternalServiceProvider(serviceProvider);
     }

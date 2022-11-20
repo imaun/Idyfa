@@ -50,13 +50,6 @@ public static partial class EntityConfigurations
                 .HasKey(_=> _.Id);
             claim.Property(_ => _.ClaimType).HasMaxLength(256).IsUnicode().IsRequired();
             claim.Property(_ => _.ClaimValue).HasMaxLength(1000).IsUnicode();
-            
-            claim.HasOne<Role>()
-                .WithMany()
-                .HasForeignKey(_=> _.RoleId)
-                .OnDelete(DeleteBehavior.Cascade);
         });
-     
-        
     }
 }

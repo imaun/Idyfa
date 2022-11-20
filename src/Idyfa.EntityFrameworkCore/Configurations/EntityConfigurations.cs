@@ -17,7 +17,8 @@ public static partial class EntityConfigurations
         { typeof(UserToken), nameof(UserToken) },
         { typeof(UserUsedPassword), nameof(UserUsedPassword) },
         { typeof(Permission), nameof(Permission) },
-        { typeof(RolePermission), nameof(RolePermission) }
+        { typeof(RolePermission), nameof(RolePermission) },
+        { typeof(UserPermission), nameof(UserPermission) }
     };
 
     private static string GetTableName(Type t, string tableNamePrefix = "")

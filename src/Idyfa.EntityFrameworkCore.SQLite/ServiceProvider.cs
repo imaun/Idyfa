@@ -37,6 +37,7 @@ public static class ServiceProvider
             {
                 __.CommandTimeout((int)TimeSpan.FromMinutes(dbConfig.Timeout).TotalSeconds);
                 __.MigrationsAssembly(typeof(IdyfaSQLiteDbContext).Assembly.FullName);
+                __.MigrationsHistoryTable(IdyfaConsts.HistoryTableName);
             });
         optionsBuilder.UseInternalServiceProvider(serviceProvider);
     }

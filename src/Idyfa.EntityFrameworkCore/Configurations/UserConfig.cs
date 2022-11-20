@@ -89,6 +89,8 @@ public static partial class EntityConfigurations
         {
             claim.ToTable(GetTableName(typeof(UserClaim), tablePrefix))
                 .HasKey(_=> _.Id);
+            claim.Property(_ => _.ClaimType).HasMaxLength(256).IsUnicode().IsRequired();
+            claim.Property(_ => _.ClaimValue).HasMaxLength(1000).IsUnicode();
         });
     }
 
