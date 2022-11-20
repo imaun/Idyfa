@@ -46,7 +46,7 @@ public static partial class EntityConfigurations
 
         builder.Entity<RoleClaim>(claim =>
         {
-            claim.ToTable(GetTableName(typeof(RoleClaim)))
+            claim.ToTable(GetTableName(typeof(RoleClaim), tablePrefix))
                 .HasKey(_=> _.Id);
             claim.Property(_ => _.ClaimType).HasMaxLength(256).IsUnicode().IsRequired();
             claim.Property(_ => _.ClaimValue).HasMaxLength(1000).IsUnicode();

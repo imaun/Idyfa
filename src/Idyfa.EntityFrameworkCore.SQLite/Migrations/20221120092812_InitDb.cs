@@ -10,7 +10,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "IdyfaPermission",
+                name: "Idyfa.Permission",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -22,11 +22,11 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaPermission", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.Permission", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaRole",
+                name: "Idyfa.Role",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -42,11 +42,11 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaRole", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.Role", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUserCategory",
+                name: "Idyfa.UserCategory",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -59,11 +59,11 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUserCategory", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.UserCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUserClaim",
+                name: "Idyfa.UserClaim",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -74,30 +74,11 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUserClaim", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.UserClaim", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaRolePermission",
-                columns: table => new
-                {
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
-                    PermissionId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdyfaRolePermission", x => new { x.PermissionId, x.RoleId });
-                    table.ForeignKey(
-                        name: "FK_IdyfaRolePermission_IdyfaRole_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "IdyfaRole",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleClaim",
+                name: "Idyfa.RoleClaim",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -108,16 +89,35 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoleClaim", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.RoleClaim", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RoleClaim_IdyfaRole_RoleId",
+                        name: "FK_Idyfa.RoleClaim_Idyfa.Role_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "IdyfaRole",
+                        principalTable: "Idyfa.Role",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUser",
+                name: "Idyfa.RolePermission",
+                columns: table => new
+                {
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
+                    PermissionId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Idyfa.RolePermission", x => new { x.PermissionId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_Idyfa.RolePermission_Idyfa.Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Idyfa.Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Idyfa.User",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
@@ -152,17 +152,17 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUser", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.User", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IdyfaUser_IdyfaUserCategory_CategoryId",
+                        name: "FK_Idyfa.User_Idyfa.UserCategory_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "IdyfaUserCategory",
+                        principalTable: "Idyfa.UserCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUserLogin",
+                name: "Idyfa.UserLogin",
                 columns: table => new
                 {
                     ProviderKey = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
@@ -172,17 +172,17 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUserLogin", x => new { x.UserId, x.ProviderKey });
+                    table.PrimaryKey("PK_Idyfa.UserLogin", x => new { x.UserId, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_IdyfaUserLogin_IdyfaUser_UserId",
+                        name: "FK_Idyfa.UserLogin_Idyfa.User_UserId",
                         column: x => x.UserId,
-                        principalTable: "IdyfaUser",
+                        principalTable: "Idyfa.User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUserLoginRecord",
+                name: "Idyfa.UserLoginRecord",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -199,17 +199,17 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUserLoginRecord", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.UserLoginRecord", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IdyfaUserLoginRecord_IdyfaUser_UserId",
+                        name: "FK_Idyfa.UserLoginRecord_Idyfa.User_UserId",
                         column: x => x.UserId,
-                        principalTable: "IdyfaUser",
+                        principalTable: "Idyfa.User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUserPermission",
+                name: "Idyfa.UserPermission",
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
@@ -218,17 +218,17 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUserPermission", x => new { x.UserId, x.PermissionId });
+                    table.PrimaryKey("PK_Idyfa.UserPermission", x => new { x.UserId, x.PermissionId });
                     table.ForeignKey(
-                        name: "FK_IdyfaUserPermission_IdyfaUser_UserId",
+                        name: "FK_Idyfa.UserPermission_Idyfa.User_UserId",
                         column: x => x.UserId,
-                        principalTable: "IdyfaUser",
+                        principalTable: "Idyfa.User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUserRole",
+                name: "Idyfa.UserRole",
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
@@ -236,23 +236,23 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUserRole", x => new { x.RoleId, x.UserId });
+                    table.PrimaryKey("PK_Idyfa.UserRole", x => new { x.RoleId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_IdyfaUserRole_IdyfaRole_RoleId",
+                        name: "FK_Idyfa.UserRole_Idyfa.Role_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "IdyfaRole",
+                        principalTable: "Idyfa.Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_IdyfaUserRole_IdyfaUser_UserId",
+                        name: "FK_Idyfa.UserRole_Idyfa.User_UserId",
                         column: x => x.UserId,
-                        principalTable: "IdyfaUser",
+                        principalTable: "Idyfa.User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUserToken",
+                name: "Idyfa.UserToken",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -264,17 +264,17 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUserToken", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.UserToken", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IdyfaUserToken_IdyfaUser_UserId",
+                        name: "FK_Idyfa.UserToken_Idyfa.User_UserId",
                         column: x => x.UserId,
-                        principalTable: "IdyfaUser",
+                        principalTable: "Idyfa.User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdyfaUserUsedPassword",
+                name: "Idyfa.UserUsedPassword",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -285,91 +285,91 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdyfaUserUsedPassword", x => x.Id);
+                    table.PrimaryKey("PK_Idyfa.UserUsedPassword", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IdyfaUserUsedPassword_IdyfaUser_UserId",
+                        name: "FK_Idyfa.UserUsedPassword_Idyfa.User_UserId",
                         column: x => x.UserId,
-                        principalTable: "IdyfaUser",
+                        principalTable: "Idyfa.User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdyfaRolePermission_RoleId",
-                table: "IdyfaRolePermission",
+                name: "IX_Idyfa.RoleClaim_RoleId",
+                table: "Idyfa.RoleClaim",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdyfaUser_CategoryId",
-                table: "IdyfaUser",
+                name: "IX_Idyfa.RolePermission_RoleId",
+                table: "Idyfa.RolePermission",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Idyfa.User_CategoryId",
+                table: "Idyfa.User",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdyfaUserLoginRecord_UserId",
-                table: "IdyfaUserLoginRecord",
+                name: "IX_Idyfa.UserLoginRecord_UserId",
+                table: "Idyfa.UserLoginRecord",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdyfaUserRole_UserId",
-                table: "IdyfaUserRole",
+                name: "IX_Idyfa.UserRole_UserId",
+                table: "Idyfa.UserRole",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdyfaUserToken_UserId",
-                table: "IdyfaUserToken",
+                name: "IX_Idyfa.UserToken_UserId",
+                table: "Idyfa.UserToken",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdyfaUserUsedPassword_UserId",
-                table: "IdyfaUserUsedPassword",
+                name: "IX_Idyfa.UserUsedPassword_UserId",
+                table: "Idyfa.UserUsedPassword",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoleClaim_RoleId",
-                table: "RoleClaim",
-                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IdyfaPermission");
+                name: "Idyfa.Permission");
 
             migrationBuilder.DropTable(
-                name: "IdyfaRolePermission");
+                name: "Idyfa.RoleClaim");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUserClaim");
+                name: "Idyfa.RolePermission");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUserLogin");
+                name: "Idyfa.UserClaim");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUserLoginRecord");
+                name: "Idyfa.UserLogin");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUserPermission");
+                name: "Idyfa.UserLoginRecord");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUserRole");
+                name: "Idyfa.UserPermission");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUserToken");
+                name: "Idyfa.UserRole");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUserUsedPassword");
+                name: "Idyfa.UserToken");
 
             migrationBuilder.DropTable(
-                name: "RoleClaim");
+                name: "Idyfa.UserUsedPassword");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUser");
+                name: "Idyfa.Role");
 
             migrationBuilder.DropTable(
-                name: "IdyfaRole");
+                name: "Idyfa.User");
 
             migrationBuilder.DropTable(
-                name: "IdyfaUserCategory");
+                name: "Idyfa.UserCategory");
         }
     }
 }

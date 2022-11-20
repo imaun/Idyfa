@@ -52,7 +52,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdyfaPermission", (string)null);
+                    b.ToTable("Idyfa.Permission", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.Role", b =>
@@ -101,7 +101,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdyfaRole", (string)null);
+                    b.ToTable("Idyfa.Role", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.RoleClaim", b =>
@@ -128,7 +128,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaim", (string)null);
+                    b.ToTable("Idyfa.RoleClaim", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.User", b =>
@@ -255,7 +255,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("IdyfaUser", (string)null);
+                    b.ToTable("Idyfa.User", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserCategory", b =>
@@ -288,7 +288,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdyfaUserCategory", (string)null);
+                    b.ToTable("Idyfa.UserCategory", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserClaim", b =>
@@ -313,7 +313,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdyfaUserClaim", (string)null);
+                    b.ToTable("Idyfa.UserClaim", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserLogin", b =>
@@ -338,7 +338,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasKey("UserId", "ProviderKey");
 
-                    b.ToTable("IdyfaUserLogin", (string)null);
+                    b.ToTable("Idyfa.UserLogin", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserLoginRecord", b =>
@@ -396,7 +396,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IdyfaUserLoginRecord", (string)null);
+                    b.ToTable("Idyfa.UserLoginRecord", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserRole", b =>
@@ -411,7 +411,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IdyfaUserRole", (string)null);
+                    b.ToTable("Idyfa.UserRole", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserToken", b =>
@@ -443,7 +443,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IdyfaUserToken", (string)null);
+                    b.ToTable("Idyfa.UserToken", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserUsedPassword", b =>
@@ -469,7 +469,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IdyfaUserUsedPassword", (string)null);
+                    b.ToTable("Idyfa.UserUsedPassword", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.Role", b =>
@@ -490,7 +490,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                             b1.HasIndex("RoleId");
 
-                            b1.ToTable("IdyfaRolePermission", (string)null);
+                            b1.ToTable("Idyfa.RolePermission", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("RoleId");
@@ -527,7 +527,7 @@ namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 
                             b1.HasKey("UserId", "PermissionId");
 
-                            b1.ToTable("IdyfaUserPermission", (string)null);
+                            b1.ToTable("Idyfa.UserPermission", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
