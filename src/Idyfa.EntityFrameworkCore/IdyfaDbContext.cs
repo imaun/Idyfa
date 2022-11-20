@@ -14,7 +14,7 @@ public class IdyfaDbContext
 {
     private readonly IdyfaOptions _idyfaOptions;
     
-    public IdyfaDbContext(DbContextOptions options, string tablePrefix = "Idyfa"): base(options)
+    public IdyfaDbContext(DbContextOptions options, string tablePrefix = "Idyfa."): base(options)
     {
         // _idyfaOptions = idyfaOptions ?? throw new IdyfaOptionsNotFoundException();
         TablePrefix = tablePrefix;
