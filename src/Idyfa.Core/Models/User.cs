@@ -7,6 +7,7 @@ public class User : IdentityUser<string>
 {
     protected User()
     {
+        Permissions = new List<UserPermission>();
     }
 
 
@@ -26,12 +27,13 @@ public class User : IdentityUser<string>
     }
 
     public static User RegisterUser(
-        string userName, string password, string email,
+        string userName, string email, string displayName,
         string phoneNumber, string firstName, string lastName)
     {
         var user = User.New()
             .WithUserName(userName)
             .WithEmail(email)
+            .WithDisplayName(displayName)
             .WithPhoneNumber(phoneNumber)
             .WithFirstName(firstName)
             .WithLastName(lastName)
@@ -102,6 +104,12 @@ public class User : IdentityUser<string>
         return this;
     }
 
+    public User WithDisplayName(string displayName)
+    {
+        DisplayName = displayName;
+        return this;
+    }
+
     public User WithApiKey(string apiKey)
     {
         ApiKey = apiKey;
@@ -158,5 +166,12 @@ public class User : IdentityUser<string>
     
     public Guid? CategoryId { get; protected set; }
    
+    #endregion
+
+
+    #region Navigations
+
+    public ICollection<UserPermission> Permissions { get; protected set; }
+
     #endregion
 }
