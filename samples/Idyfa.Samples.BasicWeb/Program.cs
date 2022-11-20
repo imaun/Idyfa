@@ -6,7 +6,7 @@ IConfiguration config = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build();
 
-var options = config.Get<IdyfaOptions>();
+var options = config.Get<IdyfaConfigRoot>().Idyfa;
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {

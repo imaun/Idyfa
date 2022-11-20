@@ -58,7 +58,9 @@ public class IdyfaUserRepository :
     public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
-        await _set.AddAsync(user, cancellationToken).ConfigureAwait(false);
+        
+        _set.Add(user);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         return IdentityResult.Success;
     }
 
@@ -66,9 +68,11 @@ public class IdyfaUserRepository :
     public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
+        
         _set.Update(user);
         _db.Entry(user).State = EntityState.Modified;
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        
         return IdentityResult.Success;
     }
 
@@ -76,9 +80,11 @@ public class IdyfaUserRepository :
     public async Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
     {
         user.CheckArgumentIsNull(nameof(user));
+        
         _set.Remove(user);
         _db.Entry(user).State = EntityState.Deleted;
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        
         return IdentityResult.Success;
     }
 
