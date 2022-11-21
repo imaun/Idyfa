@@ -82,4 +82,17 @@ public class IdyfaUserValidator : UserValidator<User>
             : IdentityResult.Success;
     }
     
+    public IdentityError[] ValidateUserName(string userName)
+    {
+        var errors = new List<IdentityError>();
+
+        if (string.IsNullOrWhiteSpace(userName))
+        {
+            errors.Add(_errorDescriber.UserNameIsNotSet());
+            return errors.ToArray();
+        }
+        
+        return errors.ToArray();
+    }
+    
 }

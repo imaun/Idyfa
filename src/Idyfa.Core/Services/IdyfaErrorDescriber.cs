@@ -217,6 +217,13 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
             Code = nameof(UserNameHasInvalidCharacters),
             Description = IdyfaIdentityErrors.UserNameHasInvalidCharacters
         };
+
+    public IdentityError UserNameIsNotSet()
+        => new IdentityError
+        {
+            Code = nameof(UserNameIsNotSet),
+            Description = IdyfaIdentityErrors.UserNameIsNotSet
+        };
 }
 
 public static class IdyfaIdentityErrorProvider
