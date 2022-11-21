@@ -33,9 +33,22 @@ public class IdyfaPasswordValidator : PasswordValidator<User>
 
         if (_options.Registration.UserNameIsRequired)
         {
-            if (user.GetUserName(UserNameType.UserName).IsNullOrEmpty() ||
-                user.GetUserName(UserNameType.Email).IsNullOrEmpty() ||
+            bool userNameNotSet = _options.UserOptions.UserNameType == UserNameType.UserName &&
+                                  user.GetUserName(UserNameType.UserName).IsNullOrEmpty();
+
+            if (_options.UserOptions.UserNameType == UserNameType.Email &&
+                user.GetUserName(UserNameType.Email).IsNullOrEmpty())
+            {
+                userNameNotSet = true;
+            }
+            
+            if (_options.UserOptions.UserNameType == UserNameType.PhoneNumber &&
                 user.GetUserName(UserNameType.PhoneNumber).IsNullOrEmpty())
+            {
+                userNameNotSet = true;
+            }
+            
+            if (userNameNotSet)
             {
                 errors.Add(IdyfaIdentityErrorProvider.UserNameIsNotSet);
                 return IdentityResult.Failed(errors.ToArray());
