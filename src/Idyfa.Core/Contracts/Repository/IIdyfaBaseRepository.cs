@@ -5,11 +5,11 @@ public interface IIdyfaBaseRepository<TEntity, TKey> where TEntity : class
 
     void Add(TEntity entity);
     
-    Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task AddAndSaveAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     void Update(TEntity entity);
 
-    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task UpdateAndSaveAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     void Delete(TEntity entity);
 

@@ -2,6 +2,9 @@ namespace Idyfa.Core;
 
 public enum UserStatus
 {
+    /// <summary>
+    /// SoftDeleted User
+    /// </summary>
     Deleted = -1,
     
     /// <summary>

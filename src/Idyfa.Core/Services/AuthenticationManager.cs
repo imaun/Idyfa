@@ -1,28 +1,44 @@
 using System.Security.Claims;
 using Idyfa.Core.Contracts;
+using Idyfa.Core.Exceptions;
 using Idyfa.Core.Extensions;
 
 namespace Idyfa.Core.Services;
 
-public class IdyfaAuthentication : IIdyfaAuthentication
+/// <inheritdoc /> 
+public class AuthenticationManager : IAuthenticationManager
 {
     private readonly IIdyfaSignInManager _signInManager;
     private readonly IIdyfaUserManager _userManager;
     private readonly IIdyfaUserRepository _userRepository;
     private readonly IdyfaOptions _options;
+    private readonly IIdyfaUserValidator _userValidator;
 
-
-    public IdyfaAuthentication(
+    public AuthenticationManager(
         IdyfaOptions options, IIdyfaSignInManager signInManager,
-        IIdyfaUserManager userManager, IIdyfaUserRepository userRepository)
+        IIdyfaUserManager userManager, IIdyfaUserRepository userRepository, 
+        IIdyfaUserValidator userValidator)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
         _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+        _userValidator = userValidator ?? throw new ArgumentNullException(nameof(userValidator));
     }
     
+    
+    private bool _isDevelopment = Environment
+        .GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
+    private UserNameType GetUserNameType()
+    {
+        if (_options is null)
+            throw new IdyfaOptionsNotFoundException();
+
+        return _options.UserOptions.UserNameType;
+    }
+    
+    /// <inheritdoc /> 
     public async Task AuthenticateAsync(
         string userName, string password, bool rememberMe = false,
         CancellationToken cancellationToken = default)
@@ -33,9 +49,51 @@ public class IdyfaAuthentication : IIdyfaAuthentication
         if (password.IsNullOrEmpty())
             throw new ArgumentNullException(nameof(password));
         
+        if (GetUserNameType() == UserNameType.PhoneNumber)
+        {
+            userName = userName.NormalizePhoneNumber();
+        }
         
+        var validateUsername =  _userValidator.ValidateUserName(userName);
+        if (validateUsername.Any())
+            throw new InvalidUserNameException(validateUsername);
+
+        var user = await _userManager.FindByNameAsync(userName);
+        if (user is null) throw new IdyfaUserNotFoundException();
+
+        if (_isDevelopment)
+        {
+            await _signInManager.SignInAsync(user, true);
+            return;
+        }
+
+        if (user.Status == UserStatus.Blocked ||
+            user.Status == UserStatus.Deleted ||
+            user.Status == UserStatus.Locked)
+        {
+            throw new InvalidUserStatusForSignInException(user.Status);
+        }
+
+        var signInResult = await _signInManager.PasswordSignInAsync(
+            user, password, rememberMe, _options.Authentication.LockoutOnFailure);
+
+        if (!signInResult.Succeeded && signInResult.RequiresTwoFactor)
+        {
+            //TODO : Generate TwoFactorToken based on User.TwoFactorType -> Sms, Email or Authenticator
+            var twoFactorToken = await _userManager.GenerateTwoFactorTokenAsync(user, "sms");
+            user.SetTwoFactorCode(twoFactorToken);
+
+            await _userRepository.UpdateAndSaveAsync(user, cancellationToken).ConfigureAwait(false);
+            
+            //SEND Token VIA SMS or Email
+
+            throw new IdyfaSignInRequireTwoFactorAuthenticationException();
+        }
+        
+        //TODO : raise an event that the user has logged-in successfully.
     }
 
+    /// <inheritdoc /> 
     public Task OtpSingInAsync(string otpKey)
     {
         throw new NotImplementedException();

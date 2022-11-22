@@ -21,7 +21,7 @@ public class IdyfaBaseRepository<TEntity, TKey> : IIdyfaBaseRepository<TEntity, 
         _db.SaveChanges();
     }
 
-    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public async Task AddAndSaveAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         await _set.AddAsync(entity, cancellationToken).ConfigureAwait(false);
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -33,7 +33,7 @@ public class IdyfaBaseRepository<TEntity, TKey> : IIdyfaBaseRepository<TEntity, 
         _db.SaveChanges();
     }
 
-    public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public async Task UpdateAndSaveAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         _set.Update(entity);
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

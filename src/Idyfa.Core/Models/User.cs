@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Runtime.Serialization.Json;
+using Microsoft.AspNetCore.Identity;
 using static Idyfa.Core.Extensions.CoreExts;
 
 namespace Idyfa.Core;
@@ -41,6 +42,12 @@ public class User : IdentityUser<string>
             .WithRegisterDate(DateTime.UtcNow);
 
         return user;
+    }
+
+    public User WhenModified()
+    {
+        ModifyDate = DateTime.UtcNow;
+        return this;
     }
 
     public User WithId(string id)
@@ -128,6 +135,13 @@ public class User : IdentityUser<string>
         return this;
     }
 
+    public User SetTwoFactorCode(string twoFactorCode)
+    {
+        LastTwoFactorCode = twoFactorCode;
+        LastTwoFactorCodeTime = DateTime.UtcNow;
+        return this;
+    }
+
     #endregion
     
     #region props
@@ -165,6 +179,14 @@ public class User : IdentityUser<string>
     public string ReferralCode { get; protected set; }
     
     public Guid? CategoryId { get; protected set; }
+    
+    /// <summary>
+    /// The Last TwoFactorCode that has been generated for this User.
+    /// </summary>
+    public string LastTwoFactorCode { get; protected set; }
+    
+    
+    public DateTime? LastTwoFactorCodeTime { get; protected set; }
    
     #endregion
 

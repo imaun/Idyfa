@@ -56,7 +56,7 @@ public class IdyfaUserUsedPasswordManager : IIdyfaUserUsedPasswordManager
         user.CheckArgumentIsNull(nameof(user));
         password.CheckArgumentIsNull(nameof(password));
         
-        await _repository.AddAsync(password);
+        await _repository.AddAndSaveAsync(password);
     }
 
     public async Task<bool> IsUserPasswordTooOldAsync(User user)

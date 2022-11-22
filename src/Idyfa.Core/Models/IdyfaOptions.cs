@@ -93,4 +93,5 @@ public class IdyfaAuthOptions
     public string AccessDeniedPath { get; set; }
     public TimeSpan ExpireTimeSpan { get; set; }
     public bool SlidingExpiration { get; set; }
+    public bool LockoutOnFailure { get; set; }
 }

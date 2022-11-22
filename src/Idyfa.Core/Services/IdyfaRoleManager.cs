@@ -35,14 +35,14 @@ public class IdyfaRoleManager : RoleManager<Role>, IIdyfaRoleManager
         role.CheckArgumentIsNull(nameof(role));
         //TODO : check role unique props
 
-        await _store.AddAsync(role);
+        await _store.AddAndSaveAsync(role);
         return IdentityResult.Success;
     }
 
     public async Task<IdentityResult> UpdateAsync(Role role)
     {
         role.CheckArgumentIsNull(nameof(role));
-        await _store.UpdateAsync(role);
+        await _store.UpdateAndSaveAsync(role);
         
         return IdentityResult.Success;
     }
