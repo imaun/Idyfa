@@ -3,6 +3,7 @@ using System;
 using Idyfa.EntityFrameworkCore.SQLite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Idyfa.EntityFrameworkCore.SQLite.Migrations
 {
     [DbContext(typeof(IdyfaSQLiteDbContext))]
-    partial class IdyfaSQLiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221122112008_UserLastTwoFactorCode")]
+    partial class UserLastTwoFactorCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.8");

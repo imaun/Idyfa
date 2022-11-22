@@ -38,7 +38,7 @@ public static class ServiceProvider  {
         this IServiceCollection services, IdyfaOptions options)
     {
         services.AddIdyfaOptions(options);
-        // services.AddIdyfaServices();
+        services.AddIdyfaServices();
         services.AddIdentityServices(options);
         
         return services;
@@ -68,6 +68,7 @@ public static class ServiceProvider  {
         services.CheckArgumentIsNull(nameof(services));
         services.AddSingleton(options);
     }
+    
     
     private static IdyfaOptions AddIdyfaOptions(this IServiceCollection services)
     {
@@ -110,7 +111,9 @@ public static class ServiceProvider  {
         services.AddScoped<IPasswordValidator<User>, IdyfaPasswordValidator>();
         services.AddScoped<ISecurityStampValidator, IdyfaSecurityStampValidator>();
         services.AddScoped<IUserClaimsPrincipalFactory<User>, IdyfaClaimPrincipalFactory>();
+        services.AddScoped<IIdyfaUserValidator, IdyfaUserValidator>();
         services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+        services.AddScoped<IdyfaErrorDescriber>();
         
         return services;
     }

@@ -112,7 +112,7 @@ public class IdyfaUserValidator : UserValidator<User>, IIdyfaUserValidator
             
             //TODO : check valid username chars
             
-            if (_userOptions.BannedUserNames.Any() &&
+            if (_userOptions.BannedUserNames != null! && _userOptions.BannedUserNames.Any() &&
                 _userOptions.BannedUserNames.Contains(userName))
             {
                 errors.Add(_errorDescriber.UserNameIsBanned(userName));
@@ -128,8 +128,8 @@ public class IdyfaUserValidator : UserValidator<User>, IIdyfaUserValidator
                 return errors.ToArray();
             }
 
-            if (_userOptions.BannedEmails.Any() &&
-                _userOptions.BannedUserNames.Contains(userName))
+            if (_userOptions.BannedEmails != null! && _userOptions.BannedEmails.Any() &&
+                _userOptions.BannedEmails.Contains(userName))
             {
                 errors.Add(_errorDescriber.EmailIsBanned(userName));
                 return errors.ToArray();
