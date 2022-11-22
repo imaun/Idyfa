@@ -281,6 +281,32 @@ public class IdyfaUserRepository :
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    public Task SetEmailAsync(User user, string email, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        user.Email = email;
+        return Task.CompletedTask;
+    }
+
+    public Task<string> GetEmailAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return Task.FromResult(user.Email);
+    }
+
+    public Task<bool> GetEmailConfirmedAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return Task.FromResult(user.EmailConfirmed);
+    }
+
+    public Task SetEmailConfirmedAsync(User user, bool confirmed, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        user.EmailConfirmed = confirmed;
+        return Task.CompletedTask;
+    }
+
     /// <inheritdoc />
     public async Task<User> FindByEmailAsync(
         string email, CancellationToken cancellationToken = default)
@@ -291,6 +317,19 @@ public class IdyfaUserRepository :
         var user = await _set.FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpper(), cancellationToken)
             .ConfigureAwait(false);
         return user!;
+    }
+
+    public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return Task.FromResult(user.NormalizedEmail);
+    }
+
+    public Task SetNormalizedEmailAsync(User user, string normalizedEmail, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        user.NormalizedEmail = normalizedEmail;
+        return Task.CompletedTask;
     }
 
     /// <inheritdoc />

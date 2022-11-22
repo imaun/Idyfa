@@ -103,15 +103,22 @@ public class IdyfaUserValidator : UserValidator<User>, IIdyfaUserValidator
             _options.Registration.UserNameIsRequired)
         {
             if (_options.Registration.UserNameMinLength.HasValue &&
-                _options.Registration.UserNameMinLength < userName.Length)
+                _options.Registration.UserNameMinLength > userName.Length)
             {
                 errors.Add(_errorDescriber.MinUserNameLength(
                     _options.Registration.UserNameMinLength.Value));
                 return errors.ToArray();
             }
+
+            if (_options.Registration.UserNameMaxLength.HasValue &&
+                _options.Registration.UserNameMaxLength < userName.Length)
+            {
+                errors.Add(_errorDescriber.MaxUserNameLength(
+                    _options.Registration.UserNameMaxLength.Value));
+                return errors.ToArray();
+            }
             
             //TODO : check valid username chars
-            
             if (_userOptions.BannedUserNames != null! && _userOptions.BannedUserNames.Any() &&
                 _userOptions.BannedUserNames.Contains(userName))
             {

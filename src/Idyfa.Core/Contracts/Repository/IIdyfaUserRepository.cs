@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Idyfa.Core.Contracts;
 
-public interface IIdyfaUserRepository : IIdyfaBaseRepository<User, string>, IUserStore<User>
+public interface IIdyfaUserRepository : IIdyfaBaseRepository<User, string>, IUserStore<User>, IUserEmailStore<User>
 {
     Task<User> FindByUserNameAsync(
         string userName, CancellationToken cancellationToken = default);

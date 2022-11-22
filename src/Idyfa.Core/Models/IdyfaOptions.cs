@@ -47,6 +47,7 @@ public class IdyfaUserRegistrationOptions
     public bool PasswordIsRequired { get; set; }
     public bool UserNameIsRequired { get; set; }
     public int? UserNameMinLength { get; set; }
+    public int? UserNameMaxLength { get; set; }
     public bool EmailIsRequired { get; set; }
     public bool PhoneNumberIsRequired { get; set; }
     public bool FirstNameIsRequired { get; set; }

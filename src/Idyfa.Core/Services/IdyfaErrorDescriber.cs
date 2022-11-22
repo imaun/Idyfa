@@ -176,6 +176,14 @@ public class IdyfaErrorDescriber : IdentityErrorDescriber
             Description = string.Format(IdyfaIdentityErrors.MinUserNameLength, minLength)
         };
 
+
+    public IdentityError MaxUserNameLength(int maxLength)
+        => new IdentityError
+        {
+            Code = nameof(MaxUserNameLength),
+            Description = string.Format("UserName maxlen is : {0}", maxLength)
+        };
+
     public IdentityError UserNameIsBanned(string userName)
         => new IdentityError
         {

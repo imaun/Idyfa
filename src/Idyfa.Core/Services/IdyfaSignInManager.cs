@@ -25,7 +25,8 @@ public class IdyfaSignInManager : SignInManager<User>, IIdyfaSignInManager
         ILogger<IdyfaSignInManager> logger, 
         IAuthenticationSchemeProvider schemes,
         IUserConfirmation<User> confirmation
-        ) : base((UserManager<User>)userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
+        ) : base((UserManager<User>)userManager, contextAccessor, 
+                    claimsFactory, optionsAccessor, logger, schemes, confirmation)
     {
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         _httpContextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
