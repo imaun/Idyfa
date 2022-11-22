@@ -145,6 +145,7 @@ public static class ServiceProvider  {
             .AddUserManager<IdyfaUserManager>()
             .AddErrorDescriber<IdyfaErrorDescriber>()
             .AddPasswordValidator<IdyfaPasswordValidator>()
+            .AddUserValidator<IdyfaUserValidator>()
             .AddDefaultTokenProviders()
             .AddClaimsPrincipalFactory<IdyfaClaimPrincipalFactory>();
 

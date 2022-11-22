@@ -11,17 +11,12 @@ namespace Idyfa.Core.Services;
 /// </summary>
 public class IdyfaClaimPrincipalFactory : UserClaimsPrincipalFactory<User, Role>
 {
-    private readonly IIdyfaUserManager _userManager;
-    private readonly IIdyfaRoleManager _roleManager;
-    
     public IdyfaClaimPrincipalFactory(
         IIdyfaUserManager userManager, 
         IIdyfaRoleManager roleManager, 
-        IOptions<IdentityOptions> options
-    ) : base((UserManager<User>)userManager, (RoleManager<Role>)roleManager, options)
+        IOptions<IdentityOptions> options) 
+        : base((UserManager<User>)userManager, (RoleManager<Role>)roleManager, options)
     {
-        _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-        _roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
     }
     
     public override async Task<ClaimsPrincipal> CreateAsync(User user)
@@ -30,6 +25,7 @@ public class IdyfaClaimPrincipalFactory : UserClaimsPrincipalFactory<User, Role>
             throw new ArgumentNullException(nameof(user));
 
         var principal = await base.CreateAsync(user);
+        addCustomClaims(user, principal);
 
         return principal;
     }
@@ -41,12 +37,15 @@ public class IdyfaClaimPrincipalFactory : UserClaimsPrincipalFactory<User, Role>
 
         if (principal is null)
             throw new ArgumentNullException(nameof(principal));
+
+        if (principal.Identity is null)
+            throw new ArgumentNullException(nameof(principal.Identity));
         
         ((ClaimsIdentity)principal.Identity)?.AddClaims(new[]
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.GivenName, user.FirstName),
-            new Claim(ClaimTypes.Surname, user.LastName),
+            new Claim(ClaimTypes.GivenName, user.FirstName!),
+            new Claim(ClaimTypes.Surname, user.LastName!),
         });
     }
     
