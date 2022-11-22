@@ -152,7 +152,7 @@ public class User : IdentityUser<string>
     
     public string? NationalCode { get; protected set; }
     
-    public string? DisplayName { get; set; }
+    public string? DisplayName { get; protected set; }
     
     public UserStatus Status { get; protected set; }
     

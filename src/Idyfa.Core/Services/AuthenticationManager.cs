@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Idyfa.Core.Events;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Exceptions;
 using Idyfa.Core.Extensions;
@@ -13,7 +14,8 @@ public class AuthenticationManager : IAuthenticationManager
     private readonly IIdyfaUserRepository _userRepository;
     private readonly IdyfaOptions _options;
     private readonly IIdyfaUserValidator _userValidator;
-
+    
+    
     public AuthenticationManager(
         IdyfaOptions options, IIdyfaSignInManager signInManager,
         IIdyfaUserManager userManager, IIdyfaUserRepository userRepository, 
@@ -25,8 +27,11 @@ public class AuthenticationManager : IAuthenticationManager
         _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         _userValidator = userValidator ?? throw new ArgumentNullException(nameof(userValidator));
     }
+
+
+    public event Action<AfterSignInEventArgs> AfterSignInEvent;
     
-    
+
     private bool _isDevelopment = Environment
         .GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
@@ -91,6 +96,9 @@ public class AuthenticationManager : IAuthenticationManager
         }
         
         //TODO : raise an event that the user has logged-in successfully.
+        AfterSignInEvent?.Invoke(new AfterSignInEventArgs(
+            user.Id, user.UserName, user.Status, 
+            user.PhoneNumber, user.Email, user.DisplayName));
     }
 
     /// <inheritdoc /> 

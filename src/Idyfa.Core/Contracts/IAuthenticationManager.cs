@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Idyfa.Core.Events;
 
 namespace Idyfa.Core.Contracts;
 
@@ -9,6 +10,13 @@ namespace Idyfa.Core.Contracts;
 public interface IAuthenticationManager
 {
 
+    #region Events
+
+    event Action<AfterSignInEventArgs> AfterSignInEvent;
+    
+    #endregion
+    
+    
     /// <summary>
     /// Try to Sign-in the <see cref="User"/> with the given UserName ans Password.
     /// </summary>
