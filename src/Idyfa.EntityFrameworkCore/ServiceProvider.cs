@@ -14,6 +14,7 @@ public static class ServiceProvider
     {
         services.CheckArgumentIsNull(nameof(services));
         // services.AddDbContext<IdyfaDbContext>(dbContextOptionBuilder);
+        
         services.AddScoped<IUserStore<User>, IdyfaUserRepository>();
         services.AddScoped<IIdyfaUserRepository, IdyfaUserRepository>();
         services.AddScoped<IRoleStore<Role>, IdyfaRoleRepository>();

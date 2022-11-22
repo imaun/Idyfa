@@ -142,7 +142,10 @@ public static class ServiceProvider  {
             setSignInOptions(__.SignIn, options);
             setLockoutOptions(__.Lockout, options);
             setPasswordOptions(__.Password, options);
+            setUserOptions(__.User, options);
         })
+            .AddRoles<Role>()
+            
             .AddRoleManager<IdyfaRoleManager>()
             .AddDefaultTokenProviders()
             .AddSignInManager<IdyfaSignInManager>()
@@ -205,6 +208,12 @@ public static class ServiceProvider  {
         signInOptions.RequireConfirmedAccount = options.SignIn.RequireConfirmedAccount;
         signInOptions.RequireConfirmedEmail = options.SignIn.RequireConfirmedEmail;
         signInOptions.RequireConfirmedPhoneNumber = options.SignIn.RequireConfirmedPhoneNumber;
+    }
+
+    private static void setUserOptions(UserOptions userOptions, IdyfaOptions options)
+    {
+        userOptions.RequireUniqueEmail = options.UserOptions.RequireUniqueEmail;
+        userOptions.AllowedUserNameCharacters = options.UserOptions.AllowedUserNameCharacters;
     }
 
     private static void setLockoutOptions(
