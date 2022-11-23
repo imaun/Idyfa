@@ -66,11 +66,11 @@ public class IdyfaAuthManager : IIdyfaAuthManager
         var user = await _userManager.FindByNameAsync(userName);
         if (user is null) throw new IdyfaUserNotFoundException();
 
-        if (_isDevelopment)
-        {
-            await _signInManager.SignInAsync(user, true);
-            return;
-        }
+        // if (_isDevelopment)
+        // {
+        //     await _signInManager.SignInAsync(user, true);
+        //     return;
+        // }
 
         if (user.Status == UserStatus.Blocked ||
             user.Status == UserStatus.Deleted ||
