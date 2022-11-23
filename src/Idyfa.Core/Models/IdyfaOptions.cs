@@ -40,7 +40,7 @@ public class IdyfaUserOptions : UserOptions
 
 /// <summary>
 /// Options to set the ruled for User Registration process
-/// in <see cref="AuthenticationManager"/>
+/// in <see cref="IdyfaAuthManager"/>
 /// </summary>
 public class IdyfaUserRegistrationOptions
 {

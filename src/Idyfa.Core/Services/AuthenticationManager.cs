@@ -7,7 +7,7 @@ using Idyfa.Core.Extensions;
 namespace Idyfa.Core.Services;
 
 /// <inheritdoc /> 
-public class AuthenticationManager : IAuthenticationManager
+public class IdyfaAuthManager : IIdyfaAuthManager
 {
     private readonly IIdyfaSignInManager _signInManager;
     private readonly IIdyfaUserManager _userManager;
@@ -16,7 +16,7 @@ public class AuthenticationManager : IAuthenticationManager
     private readonly IIdyfaUserValidator _userValidator;
     
     
-    public AuthenticationManager(
+    public IdyfaAuthManager(
         IdyfaOptions options, IIdyfaSignInManager signInManager,
         IIdyfaUserManager userManager, IIdyfaUserRepository userRepository, 
         IIdyfaUserValidator userValidator)

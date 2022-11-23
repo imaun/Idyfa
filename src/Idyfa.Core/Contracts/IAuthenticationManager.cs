@@ -7,7 +7,7 @@ namespace Idyfa.Core.Contracts;
 /// Authenticate (Sign-in, TwoFactor, ...) the <see cref="User"/> with
 /// ResetPassword and ChangePassword capabilities.
 /// </summary>
-public interface IAuthenticationManager
+public interface IIdyfaAuthManager
 {
 
     #region Events

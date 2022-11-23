@@ -112,7 +112,7 @@ public static class ServiceProvider  {
         services.AddScoped<ISecurityStampValidator, IdyfaSecurityStampValidator>();
         services.AddScoped<IUserClaimsPrincipalFactory<User>, IdyfaClaimPrincipalFactory>();
         services.AddScoped<IIdyfaUserValidator, IdyfaUserValidator>();
-        services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+        services.AddScoped<IIdyfaAuthManager, IdyfaAuthManager>();
         services.AddScoped<IdyfaErrorDescriber>();
         
         return services;
