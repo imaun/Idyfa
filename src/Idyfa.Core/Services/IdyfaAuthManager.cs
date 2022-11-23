@@ -127,9 +127,14 @@ public class IdyfaAuthManager : IIdyfaAuthManager
         throw new NotImplementedException();
     }
 
-    public Task SignOutAsync(ClaimsPrincipal principal)
+    public async Task SignOutAsync(ClaimsPrincipal principal)
     {
-        throw new NotImplementedException();
+        var user = await _userManager.FindByNameAsync(principal?.Identity?.Name!).ConfigureAwait(false);
+        if(user is null) return;
+        
+        await _userManager.UpdateSecurityStampAsync(user).ConfigureAwait(false);
+        await _signInManager.SignOutAsync().ConfigureAwait(false);
+        //TODO : Log signout
     }
 
     public Task RegisterUserAsync(string userName, string password, string verifyPassword, string displayName,
