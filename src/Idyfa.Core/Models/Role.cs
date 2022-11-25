@@ -39,6 +39,7 @@ public class Role : IdentityRole<string>
     public static Role New() =>
         new Role
         {
+            Id = Guid.NewGuid().ToString(),
             Status = RoleStatus.Enabled,
             CreateDate = DateTime.UtcNow
         };
