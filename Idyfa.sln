@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idyfa.Samples.BasicWeb", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idyfa.EntityFrameworkCore.SqlServer", "src\Idyfa.EntityFrameworkCore.SqlServer\Idyfa.EntityFrameworkCore.SqlServer.csproj", "{DC038560-99F1-45B3-AE6F-876E5BC152C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idyfa.Extensions", "src\Idyfa.Extensions\Idyfa.Extensions.csproj", "{6BC332A1-19DB-49F9-A8E4-68B15B86A7F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{DC038560-99F1-45B3-AE6F-876E5BC152C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC038560-99F1-45B3-AE6F-876E5BC152C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC038560-99F1-45B3-AE6F-876E5BC152C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC332A1-19DB-49F9-A8E4-68B15B86A7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC332A1-19DB-49F9-A8E4-68B15B86A7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC332A1-19DB-49F9-A8E4-68B15B86A7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC332A1-19DB-49F9-A8E4-68B15B86A7F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{A9342FB3-510A-4423-8F4F-E6C7A8846A78} = {0A449357-0D6F-48FF-90D3-599CB23F6707}
 		{5F77066A-4EBC-40A1-B790-EBA419BBFDCA} = {F830F5B0-29F9-41B7-8C79-2AF1C8102233}
 		{DC038560-99F1-45B3-AE6F-876E5BC152C6} = {0A449357-0D6F-48FF-90D3-599CB23F6707}
+		{6BC332A1-19DB-49F9-A8E4-68B15B86A7F4} = {0A449357-0D6F-48FF-90D3-599CB23F6707}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86AB2248-3610-4920-B1A7-3347B333B327}
