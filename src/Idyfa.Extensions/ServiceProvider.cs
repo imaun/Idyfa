@@ -154,6 +154,7 @@ public static class ServiceProvider
             .AddSignInManager<IdyfaSignInManager>()
             .AddUserManager<IdyfaUserManager>()
             .AddUserStore<IdyfaUserRepository>()
+            .AddEntityFrameworkStores<IdyfaDbContext>()
             .AddErrorDescriber<IdyfaErrorDescriber>()
             .AddPasswordValidator<IdyfaPasswordValidator>()
             .AddUserValidator<IdyfaUserValidator>()

@@ -181,6 +181,11 @@ public class IdyfaUserRepository :
         }
     }
 
+    Task<IList<string>> IUserRoleStore<User>.GetRolesAsync(User user, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
     /// <inheritdoc />
     public async Task<IReadOnlyCollection<string>> GetRolesAsync(
         User user, CancellationToken cancellationToken = default)
@@ -215,6 +220,11 @@ public class IdyfaUserRepository :
 
         return await _db.Set<UserRole>()
             .AnyAsync(x => x.RoleId == role.Id, cancellationToken).ConfigureAwait(false);
+    }
+
+    Task<IList<User>> IUserRoleStore<User>.GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 
     /// <inheritdoc />
@@ -399,4 +409,41 @@ public class IdyfaUserRepository :
     {
         return Task.FromResult(user.PasswordHash.IsNotNullOrEmpty());
     }
+    
+    #region UserRoleStore
+    
+    public Task<string> GetUserIdAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return Task.FromResult(user.UserId);
+    }
+
+    public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    public Task AddToRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task RemoveFromRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IList<string>> GetRolesAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> IsInRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+    
+    
+    #endregion
 }
