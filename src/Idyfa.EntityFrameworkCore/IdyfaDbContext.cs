@@ -37,4 +37,35 @@ public class IdyfaDbContext
         builder.AddUserLoginRecordConfiguration(TablePrefix);
         builder.AddUserUsedPasswordConfiguration(TablePrefix);
     }
+
+    public bool EnsureCreated()
+    {
+        return Database.EnsureCreated();
+    }
+
+    public async Task<bool> EnsureCreatedAsync(CancellationToken cancellationToken = default)
+    {
+        return await Database.EnsureCreatedAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    public void MigrateDb()
+    {
+        Database.Migrate();
+    }
+
+    public async Task MigrateDbAsync(CancellationToken cancellationToken = default)
+    {
+        await Database.MigrateAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    public bool CanConnect()
+    {
+        return Database.CanConnect();
+    }
+
+
+    public async Task<bool> CanConnectAsync(CancellationToken cancellationToken = default)
+    {
+        return await Database.CanConnectAsync(cancellationToken).ConfigureAwait(false);
+    }
 }
