@@ -2,13 +2,16 @@ using Idyfa.Core;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Idyfa.EntityFrameworkCore;
+
 
 public class IdyfaUserUsedPasswordRepository : 
     IdyfaBaseRepository<UserUsedPassword, long>, IIdyfaUserUsedPasswordRepository
 {
-    public IdyfaUserUsedPasswordRepository(IdyfaDbContext db) : base(db)
+    public IdyfaUserUsedPasswordRepository(
+        IdyfaDbContext db, ILogger<IdyfaUserUsedPasswordRepository> logger) : base(db, logger)
     {
     }
     

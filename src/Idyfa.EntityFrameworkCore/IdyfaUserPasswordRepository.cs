@@ -1,14 +1,16 @@
 using Idyfa.Core;
 using Idyfa.Core.Contracts;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace Idyfa.EntityFrameworkCore;
 
-public class IdyfaUserPasswordRepository : IIdyfaUserPasswordRepository
+public class IdyfaUserPasswordRepository : IdyfaBaseRepository<UserUsedPassword, long>, IIdyfaUserPasswordRepository
 {
-    public IdyfaUserPasswordRepository()
+    
+    public IdyfaUserPasswordRepository(IdyfaDbContext db, ILogger<IdyfaUserPasswordRepository> logger) 
+        : base(db, logger)
     {
-        
     }
     
     public void Dispose()

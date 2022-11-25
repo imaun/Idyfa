@@ -1,4 +1,5 @@
 using Idyfa.Core.Contracts;
+using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 
 namespace Idyfa.EntityFrameworkCore;
@@ -8,10 +9,12 @@ public class IdyfaBaseRepository<TEntity, TKey> : IIdyfaBaseRepository<TEntity, 
 {
     protected readonly IdyfaDbContext _db;
     protected readonly DbSet<TEntity> _set;
+    protected readonly ILogger<IdyfaBaseRepository<TEntity, TKey>> _logger;
 
-    public IdyfaBaseRepository(IdyfaDbContext db)
+    public IdyfaBaseRepository(IdyfaDbContext db, ILogger<IdyfaBaseRepository<TEntity, TKey>> logger)
     {
         _db = db ?? throw new ArgumentNullException(nameof(db));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _set = _db.Set<TEntity>();
     }
 

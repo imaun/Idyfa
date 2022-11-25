@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Idyfa.Core.Contracts;
 
-public interface IIdyfaRoleRepository : IIdyfaBaseRepository<Role, string>, IRoleStore<Role>
+public interface IIdyfaRoleRepository : IIdyfaBaseRepository<Role, string>, IRoleStore<Role>, IUserRoleStore<UserRole>
 {
     
     Task AddClaimAsync(RoleClaim claim);

@@ -12,6 +12,7 @@
       <ProjectReference Include="..\..\src\Idyfa.EntityFrameworkCore.SQLite\Idyfa.EntityFrameworkCore.SQLite.csproj" />
       <ProjectReference Include="..\..\src\Idyfa.EntityFrameworkCore.SqlServer\Idyfa.EntityFrameworkCore.SqlServer.csproj" />
       <ProjectReference Include="..\..\src\Idyfa.EntityFrameworkCore\Idyfa.EntityFrameworkCore.csproj" />
+      <ProjectReference Include="..\..\src\Idyfa.Extensions\Idyfa.Extensions.csproj" />
     </ItemGroup>
 
     <ItemGroup>

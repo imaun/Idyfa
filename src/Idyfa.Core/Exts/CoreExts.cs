@@ -21,16 +21,16 @@ public static class CoreExts
     /// <summary>
     /// Checks if a reference is null.
     /// </summary>
-    public static void CheckReferenceIsNull(this object o, string name)
+    public static void CheckReferenceIsNull(this object? o, string name)
     {
         if (o == null)
             throw new NullReferenceException(name);
     }
 
-    public static bool IsNullOrEmpty(this string input)
+    public static bool IsNullOrEmpty(this string? input)
         => string.IsNullOrWhiteSpace(input);
 
-    public static bool IsNotNullOrEmpty(this string input)
+    public static bool IsNotNullOrEmpty(this string? input)
         => !IsNullOrEmpty(input);
     
     public static T ToEnum<T>(this string value) 
@@ -44,14 +44,14 @@ public static class CoreExts
     /// </summary>
     /// <param name="obj">object to check</param>
     /// <returns>true if is null</returns>
-    public static bool IsNull(this object obj) => obj == null;
+    public static bool IsNull(this object? obj) => obj == null;
     
     /// <summary>
     /// returns true if the <paramref name="obj"/> is NOT null.
     /// </summary>
     /// <param name="obj">object to check</param>
     /// <returns>true if not null</returns>
-    public static bool IsNotNull(this object obj) => obj != null;
+    public static bool IsNotNull(this object? obj) => obj != null;
     
     public static string GenerateToken(int len = 11) { //TODO : Refactor this to improve it's performance
         var builder = new StringBuilder();
@@ -112,7 +112,7 @@ public static class CoreExts
             @"^(?=.{5,32}$)(?!.*__)(?!^(telegram|admin|support))[a-z][a-z0-9_]*[a-z0-9]$",
             RegexOptions.IgnoreCase);
 
-    public static string MakeSlug(this string slug) =>
+    public static string? MakeSlug(this string? slug) =>
         slug == null
             ? null
             : Regex.Replace(slug,

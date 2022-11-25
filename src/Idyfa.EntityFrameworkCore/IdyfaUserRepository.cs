@@ -4,6 +4,7 @@ using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Idyfa.EntityFrameworkCore;
 
@@ -11,7 +12,8 @@ namespace Idyfa.EntityFrameworkCore;
 public class IdyfaUserRepository : 
     IdyfaBaseRepository<User, string>, IIdyfaUserRepository, IUserPasswordStore<User>
 {
-    public IdyfaUserRepository(IdyfaDbContext db) : base(db)
+    public IdyfaUserRepository(IdyfaDbContext db, ILogger<IdyfaUserRepository> logger)
+        : base(db, logger)
     {
     }
 

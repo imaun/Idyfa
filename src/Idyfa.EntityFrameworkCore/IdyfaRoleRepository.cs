@@ -3,14 +3,17 @@ using Idyfa.Core.Contracts;
 using Idyfa.Core.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Idyfa.EntityFrameworkCore;
+
 
 /// <inheritdoc />
 public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRoleRepository
 {
+    private readonly ILogger<IdyfaRoleRepository> _logger;
     
-    public IdyfaRoleRepository(IdyfaDbContext db) : base(db)
+    public IdyfaRoleRepository(IdyfaDbContext db, ILogger<IdyfaRoleRepository> logger) : base(db, logger)
     {
     }
 
@@ -139,7 +142,7 @@ public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRole
         _db.Set<RoleClaim>().Remove(claim);
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
-
+    
     async Task<Role> IRoleStore<Role>.FindByNameAsync(
         string normalizedRoleName, CancellationToken cancellationToken)
     {
@@ -147,4 +150,132 @@ public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRole
             .ConfigureAwait(false);
         return await Task.FromResult(role!);
     }
+
+    #region UserRoleStore
+    
+    public Task<string> GetUserIdAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return Task.FromResult(user.UserId);
+    }
+
+    public async Task<string> GetUserNameAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(UserRole));
+        var u = await _db.Users.FindAsync(user.UserId, cancellationToken).ConfigureAwait(false);
+        u.CheckReferenceIsNull(nameof(User));
+
+        return await Task.FromResult(u.UserName);
+    }
+
+    public async Task SetUserNameAsync(UserRole user, string userName, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(UserRole));
+        if (userName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(userName));
+        
+        var u = await _db.Users.FindAsync(user.UserId, cancellationToken).ConfigureAwait(false);
+        u.CheckReferenceIsNull(nameof(User));
+
+        u.UserName = userName;
+        _db.Users.Update(u);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<string> GetNormalizedUserNameAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(UserRole));
+        var u = await _db.Users.FindAsync(user.UserId, cancellationToken).ConfigureAwait(false);
+        u.CheckReferenceIsNull(nameof(User));
+
+        return await Task.FromResult(u.NormalizedUserName);
+    }
+
+    public async Task SetNormalizedUserNameAsync(UserRole user, string normalizedName, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(UserRole));
+        if (normalizedName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(normalizedName));
+        
+        var u = await _db.Users.FindAsync(user.UserId, cancellationToken).ConfigureAwait(false);
+        u.CheckReferenceIsNull(nameof(User));
+
+        u.UserName = normalizedName;
+        _db.Users.Update(u);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<IdentityResult> CreateAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(UserRole));
+        _db.UserRoles.Add(user);
+
+        try
+        {
+            await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.GetBaseException().Message);
+            return IdentityResult.Failed();
+        }
+        
+        return IdentityResult.Success;
+    }
+
+    public async Task<IdentityResult> UpdateAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(UserRole));
+
+        _db.UserRoles.Update(user);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        return IdentityResult.Success;
+    }
+
+    public async Task<IdentityResult> DeleteAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(UserRole));
+
+        _db.UserRoles.Remove(user);
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        return IdentityResult.Success;
+    }
+
+    public async Task<UserRole> FindByIdAsync(string userId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<UserRole> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+    public Task AddToRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task RemoveFromRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IList<string>> GetRolesAsync(UserRole user, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> IsInRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IList<UserRole>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+    
+    #endregion
 }
