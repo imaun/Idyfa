@@ -183,7 +183,7 @@ public class User : IdentityUser<string>
     /// <summary>
     /// The Last TwoFactorCode that has been generated for this User.
     /// </summary>
-    public string LastTwoFactorCode { get; protected set; }
+    public string? LastTwoFactorCode { get; protected set; }
     
     
     public DateTime? LastTwoFactorCodeTime { get; protected set; }
