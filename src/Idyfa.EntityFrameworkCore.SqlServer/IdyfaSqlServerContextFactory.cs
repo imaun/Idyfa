@@ -23,11 +23,13 @@ namespace Idyfa.EntityFrameworkCore.SqlServer
                 .AddJsonFile("appsettings.json", false, reloadOnChange: true)
                 .Build();
             services.AddSingleton<IConfigurationRoot>(provider => configuration);
-            services.Configure<IdyfaOptions>(options => configuration.Bind(options));
+            services.Configure<IdyfaConfigRoot>(options => configuration.Bind(options));
+            
             Console.WriteLine("Configuration Binded........");
             var options = services.BuildServiceProvider()
-                .GetRequiredService<IOptionsSnapshot<IdyfaOptions>>()
-                .Value;
+                .GetRequiredService<IOptionsSnapshot<IdyfaConfigRoot>>()
+                .Value.Idyfa;
+
             Console.WriteLine(options.ToString());
             Console.WriteLine("Options found...");
             if (options.IdyfaDbConfig is null)

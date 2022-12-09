@@ -22,7 +22,7 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Idyfa.Core.PermissionRecord", b =>
+            modelBuilder.Entity("Idyfa.Core.Permission", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PermissionRecord", (string)null);
+                    b.ToTable("Idyfa.Permission", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.Role", b =>
@@ -66,7 +66,6 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AltTitle")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(256)");
@@ -101,14 +100,13 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                         .HasDefaultValue(1);
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("Idyfa.Role", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.RoleClaim", b =>
@@ -133,16 +131,11 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("RoleId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("RoleId1");
-
-                    b.ToTable("RoleClaim", (string)null);
+                    b.ToTable("Idyfa.RoleClaim", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.User", b =>
@@ -176,7 +169,6 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DisplayName")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(500)");
@@ -190,18 +182,23 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime?>("LastStatusChanged")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastTwoFactorCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime?>("LastTwoFactorCodeTime")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastVisitDate")
@@ -217,7 +214,6 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NationalCode")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(10)");
@@ -273,7 +269,7 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("Idyfa.User", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserCategory", b =>
@@ -289,7 +285,6 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)");
 
@@ -307,7 +302,7 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserCategory", (string)null);
+                    b.ToTable("Idyfa.UserCategory", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserClaim", b =>
@@ -319,17 +314,22 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserClaim", (string)null);
+                    b.ToTable("Idyfa.UserClaim", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserLogin", b =>
@@ -354,7 +354,7 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
                     b.HasKey("UserId", "ProviderKey");
 
-                    b.ToTable("UserLogin", (string)null);
+                    b.ToTable("Idyfa.UserLogin", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserLoginRecord", b =>
@@ -366,49 +366,41 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("ExtraInfo")
-                        .IsRequired()
                         .HasMaxLength(2000)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("HostName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("IpAddress")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LoginUrl")
-                        .IsRequired()
                         .HasMaxLength(4000)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(4000)");
 
                     b.Property<string>("OsName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("UserAgent")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(1000)");
@@ -422,7 +414,7 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLoginRecord", (string)null);
+                    b.ToTable("Idyfa.UserLoginRecord", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserRole", b =>
@@ -437,7 +429,7 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRole", (string)null);
+                    b.ToTable("Idyfa.UserRole", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserToken", b =>
@@ -471,7 +463,7 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserToken", (string)null);
+                    b.ToTable("Idyfa.UserToken", (string)null);
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserUsedPassword", b =>
@@ -499,19 +491,41 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserUsedPassword", (string)null);
+                    b.ToTable("Idyfa.UserUsedPassword", (string)null);
+                });
+
+            modelBuilder.Entity("Idyfa.Core.Role", b =>
+                {
+                    b.OwnsMany("Idyfa.Core.RolePermission", "Permissions", b1 =>
+                        {
+                            b1.Property<Guid>("PermissionId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("RoleId")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<DateTime>("CreateDate")
+                                .HasColumnType("datetime2");
+
+                            b1.HasKey("PermissionId", "RoleId");
+
+                            b1.HasIndex("RoleId");
+
+                            b1.ToTable("Idyfa.RolePermission", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoleId");
+                        });
+
+                    b.Navigation("Permissions");
                 });
 
             modelBuilder.Entity("Idyfa.Core.RoleClaim", b =>
                 {
                     b.HasOne("Idyfa.Core.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Idyfa.Core.Role", null)
                         .WithMany("Claims")
-                        .HasForeignKey("RoleId1");
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Idyfa.Core.User", b =>
@@ -520,6 +534,28 @@ namespace Idyfa.EntityFrameworkCore.SqlServer.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.OwnsMany("Idyfa.Core.UserPermission", "Permissions", b1 =>
+                        {
+                            b1.Property<string>("UserId")
+                                .HasColumnType("nvarchar(256)");
+
+                            b1.Property<Guid>("PermissionId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreateDate")
+                                .HasColumnType("datetime2");
+
+                            b1.HasKey("UserId", "PermissionId");
+
+                            b1.ToTable("Idyfa.UserPermission", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
+                    b.Navigation("Permissions");
                 });
 
             modelBuilder.Entity("Idyfa.Core.UserLogin", b =>
