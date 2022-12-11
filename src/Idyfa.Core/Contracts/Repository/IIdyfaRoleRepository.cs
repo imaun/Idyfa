@@ -20,4 +20,6 @@ public interface IIdyfaRoleRepository : IIdyfaBaseRepository<Role, string>, IRol
     
     Task RemoveClaimAsync(
         Role role, RoleClaim claim, CancellationToken cancellationToken = default);
+
+    Task<bool> ExistByNameAsync(string roleName);
 }

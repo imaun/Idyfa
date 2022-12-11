@@ -142,7 +142,12 @@ public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRole
         _db.Set<RoleClaim>().Remove(claim);
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
-    
+
+    public async Task<bool> ExistByNameAsync(string roleName)
+    {
+        return await _set.AnyAsync(_ => _.Name.ToUpper() == roleName.ToUpper());
+    }
+
     async Task<Role> IRoleStore<Role>.FindByNameAsync(
         string normalizedRoleName, CancellationToken cancellationToken)
     {

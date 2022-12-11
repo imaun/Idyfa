@@ -31,7 +31,6 @@ public class IdyfaAuthManager : IIdyfaAuthManager
 
     public event Action<AfterSignInEventArgs> AfterSignInEvent;
     
-
     private bool _isDevelopment = Environment
         .GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
@@ -95,10 +94,11 @@ public class IdyfaAuthManager : IIdyfaAuthManager
             throw new IdyfaSignInRequireTwoFactorAuthenticationException();
         }
         
-        //TODO : raise an event that the user has logged-in successfully.
         AfterSignInEvent?.Invoke(new AfterSignInEventArgs(
             user.Id, user.UserName, user.Status, 
             user.PhoneNumber, user.Email, user.DisplayName));
+        
+        Console.WriteLine($"The User '{user.UserName}' signed-in successfully. Id : {user.Id}");
     }
 
     /// <inheritdoc /> 
@@ -134,11 +134,13 @@ public class IdyfaAuthManager : IIdyfaAuthManager
         
         await _userManager.UpdateSecurityStampAsync(user).ConfigureAwait(false);
         await _signInManager.SignOutAsync().ConfigureAwait(false);
-        //TODO : Log signout
+        
+        Console.WriteLine($"Teh User '{user.UserName}' has signed-out.");
     }
 
-    public Task RegisterUserAsync(string userName, string password, string verifyPassword, string displayName,
-        string referralCode = null)
+    public Task RegisterUserAsync(
+        string userName, string password, string verifyPassword, 
+        string displayName, string referralCode = null)
     {
         throw new NotImplementedException();
     }

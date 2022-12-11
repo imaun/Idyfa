@@ -34,7 +34,7 @@ public class IdyfaRoleManager : RoleManager<Role>, IIdyfaRoleManager
     {
         role.CheckArgumentIsNull(nameof(role));
         //TODO : check role unique props
-
+        
         await _store.AddAndSaveAsync(role);
         return IdentityResult.Success;
     }
@@ -80,12 +80,17 @@ public class IdyfaRoleManager : RoleManager<Role>, IIdyfaRoleManager
     public async Task<IReadOnlyCollection<Claim>> GetClaimsAsync(Role role)
     {
         role.CheckArgumentIsNull(nameof(role));
-        var claims = await _store.GetClaimsAsync(role.Id);
+        var claims = await _store.GetClaimsAsync(role.Id).ConfigureAwait(false);
         return claims?.Select(_ => new Claim(_.ClaimType, _.ClaimValue)).ToList()!;
     }
 
     public async Task<IReadOnlyCollection<Role>> FindUserRolesAsync(string userId)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<bool> ExistByNameAsync(string roleName)
+    {
+        return await _store.ExistByNameAsync(roleName).ConfigureAwait(false);
     }
 }
