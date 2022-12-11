@@ -60,6 +60,11 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         return await _store.FindByUserNameAsync(userName);
     }
 
+    public async Task<bool> ExistByUserNameAsync(string userName)
+    {
+        return await _store.ExistByUserNameAsync(userName).ConfigureAwait(false);
+    }
+
     public async Task<IReadOnlyCollection<Claim>> GetClaimsAsync(User user)
     {
         var claims = await _store.GetClaimsAsync(user);

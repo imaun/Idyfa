@@ -102,6 +102,11 @@ public class IdyfaUserRepository :
         return user!;
     }
 
+    public async Task<bool> ExistByUserNameAsync(string userName)
+    {
+        return await _set.AnyAsync(_ => _.UserName.ToUpper() == userName.ToUpper());
+    }
+
     /// <inheritdoc />
     public async Task<User> FindByUserNameAsync(
         string userName, CancellationToken cancellationToken = default)

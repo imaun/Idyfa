@@ -4,6 +4,8 @@ namespace Idyfa.Core.Contracts;
 
 public interface IIdyfaUserRepository : IIdyfaBaseRepository<User, string>, IUserStore<User>, IUserEmailStore<User>, IUserRoleStore<User>
 {
+    Task<bool> ExistByUserNameAsync(string userName);
+    
     Task<User> FindByUserNameAsync(
         string userName, CancellationToken cancellationToken = default);
     
