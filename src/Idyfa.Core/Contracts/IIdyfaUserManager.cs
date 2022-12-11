@@ -20,7 +20,7 @@ public interface IIdyfaUserManager : IDisposable
     
     Task<User> FindByUserNameAsync(string userName);
 
-    Task<bool> ExistByUserNameAsync(string userName);
+    Task<bool> ExistByUserNameAsync(string userId, string userName);
 
     Task<bool> CheckPasswordAsync(User user, string password);
     

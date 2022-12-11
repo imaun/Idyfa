@@ -33,8 +33,11 @@ public class IdyfaRoleManager : RoleManager<Role>, IIdyfaRoleManager
     public async Task<IdentityResult> CreateAsync(Role role)
     {
         role.CheckArgumentIsNull(nameof(role));
-        //TODO : check role unique props
         
+        if(await _store.ExistByNameAsync(role.Id, role.Name))
+            return IdentityResult.Failed(ErrorDescriber.DuplicateRoleName(role.Name));
+
+        role.NormalizedName = role.Name.ToUpperInvariant();
         await _store.AddAndSaveAsync(role);
         return IdentityResult.Success;
     }
@@ -42,8 +45,11 @@ public class IdyfaRoleManager : RoleManager<Role>, IIdyfaRoleManager
     public async Task<IdentityResult> UpdateAsync(Role role)
     {
         role.CheckArgumentIsNull(nameof(role));
+        if(await _store.ExistByNameAsync(role.Id, role.Name))
+            return IdentityResult.Failed(ErrorDescriber.DuplicateRoleName(role.Name));
+
+        role.NormalizedName = role.Name.ToUpperInvariant();
         await _store.UpdateAndSaveAsync(role);
-        
         return IdentityResult.Success;
     }
 
@@ -89,8 +95,8 @@ public class IdyfaRoleManager : RoleManager<Role>, IIdyfaRoleManager
         throw new NotImplementedException();
     }
 
-    public async Task<bool> ExistByNameAsync(string roleName)
+    public async Task<bool> ExistByNameAsync(string roleId, string roleName)
     {
-        return await _store.ExistByNameAsync(roleName).ConfigureAwait(false);
+        return await _store.ExistByNameAsync(roleId, roleName).ConfigureAwait(false);
     }
 }

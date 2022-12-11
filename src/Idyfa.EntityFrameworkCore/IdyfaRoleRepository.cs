@@ -143,9 +143,9 @@ public class IdyfaRoleRepository : IdyfaBaseRepository<Role, string>, IIdyfaRole
         await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<bool> ExistByNameAsync(string roleName)
+    public async Task<bool> ExistByNameAsync(string roleId, string roleName)
     {
-        return await _set.AnyAsync(_ => _.Name.ToUpper() == roleName.ToUpper());
+        return await _set.AnyAsync(_ => _.Id != roleId && _.Name.ToUpper() == roleName.ToUpper());
     }
 
     async Task<Role> IRoleStore<Role>.FindByNameAsync(

@@ -28,9 +28,10 @@ public interface IIdyfaRoleManager : IDisposable
     /// <summary>
     /// Check if a <see cref="Role"/> exists by it's Name.
     /// </summary>
-    /// <param name="roleName"></param>
+    /// <param name="roleId">The Id of Role</param>
+    /// <param name="roleName">The Name of Role</param>
     /// <returns>True if exists, otherwise false.</returns>
-    Task<bool> ExistByNameAsync(string roleName);
+    Task<bool> ExistByNameAsync(string roleId, string roleName);
     
      /// <summary>
     /// Gets an IQueryable collection of Roles if the persistence store is an <see cref="IQueryableRoleStore{TRole}"/>,

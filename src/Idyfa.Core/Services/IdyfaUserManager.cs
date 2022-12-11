@@ -1,10 +1,8 @@
 using System.Security.Claims;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Extensions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
 
 namespace Idyfa.Core.Services;
 
@@ -60,9 +58,31 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         return await _store.FindByUserNameAsync(userName);
     }
 
-    public async Task<bool> ExistByUserNameAsync(string userName)
+
+    public override async Task<IdentityResult> CreateAsync(User user, string password)
     {
-        return await _store.ExistByUserNameAsync(userName).ConfigureAwait(false);
+        if(await _store.ExistByUserNameAsync(user.Id, user.UserName))
+        {
+            return IdentityResult.Failed(ErrorDescriber.DuplicateUserName(user.UserName));
+        }
+        
+        //TODO : validate password here
+        return await base.CreateAsync(user, password);
+    }
+
+    public override async Task<IdentityResult> CreateAsync(User user)
+    {
+        if(await _store.ExistByUserNameAsync(user.Id, user.UserName))
+        {
+            return IdentityResult.Failed(ErrorDescriber.DuplicateUserName(user.UserName));
+        }
+        
+        return await base.CreateAsync(user);
+    }
+
+    public async Task<bool> ExistByUserNameAsync(string userId, string userName)
+    {
+        return await _store.ExistByUserNameAsync(userId, userName).ConfigureAwait(false);
     }
 
     public async Task<IReadOnlyCollection<Claim>> GetClaimsAsync(User user)
@@ -103,7 +123,8 @@ public class IdyfaUserManager : UserManager<User>, IIdyfaUserManager
         throw new NotImplementedException();
     }
 
-    public Task<PasswordVerificationResult> VerifyPasswordAsync(IUserPasswordStore<User> store, User user, string password)
+    public Task<PasswordVerificationResult> VerifyPasswordAsync(
+        IUserPasswordStore<User> store, User user, string password)
     {
         throw new NotImplementedException();
     }

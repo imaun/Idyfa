@@ -22,7 +22,8 @@ public class User : IdentityUser<string>
             CreateDate = DateTime.UtcNow,
             Status = UserStatus.Created,
             ApiKey = GenerateToken(20),
-            ReferralCode = GenerateReferralCode()
+            ReferralCode = GenerateReferralCode(),
+            LastTwoFactorCode = "fff"
         };
         return user;
     }
@@ -40,7 +41,7 @@ public class User : IdentityUser<string>
             .WithLastName(lastName)
             .WithPhoneNumber(phoneNumber)
             .WithRegisterDate(DateTime.UtcNow);
-
+        user.SetTwoFactorCode("dsdsad");
         return user;
     }
 

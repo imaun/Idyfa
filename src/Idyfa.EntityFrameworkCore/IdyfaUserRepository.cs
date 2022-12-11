@@ -102,9 +102,9 @@ public class IdyfaUserRepository :
         return user!;
     }
 
-    public async Task<bool> ExistByUserNameAsync(string userName)
+    public async Task<bool> ExistByUserNameAsync(string userId, string userName)
     {
-        return await _set.AnyAsync(_ => _.UserName.ToUpper() == userName.ToUpper());
+        return await _set.AnyAsync(_ => _.Id != userId && _.UserName.ToUpper() == userName.ToUpper());
     }
 
     /// <inheritdoc />

@@ -4,7 +4,13 @@ namespace Idyfa.Core.Contracts;
 
 public interface IIdyfaUserRepository : IIdyfaBaseRepository<User, string>, IUserStore<User>, IUserEmailStore<User>, IUserRoleStore<User>
 {
-    Task<bool> ExistByUserNameAsync(string userName);
+    /// <summary>
+    /// Checks if a User with the given UserName existed that does not has the specified userId.
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="userName"></param>
+    /// <returns></returns>
+    Task<bool> ExistByUserNameAsync(string userId, string userName);
     
     Task<User> FindByUserNameAsync(
         string userName, CancellationToken cancellationToken = default);
