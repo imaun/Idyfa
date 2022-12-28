@@ -186,9 +186,13 @@ public class IdyfaUserRepository :
         }
     }
 
-    Task<IList<string>> IUserRoleStore<User>.GetRolesAsync(User user, CancellationToken cancellationToken)
+     async Task<IList<string>> IUserRoleStore<User>.GetRolesAsync(User user, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        user.CheckArgumentIsNull(nameof(user));
+        var roleNames = new List<string>();
+        //TODO : read from Roles form Navigation property.
+
+        return (await GetRolesAsync(user, cancellationToken)).ToList();
     }
 
     /// <inheritdoc />
@@ -227,9 +231,9 @@ public class IdyfaUserRepository :
             .AnyAsync(x => x.RoleId == role.Id, cancellationToken).ConfigureAwait(false);
     }
 
-    Task<IList<User>> IUserRoleStore<User>.GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+     async Task<IList<User>> IUserRoleStore<User>.GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return (await GetUsersInRoleAsync(roleName, cancellationToken)).ToList();
     }
 
     /// <inheritdoc />
@@ -425,13 +429,16 @@ public class IdyfaUserRepository :
 
     public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var user = await _set.FindAsync(userId).ConfigureAwait(false);
+        user.CheckArgumentIsNull(nameof(user));
+
+        return user;
     }
 
 
-    public Task AddToRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
+    public async Task AddToRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        user.WithRoleId(user.RoleId);
     }
 
     public Task RemoveFromRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
@@ -439,16 +446,19 @@ public class IdyfaUserRepository :
         throw new NotImplementedException();
     }
 
-    public Task<IList<string>> GetRolesAsync(UserRole user, CancellationToken cancellationToken)
+    public async Task<IList<string>> GetRolesAsync(UserRole user, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        // return (await GetRolesAsync(user, cancellationToken)).ToList();
+        //TODO :
+        return new List<string>();
     }
 
-    public Task<bool> IsInRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
+    public async Task<bool> IsInRoleAsync(UserRole user, string roleName, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        user.CheckArgumentIsNull(nameof(user));
+        //TODO : must implement properly with navigation properties.
+        return true;
     }
-    
     
     #endregion
 }
