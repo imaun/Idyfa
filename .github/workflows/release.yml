@@ -31,7 +31,7 @@ jobs:
       run: dotnet pack ./src/Idyfa.Core/Idyfa.Core.csproj -c Release
       
     - name: Nuget Publish
-      run: dotnet nuget push ./src/Idyfa.Core/bin/Release/net6.0/*.nupkg -k $NUGET_TOKEN -s https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push ./src/Idyfa.Core/bin/Release/*.nupkg -k $NUGET_TOKEN -s https://api.nuget.org/v3/index.json --skip-duplicate
       env:
         NUGET_TOKEN: ${{ secrets.NUGET_API_KEY }}
       
