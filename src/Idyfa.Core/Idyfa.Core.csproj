@@ -6,10 +6,14 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IsPackable>true</IsPackable>
         <PackageId>Idyfa</PackageId>
         <Title>Idyfa User Identity Management</Title>
         <Authors>Iman Nemati</Authors>
-        <Description>User Identity Management library based on ASP.NET CORE Identity with extra functionalites, and customized services to be re-used in multiple projects.</Description>
+        <Description>
+          User Identity Management library based on ASP.NET CORE Identity with extra functionalites, 
+          and customized services to be re-used in multiple projects.
+        </Description>
         <Copyright>(c) 2022 Iman Nemati</Copyright>
         <PackageProjectUrl>https://github.com/imaun/idyfa</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/imaun/Idyfa/blob/master/LICENSE</PackageLicenseUrl>
