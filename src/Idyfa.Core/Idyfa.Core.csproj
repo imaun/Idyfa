@@ -21,7 +21,7 @@
         <PackageTags>idyfa, identity management, identity, userid</PackageTags>
         <Company>Iman Nemati</Company>
         <Product>Idyfa - User Identity Management</Product>
-        <AssemblyVersion>0.0.1</AssemblyVersion>
+        <Version>0.0.1</Version>
         <StaticWebAssetsEnabled>false</StaticWebAssetsEnabled>
     </PropertyGroup>
 
