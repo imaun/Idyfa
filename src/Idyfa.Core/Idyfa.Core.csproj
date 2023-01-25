@@ -23,6 +23,7 @@
         <Company>Iman Nemati</Company>
         <Product>Idyfa - User Identity Management</Product>
         <AssemblyVersion>0.0.1</AssemblyVersion>
+        <StaticWebAssetsEnabled>false</StaticWebAssetsEnabled>
     </PropertyGroup>
 
     <ItemGroup>
