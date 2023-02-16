@@ -461,4 +461,56 @@ public class IdyfaUserRepository :
     }
     
     #endregion
+
+    #region UserLockoutStore
+    public async Task<DateTimeOffset?> GetLockoutEndDateAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return await Task.FromResult(user.LockoutEnd);
+    }
+
+    public async Task SetLockoutEndDateAsync(
+        User user, DateTimeOffset? lockoutEnd, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        user.LockoutEnd = lockoutEnd;
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<int> IncrementAccessFailedCountAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        user.AccessFailedCount++;
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        return await Task.FromResult(user.AccessFailedCount);
+    }
+
+    public async Task ResetAccessFailedCountAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        user.AccessFailedCount = 0;
+        user.LockoutEnd = null;
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<int> GetAccessFailedCountAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return await Task.FromResult(user.AccessFailedCount);
+    }
+
+    public async Task<bool> GetLockoutEnabledAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return await Task.FromResult(user.LockoutEnabled);
+    }
+
+    public async Task SetLockoutEnabledAsync(User user, bool enabled, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        user.LockoutEnabled = enabled;
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+    
+    #endregion
 }
