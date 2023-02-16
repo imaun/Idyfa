@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 namespace Idyfa.Core.Contracts;
 
 public interface IIdyfaUserRepository : IIdyfaBaseRepository<User, string>, 
-    IUserEmailStore<User>, IUserRoleStore<User>, IUserLockoutStore<User>
+    IUserEmailStore<User>, IUserRoleStore<User>, IUserLockoutStore<User>, IUserSecurityStampStore<User>
 {
     /// <summary>
     /// Checks if a User with the given UserName existed that does not has the specified userId.

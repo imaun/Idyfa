@@ -513,4 +513,22 @@ public class IdyfaUserRepository :
     }
     
     #endregion
+
+    #region UserSecurityStampStore
+
+    public async Task SetSecurityStampAsync(User user, string stamp, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        user.SecurityStamp = Guid.NewGuid().ToString();
+        await _db.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<string> GetSecurityStampAsync(User user, CancellationToken cancellationToken)
+    {
+        user.CheckArgumentIsNull(nameof(user));
+        return await Task.FromResult(user.SecurityStamp);
+    }
+
+    #endregion
+    
 }
