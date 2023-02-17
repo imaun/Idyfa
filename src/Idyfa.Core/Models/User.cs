@@ -23,7 +23,8 @@ public class User : IdentityUser<string>
             Status = UserStatus.Created,
             ApiKey = GenerateToken(20),
             ReferralCode = GenerateReferralCode(),
-            LastTwoFactorCode = "fff"
+            LastTwoFactorCode = "fff",
+            SecurityStamp = Guid.NewGuid().ToString()
         };
         return user;
     }
