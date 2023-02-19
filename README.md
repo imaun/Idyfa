@@ -1,7 +1,7 @@
 # Idyfa
 ## User Identity Management Library for .NET
 ---
-A library built on top of ASP.NET Identity to simplifies and customize it's functionalities, and add needed features for common needs like role-based authorization and action-based Access Control to it. While ASP.NET Identity simplify authentication and basic authorization with built-in APIs, in most applications we need to implement extra features and customizatio in order to achive felxible Auhtentication/Authorization, and Access Control in the User Management section. `Idyfa` is a Role-based Accesss & Permission Control and User Management library that allows you to simply Control Security of your Application and it's Users efficiently without pain. It can be used with multiple databases to store User & Security data, and has easy to use APIs for common Authentication, Authorization, Access Control and User Manahement.
+A library built on top of `ASP.NET Identity` to simplifies and customize it's functionalities, and add essential features for common needs like role-based authorization and permission-based Access Control to it. While ASP.NET Identity simplify authentication and basic authorization with built-in APIs, in most applications we need to implement extra features and customizatio in order to achive felxible `Auhtentication`, `Authorization`, and `Access Control` in the User Management section. <b>`Idyfa` is a Role-based Accesss & Permission Control and User Management library</b> that allows you to simply Control Security of your Application and it's Users efficiently without pain. It can be used with multiple databases to store User & Security data, and has easy to use APIs for common Authentication, Authorization, Access Control and User Manahement.
 
 ### Features
 - Built on top of `ASP.NET Identity` and implements all it's features (Implementation for all Identity interfaces)
@@ -20,10 +20,10 @@ or Install it via nuget
 ```
 dotnet add package Idyfa.Core
 ```
-If your database is SqlServer you must Install `Idyfa.EntityFrameworkCore.SqlServer`. The SQLite library is also includes and other databases will soon added.
+If your database is SqlServer you must Install `Idyfa.EntityFrameworkCore.SqlServer`. The SQLite library is also included and other databases will soon added.
 
 ### Usage
-You can browse [Sample project](https://github.com/imaun/Idyfa/tree/master/samples/Idyfa.Samples.BasicWeb) that uses `Idyfa` to bootstrap an ASP.NET Core applications with Sigin and Signup features. Please see [appsetting](https://github.com/imaun/Idyfa/blob/master/samples/Idyfa.Samples.BasicWeb/appsettings.json) file (under `Idyfa` section) in the sample project for a sample Idyfa configuration you need to set in your project in order to user Idyfa and its services. After setting `DbConfig`, `UserOptions` and other configs, You need to add Idyfa Services to your DI container on Startup.
+You can browse [Sample project](https://github.com/imaun/Idyfa/tree/master/samples/Idyfa.Samples.BasicWeb) that uses `Idyfa` to bootstrap an ASP.NET Core applications with Sigin and Signup features. Please see [appsetting](https://github.com/imaun/Idyfa/blob/master/samples/Idyfa.Samples.BasicWeb/appsettings.json) file (under `Idyfa` section) in the sample project for a sample Idyfa configuration you need to set in your project in order to use Idyfa and its services. After setting `DbConfig`, `UserOptions` and other configs, You need to add Idyfa Services to your DI container on Startup.
 
 ```CS
 var options = config.Get<IdyfaConfigRoot>().Idyfa;
