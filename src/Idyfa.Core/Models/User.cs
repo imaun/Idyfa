@@ -189,6 +189,8 @@ public class User : IdentityUser<string>
     
     
     public DateTime? LastTwoFactorCodeTime { get; protected set; }
+    
+    public string? TwoFactorProvider { get; set; }
    
     #endregion
 
