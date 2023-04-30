@@ -34,6 +34,7 @@ public static partial class EntityConfigurations
             user.Property(u => u.ApiKey).IsUnicode().HasMaxLength(50).IsRequired();
             user.Property(u => u.ReferralCode).IsUnicode().HasMaxLength(10).IsRequired();
             user.Property(u => u.LastTwoFactorCode).HasMaxLength(20).IsRequired(false);
+            user.Property(u => u.TwoFactorProvider).HasMaxLength(50).IsRequired().HasDefaultValue("email");
 
             user.HasOne<UserCategory>()
                 .WithMany()
