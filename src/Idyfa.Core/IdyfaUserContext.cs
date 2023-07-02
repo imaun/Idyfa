@@ -27,7 +27,7 @@ namespace Idyfa.Core
 
         public string? ReferalCode => Principal?.Identity?.GetReferalCode() ?? null;
 
-        public UserStatus? Status => throw new NotImplementedException();
+        public UserStatus? Status => Principal?.Identity?.GetUserStatus() ?? null;
 
         public ClaimsPrincipal Principal { get; }
 
