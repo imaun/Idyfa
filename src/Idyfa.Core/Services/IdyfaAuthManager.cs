@@ -196,9 +196,25 @@ public class IdyfaAuthManager : IIdyfaAuthManager
             throw new IdyfaInvalidEmailTokenException();
     }
 
-    public Task<string> GenerateResetPasswordTokenAsync(string userName)
+    public async Task<string> GenerateResetPasswordTokenAsync(string userName)
     {
-        throw new NotImplementedException();
+        if (userName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(userName));
+
+        if (GetUserNameType() == UserNameType.PhoneNumber)
+        {
+            userName = userName.NormalizePhoneNumber();
+        }
+        
+        var validateUsername =  _userValidator.ValidateUserName(userName);
+        if (validateUsername.Any())
+            throw new InvalidUserNameException(validateUsername);
+
+        var user = await _userManager.FindByUserNameAsync(userName).ConfigureAwait(false);
+        if (user is null) throw new IdyfaUserNotFoundException();
+
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
+        return await Task.FromResult(token);
     }
 
     public Task<bool> VerifyResetPasswordTokenAsync(string userName, string token)
