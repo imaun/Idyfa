@@ -145,9 +145,24 @@ public class IdyfaAuthManager : IIdyfaAuthManager
         throw new NotImplementedException();
     }
 
-    public Task<string> GenerateEmailConfirmationTokenAsync(string userName)
+    public async Task<string> GenerateEmailConfirmationTokenAsync(string userName)
     {
-        throw new NotImplementedException();
+        if (userName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(userName));
+
+        if (GetUserNameType() == UserNameType.PhoneNumber)
+        {
+            userName = userName.NormalizePhoneNumber();
+        }
+        
+        var validateUsername =  _userValidator.ValidateUserName(userName);
+        if (validateUsername.Any())
+            throw new InvalidUserNameException(validateUsername);
+
+        var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+        if (user is null) throw new IdyfaUserNotFoundException();
+
+        return await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
     }
 
     public Task ConfirmEmailAsync(string userName, string token)
