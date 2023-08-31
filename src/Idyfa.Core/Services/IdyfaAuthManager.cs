@@ -217,9 +217,29 @@ public class IdyfaAuthManager : IIdyfaAuthManager
         return await Task.FromResult(token);
     }
 
-    public Task<bool> VerifyResetPasswordTokenAsync(string userName, string token)
+    public async Task ResetPasswordAsync(string userName, string token, string newPassword)
     {
-        throw new NotImplementedException();
+        if (userName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(userName));
+
+        if (token.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(token));
+
+        if (GetUserNameType() == UserNameType.PhoneNumber)
+        {
+            userName = userName.NormalizePhoneNumber();
+        }
+        
+        var validateUsername =  _userValidator.ValidateUserName(userName);
+        if (validateUsername.Any())
+            throw new InvalidUserNameException(validateUsername);
+        
+        var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+        if (user is null) throw new IdyfaUserNotFoundException();
+
+        var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+        if (!result.Succeeded)
+            throw new IdyfaResetPasswordFailedException(result.Errors.ToList());
     }
 
     public Task<string> GeneratePhoneNumberVerificationTokenAsync(string phoneNumber)

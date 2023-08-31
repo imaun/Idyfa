@@ -59,7 +59,7 @@ public interface IIdyfaAuthManager
     Task<string> GenerateResetPasswordTokenAsync(string userName);
 
 
-    Task<bool> VerifyResetPasswordTokenAsync(string userName, string token);
+    Task ResetPasswordAsync(string userName, string token, string newPassword);
 
 
     Task<string> GeneratePhoneNumberVerificationTokenAsync(string phoneNumber);
