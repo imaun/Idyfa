@@ -1,8 +1,10 @@
 using System.Security.Claims;
+using System.Text;
 using Idyfa.Core.Events;
 using Idyfa.Core.Contracts;
 using Idyfa.Core.Exceptions;
 using Idyfa.Core.Extensions;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Idyfa.Core.Services;
 
@@ -165,9 +167,33 @@ public class IdyfaAuthManager : IIdyfaAuthManager
         return await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
     }
 
-    public Task ConfirmEmailAsync(string userName, string token)
+    public async Task ConfirmEmailAsync(string userName, string token)
     {
-        throw new NotImplementedException();
+        if (userName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(userName));
+
+        if (token.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(token));
+
+        if (GetUserNameType() == UserNameType.PhoneNumber)
+        {
+            userName = userName.NormalizePhoneNumber();
+        }
+        
+        var validateUsername =  _userValidator.ValidateUserName(userName);
+        if (validateUsername.Any())
+            throw new InvalidUserNameException(validateUsername);
+        
+        var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+        if (user is null) throw new IdyfaUserNotFoundException();
+
+        var tokenBytes = WebEncoders.Base64UrlDecode(token);
+        var decodedToken = Encoding.UTF8.GetString(tokenBytes);
+
+        var result = await _userManager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
+
+        if (!result.Succeeded)
+            throw new IdyfaInvalidEmailTokenException();
     }
 
     public Task<string> GenerateResetPasswordTokenAsync(string userName)
